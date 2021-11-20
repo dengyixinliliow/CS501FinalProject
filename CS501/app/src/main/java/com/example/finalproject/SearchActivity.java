@@ -1,0 +1,105 @@
+package com.example.finalproject;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
+
+public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "EmailPassword";
+    private TextView search_txtUsername;
+
+    private Button search_btnSearch;
+    private Button search_btnInbox;
+    private Button search_btnOrders;
+    private Button search_btnProfile;
+
+    private Map<String, Object> current_user;
+    private String user_id;
+    public static final String USERNAME = "username";
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("USERID");
+
+        search_btnSearch = (Button) findViewById(R.id.search_btnSearch);
+        search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
+        search_btnOrders = (Button) findViewById(R.id.search_btnOrders);
+        search_btnProfile = (Button) findViewById(R.id.search_btnProfile);
+
+        search_txtUsername = (TextView) findViewById(R.id.search_txtUsername);
+
+        getUserById(user_id);
+
+        search_btnInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Move to inbox page
+                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+                intent.putExtra("USERID", user_id);
+                startActivity(intent);
+            }
+        });
+        search_btnOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Move to orders page
+                Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
+                intent.putExtra("USERID", user_id);
+                startActivity(intent);
+            }
+        });
+        search_btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Move to personalInfo page
+                Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
+                intent.putExtra("USERID", user_id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void getUserById(String user_id) {
+        // [START get_multiple]
+        db.collection("users")
+                .whereEqualTo("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                current_user = document.getData();  // store info of the current user
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                search_txtUsername.setText("Welcome " + current_user.get(USERNAME).toString());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
+    }
+}

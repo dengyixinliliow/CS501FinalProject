@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupActivity">
+
+    <TextView
+        android:id="@+id/signup_txtErrorMsg"
+        android:layout_width="268dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtRepassword" />
+
+    <TextView
+        android:id="@+id/signup_txtTitle"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="36dp"
+        android:text="Signup Page"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/signup_btnSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="signup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtErrorMsg" />
+
+    <TextView
+        android:id="@+id/signup_txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Email"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtTitle" />
+
+    <TextView
+        android:id="@+id/signup_txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Username"
+        app:layout_constraintStart_toStartOf="@+id/signup_edtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtEmail" />
+
+    <EditText
+        android:id="@+id/signup_edtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="@+id/signup_txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtEmail" />
+
+    <TextView
+        android:id="@+id/signup_txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Password"
+        app:layout_constraintStart_toStartOf="@+id/signup_edtUsername"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtUsername" />
+
+    <EditText
+        android:id="@+id/signup_edtRepassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/signup_txtRepassword"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtRepassword" />
+
+    <EditText
+        android:id="@+id/signup_edtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/signup_txtUsername"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtUsername" />
+
+    <TextView
+        android:id="@+id/signup_txtRepassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Confirmed Password"
+        app:layout_constraintStart_toStartOf="@+id/signup_edtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtPassword" />
+
+    <EditText
+        android:id="@+id/signup_edtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/signup_txtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtPassword" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="30dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
