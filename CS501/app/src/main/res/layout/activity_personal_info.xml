@@ -125,12 +125,33 @@
         android:id="@+id/personalInfo_add_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/personalInfo_edtPassword"
-        app:layout_constraintBottom_toTopOf="@id/personalInfo_btnSearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
         android:text="Add Product"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="422dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personalInfo_btnVerify" />
+
+    <TextView
+        android:id="@+id/personalInfo_txtVerifyMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Email not verified !"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personalInfo_edtPassword" />
+
+    <Button
+        android:id="@+id/personalInfo_btnVerify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="verify now"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personalInfo_txtVerifyMsg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

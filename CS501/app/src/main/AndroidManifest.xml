@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
+            android:name=".ProductActivity"
+            android:exported="true" />
+        <activity
             android:name=".OrdersActivity"
             android:exported="true" />
         <activity

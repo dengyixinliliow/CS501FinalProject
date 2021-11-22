@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class InboxActivity extends AppCompatActivity {
 
     private Button inbox_btnSearch;
@@ -14,6 +17,8 @@ public class InboxActivity extends AppCompatActivity {
     private Button inbox_btnOrders;
     private Button inbox_btnProfile;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
     private String user_id;
     public static final String USERNAME = "username";
 
@@ -22,8 +27,9 @@ public class InboxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
 
-        Intent intent = getIntent();
-        user_id = intent.getStringExtra("USERID");
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
 
         inbox_btnSearch = (Button) findViewById(R.id.inbox_btnSearch);
         inbox_btnInbox = (Button) findViewById(R.id.inbox_btnInbox);
@@ -36,7 +42,6 @@ public class InboxActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to search page
                 Intent intent = new Intent(getBaseContext(), SearchActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
@@ -46,7 +51,6 @@ public class InboxActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to orders page
                 Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
@@ -56,7 +60,6 @@ public class InboxActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to personalInfo page
                 Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });

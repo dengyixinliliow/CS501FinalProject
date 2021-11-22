@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,8 +27,6 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
-
-    private FirebaseAuth mAuth;
 
     private Button signup_btnSignup;
 
@@ -46,8 +45,9 @@ public class SignupActivity extends AppCompatActivity {
 
     private Map<String, Object> user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    FirebaseUser auth_user;
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
 
     public static final String EMAIL = "email";
     public static final String USERID = "user_id";
@@ -93,6 +93,8 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -103,13 +105,28 @@ public class SignupActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e(TAG, "createUserWithEmail:success");
                             auth_user = mAuth.getCurrentUser();
+                            user_id = auth_user.getUid();
+
+                            // send verification email
+                            auth_user.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "Email sent.");
+                                                Toast.makeText(getBaseContext(), "Verification Email Has Been Sent.", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Log.d(TAG, "Email not sent.");
+                                            }
+                                        }
+                                    });
 
                             // add user in firebase firestore
                             addUserToDatabase();
 
                             // Move to personalInfo page
                             Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
-                            intent.putExtra("USERID", auth_user.getUid());
+                            //intent.putExtra("USERID", auth_user.getUid());
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -121,8 +138,10 @@ public class SignupActivity extends AppCompatActivity {
         // [END create_user_with_email]
     }
 
+
     public void addUserToDatabase() {
 
+        DocumentReference documentReference = db.collection("users").document(user_id);
         // add user in firebase firestore
         user = new HashMap<String, Object>();
         user.put(EMAIL, edt_email);
@@ -130,20 +149,16 @@ public class SignupActivity extends AppCompatActivity {
         user.put(USERID, auth_user.getUid());
         user.put(PASSWORD, edt_password);
 
-        // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.e(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Error adding document", e);
-                    }
-                });
+        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.e(TAG, "onSuccess: user profile is created for " + user_id);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "onFailure: " + e.getMessage());
+            }
+        });
     }
 }
