@@ -31,6 +31,9 @@
             android:name=".AddProductActivity"
             android:exported="true" />
         <activity
+            android:name=".CartActivity"
+            android:exported="true" />
+        <activity
             android:name=".LandingActivity"
             android:exported="true">
             <intent-filter>
