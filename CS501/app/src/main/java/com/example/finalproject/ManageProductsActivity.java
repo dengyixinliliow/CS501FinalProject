@@ -66,7 +66,8 @@ public class ManageProductsActivity extends AppCompatActivity {
                         Product product = new Product(
                                 String.valueOf(dataMap.get("product_name")),
                                 String.valueOf(dataMap.get("product_size")),
-                                String.valueOf(dataMap.get("product_price"))
+                                String.valueOf(dataMap.get("product_price")),
+                                String.valueOf(dataMap.get("product_id"))
                         );
                         productList.add(product);
                     }
