@@ -1,62 +1,133 @@
 package com.example.finalproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.admin.v1.Index;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    final String TAG = "test";
+    // request code
+    private final int PICK_IMAGE_REQUEST = 22;
 
-    private EditText sellerId;
-    private EditText productName;
-    private EditText renterId;
-    private EditText tags;
-    private EditText size;
-    private EditText price;
-    private EditText rentDate;
-    private EditText returnDate;
-    private Button submit;
-    private Button listP;
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
 
-    private int sellerIdNum, renterIdNum, priceNum;
-    private String tagsStr, productNameStr, sizeStr, rentDateStr, returnDateStr, productIdNum;
+    // views
+    private Button addProduct_btnSelect;
+    private Button addProduct_btnUpload;
+    private Button getAddProduct_btnSubmit;
+    private EditText addProduct_edtPName;
+    private EditText addProduct_edtPType;
+    private EditText addProduct_edtPColor;
+    private EditText addProduct_edtPCategory;
+    private EditText addProduct_edtPSize;
+    private EditText addProduct_edtPCondition;
+    private EditText addProduct_edtPPrice;
+    private ImageView addProduct_imageView;
+
+    //Variable
+    private String
+            img_id,
+            random_product_id,
+            product_img_url,
+            product_name,
+            product_type,
+            product_color,
+            product_category,
+            product_size,
+            product_condition,
+            product_price;
+
+    // Uri indicates, where the image will be picked from
+    private Uri filePath;
+    // instance for firebase storage and StorageReference
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+
+        //generate random id for each product
+        random_product_id = UUID.randomUUID().toString();
+
+        addProduct_btnSelect = findViewById(R.id.addProduct_btnChoose);
+        addProduct_btnUpload = findViewById(R.id.addProduct_btnUpload);
+        getAddProduct_btnSubmit = findViewById(R.id.addProduct_btnSubmit);
+        addProduct_imageView = findViewById(R.id.addProduct_imgView);
+
+        addProduct_edtPName = findViewById(R.id.addProduct_edtPName);
+        addProduct_edtPType = findViewById(R.id.addProduct_edtPType);
+        addProduct_edtPColor = findViewById(R.id.addProduct_edtPColor);
+        addProduct_edtPCategory = findViewById(R.id.addProduct_edtPCategory);
+        addProduct_edtPSize = findViewById(R.id.addProduct_edtPCategory);
+        addProduct_edtPCondition = findViewById(R.id.addProduct_edtPCondition);
+        addProduct_edtPPrice = findViewById(R.id.addProduct_edtPPrice);
+
+        // Get the User ID
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
+
+        // get the Firebase storage reference
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        // connect to database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        sellerId = (EditText) findViewById(R.id.sellerIDEdit);
-        productName = (EditText) findViewById(R.id.productIDEdit);
-        renterId = (EditText) findViewById(R.id.renterIDEdit);
-        tags = (EditText) findViewById(R.id.tagsEdit);
-        size = (EditText) findViewById(R.id.sizeEdit);
-        price = (EditText) findViewById(R.id.priceEdit);
-        returnDate = (EditText) findViewById(R.id.returnDate);
-        rentDate = (EditText) findViewById(R.id.rentDate);
-        submit = (Button) findViewById(R.id.button);
-        listP = (Button) findViewById(R.id.button2);
+        // on pressing btnSelect SelectImage() is called
+        addProduct_btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                SelectImage();
+                img_id = "images/" + random_product_id;
+            }
+        });
 
+        // on pressing btnUpload uploadImage() is called
+        addProduct_btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                uploadImage();
+            }
+        });
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        //when submit, data will be stored in firebase.
+        getAddProduct_btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getData();
@@ -64,54 +135,192 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
 
-//        listP.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent GotoActivity2 = new Intent(getApplicationContext(), MainActivity2.class);
-//                startActivity(GotoActivity2);
-//            }
-//        });
     }
 
-    //This function will get the data from screen
+    /**
+     Upload img code reference: https://www.geeksforgeeks.org/android-how-to-upload-an-image-on-firebase-storage/
+     */
+
+    // Select Image method
+    private void SelectImage()
+    {
+        // Defining Implicit Intent to mobile gallery
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(
+                        intent,
+                        "Select Image from here..."),
+                PICK_IMAGE_REQUEST);
+    }
+
+    // Override onActivityResult method
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data)
+    {
+
+        super.onActivityResult(requestCode,
+                resultCode,
+                data);
+
+        // checking request code and result code
+        // if request code is PICK_IMAGE_REQUEST and
+        // resultCode is RESULT_OK
+        // then set image in the image view
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            // Get the Uri of data
+            filePath = data.getData();
+            try {
+
+                // Setting image on image view using Bitmap
+                Bitmap bitmap = MediaStore
+                        .Images
+                        .Media
+                        .getBitmap(
+                                getContentResolver(),
+                                filePath);
+                addProduct_imageView.setImageBitmap(bitmap);
+            }
+            catch (IOException e) {
+                // Log the exception
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // UploadImage method
+    private void uploadImage()
+    {
+        if (filePath != null) {
+
+            // Code for showing progressDialog while uploading
+            ProgressDialog progressDialog
+                    = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            // Defining the child of storageReference
+            StorageReference ref = storageReference.child(img_id);
+
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(filePath)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+
+                                    // Image uploaded successfully
+                                    // Dismiss dialog
+                                    progressDialog.dismiss();
+                                    Toast
+                                            .makeText(AddProductActivity.this,
+                                                    "Image Uploaded!!",
+                                                    Toast.LENGTH_SHORT)
+                                            .show();
+                                    Log.e("test", img_id);
+
+                                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            product_img_url = uri.toString();
+                                            Log.e("test", product_img_url);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e("test", "error");
+                                        }
+                                    });
+                                }
+                            })
+
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+
+                            // Error, Image not uploaded
+                            progressDialog.dismiss();
+                            Toast
+                                    .makeText(AddProductActivity.this,
+                                            "Failed " + e.getMessage(),
+                                            Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                // Progress Listener for loading
+                                // percentage on the dialog box
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress
+                                            = (100.0
+                                            * taskSnapshot.getBytesTransferred()
+                                            / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage(
+                                            "Uploaded "
+                                                    + (int)progress + "%");
+                                }
+                            });
+        }
+    }
+
     private void getData() {
-        sellerIdNum = Integer.parseInt(sellerId.getText().toString());
-        renterIdNum = Integer.parseInt(renterId.getText().toString());
-        priceNum = Integer.parseInt(price.getText().toString());
-
-        sizeStr = size.getText().toString();
-        tagsStr = tags.getText().toString();
-        rentDateStr = rentDate.getText().toString();
-        returnDateStr = returnDate.getText().toString();
-        productNameStr = productName.getText().toString();
+        product_name = addProduct_edtPName.getText().toString();
+        product_type = addProduct_edtPType.getText().toString();
+        product_color = addProduct_edtPColor.getText().toString();
+        product_category = addProduct_edtPCategory.getText().toString();
+        product_size = addProduct_edtPSize.getText().toString();
+        product_condition = addProduct_edtPCondition.getText().toString();
+        product_price = addProduct_edtPPrice.getText().toString();
     }
 
-    //add the product object to firebase database
     private void addProduct (FirebaseFirestore db) {
         Map<String, Object> product = new HashMap<>();
-        product.put("product_name", productNameStr );
-        product.put("seller_id", sellerIdNum);
-        product.put("size", sizeStr);
-        product.put("price", priceNum);
-        product.put("tags", tagsStr);
-        product.put("renter_id", renterIdNum);
-        product.put("rent_date", rentDateStr);
-        product.put("return_date", returnDateStr);
+
+        product.put("seller_id", user_id);
+        product.put("product_id", random_product_id);
+        product.put("product_img_url", product_img_url);
+        product.put("product_name", product_name);
+        product.put("product_type", product_type);
+        product.put("product_color", product_color);
+        product.put("product_category", product_category);
+        product.put("product_size", product_size);
+        product.put("product_condition", product_condition);
+        product.put("product_price", product_price);
+        product.put("renter_id", null);
+        product.put("is_available", true);
+//        product.put("rent_date", null);
+//        product.put("return_date", null);
 
         db.collection("products")
                 .add(product)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        productIdNum = documentReference.getId();
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        Log.w("test", "Error adding document", e);
                     }
                 });
     }
 }
+
+

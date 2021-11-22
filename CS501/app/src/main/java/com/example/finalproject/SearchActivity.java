@@ -28,20 +28,43 @@ public class SearchActivity extends AppCompatActivity {
     private Button search_btnInbox;
     private Button search_btnOrders;
     private Button search_btnProfile;
+    private Button search_btnMen;
+    private Button search_btnWomen;
+    private Button search_btnKids;
+    private Button search_btnjackets_coats;
+    private Button search_btn_onepieces_dresses;
+    private Button search_btn_shirts;
+    private Button search_btn_tops_tshirts;
+    private Button search_btn_hoodies_sweatshirts;
+    private Button search_btn_jeans_pants;
+    private Button search_btn_shoes;
+    private Button search_btn_bags;
+    private Button search_btnCart;
 
     private Map<String, Object> current_user;
-    private String user_id;
     public static final String USERNAME = "username";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
+    private String category_to_filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Intent intent = getIntent();
-        user_id = intent.getStringExtra("USERID");
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
+
+        search_btnCart = (Button)findViewById(R.id.search_btnCart);
+
+        search_btnMen = (Button) findViewById(R.id.search_btnMen);
+        search_btnWomen = (Button) findViewById(R.id.search_btnWomen);
+        search_btnKids = (Button) findViewById(R.id.search_btnKids);
+
 
         search_btnSearch = (Button) findViewById(R.id.search_btnSearch);
         search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
@@ -57,7 +80,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to inbox page
                 Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
@@ -66,7 +88,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to orders page
                 Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
@@ -75,10 +96,40 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to personalInfo page
                 Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
+        search_btnMen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_btnMen.setBackgroundColor(0xFFFFC0CB);
+                search_btnWomen.setBackgroundColor(0xFF6200EE);
+                search_btnKids.setBackgroundColor(0xFF6200EE);
+                category_to_filter = "men";
+            }
+        });
+
+        search_btnWomen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_btnWomen.setBackgroundColor(0xFFFFC0CB);
+                search_btnMen.setBackgroundColor(0xFF6200EE);
+                search_btnKids.setBackgroundColor(0xFF6200EE);
+                category_to_filter = "women";
+            }
+        });
+
+        search_btnKids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_btnKids.setBackgroundColor(0xFFFFC0CB);
+                search_btnMen.setBackgroundColor(0xFF6200EE);
+                search_btnWomen.setBackgroundColor(0xFF6200EE);
+                category_to_filter = "kids";
+            }
+        });
+
+
     }
 
     public void getUserById(String user_id) {
