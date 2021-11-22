@@ -34,6 +34,9 @@
             android:name=".AddProductActivity"
             android:exported="true" />
         <activity
+                android:name=".ManageProductsActivity"
+            android:exported="true" />
+        <activity
             android:name=".LandingActivity"
             android:exported="true">
             <intent-filter>

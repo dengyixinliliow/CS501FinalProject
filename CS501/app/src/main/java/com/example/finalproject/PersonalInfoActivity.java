@@ -34,7 +34,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
     private Button personalInfo_btnInbox;
     private Button personalInfo_btnOrders;
     private Button personalInfo_btnProfile;
-    private Button personalInfo_btnAdd;
+    private Button personalInfo_btnManageProducts;
 
     private TextView personalInfo_txtVerifyMsg;
     private Button personalInfo_btnVerify;
@@ -71,7 +71,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         personalInfo_btnOrders = (Button) findViewById(R.id.personalInfo_btnOrders);
         personalInfo_btnProfile = (Button) findViewById(R.id.personalInfo_btnProfile);
 
-        personalInfo_btnAdd = (Button) findViewById(R.id.personalInfo_add_product);
+        personalInfo_btnManageProducts = (Button) findViewById(R.id.personalInfo_manage_product);
 
         personalInfo_txtVerifyMsg = (TextView) findViewById(R.id.personalInfo_txtVerifyMsg);
         personalInfo_btnVerify = (Button) findViewById(R.id.personalInfo_btnVerify);
@@ -120,11 +120,10 @@ public class PersonalInfoActivity extends AppCompatActivity {
             }
         });
 
-        personalInfo_btnAdd.setOnClickListener(new View.OnClickListener() {
+        personalInfo_btnManageProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), AddProductActivity.class);
-                intent.putExtra("USERID", user_id);
+                Intent intent = new Intent(getBaseContext(), ManageProductsActivity.class);
                 startActivity(intent);
             }
         });
