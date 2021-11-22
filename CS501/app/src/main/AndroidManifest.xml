@@ -32,9 +32,6 @@
             android:exported="true"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".BuyerManagementActivity"
-            android:exported="true" />
-        <activity
             android:name=".ProductActivity"
             android:exported="true" />
         <activity
