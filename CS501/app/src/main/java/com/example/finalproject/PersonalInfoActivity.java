@@ -136,6 +136,15 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        personalInfo_btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to Profile Page
+                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
