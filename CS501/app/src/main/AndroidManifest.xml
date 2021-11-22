@@ -62,6 +62,9 @@
             android:name=".ProfileActivity"
             android:exported="true" />
         <activity
+            android:name=".CartActivity"
+            android:exported="true" />
+        <activity
             android:name=".LandingActivity"
             android:exported="true">
             <intent-filter>
@@ -71,5 +74,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
