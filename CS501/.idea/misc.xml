@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/layout/activity_buyer_management.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_inbox.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.11684782608695653" />
-        <entry key="app/src/main/res/layout/activity_manage_products.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_manage_products.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_personal_info.xml" value="0.3157529888341858" />
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />

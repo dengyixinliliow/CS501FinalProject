@@ -32,14 +32,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "profilePage";
 
-    final String[] options = {
-            getString(R.string.setting1),
-            getString(R.string.setting2),
-            getString(R.string.setting3),
-            getString(R.string.setting4),
-            getString(R.string.setting5),
-            getString(R.string.setting6)};
-
     //variables for getting currentUser
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
@@ -57,6 +49,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        final String[] options = {
+                getString(R.string.setting1),
+                getString(R.string.setting2),
+                getString(R.string.setting3),
+                getString(R.string.setting4),
+                getString(R.string.setting5),
+                getString(R.string.setting6)};
+
         name = (TextView) findViewById(R.id.name);
         rateText = (TextView) findViewById(R.id.rateText);
         profilePic = (ImageView) findViewById(R.id.profilePic);
@@ -66,11 +66,12 @@ public class ProfileActivity extends AppCompatActivity {
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
 
+        db = FirebaseFirestore.getInstance();
+        fetchUserProfile();
+
         ArrayAdapter optionsListAdapter = new ArrayAdapter<String>(getApplicationContext(),           //Context
                 android.R.layout.simple_list_item_1, //type of list (simple)
                 options);
-
-        fetchUserProfile();
 
         lvSettings.setAdapter(optionsListAdapter);
 
@@ -87,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (Option.equals(options[2])) {     // Manage Reviews
 
                 } else if (Option.equals(options[3])) {     // Manage Rentals
-                    Intent intent = new Intent(getBaseContext(), ProductActivity.class);
+                    Intent intent = new Intent(getBaseContext(), ManageProductsActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[4])) {     // Manage Orders
                     Intent intent = new Intent(getBaseContext(), OrdersActivity.class);

@@ -47,9 +47,6 @@
             android:name=".PersonalInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".ProfileActivity"
-            android:exported="true" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
@@ -63,6 +60,9 @@
             android:exported="true" />
         <activity
             android:name=".ManageProductsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProfileActivity"
             android:exported="true" />
         <activity
             android:name=".LandingActivity"
