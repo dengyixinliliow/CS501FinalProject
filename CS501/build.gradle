@@ -16,10 +16,3 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-//// Firebase
-//allprojects {
-//    repositories {
-//        // Check that you have the following line (if not, add it):
-//        google()  // Google's Maven repository
-//    }
-//}

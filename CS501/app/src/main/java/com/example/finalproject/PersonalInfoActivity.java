@@ -60,7 +60,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         personalInfo_btnInbox = (Button) findViewById(R.id.personalInfo_btnInbox);
         personalInfo_btnOrders = (Button) findViewById(R.id.personalInfo_btnOrders);
         personalInfo_btnProfile = (Button) findViewById(R.id.personalInfo_btnProfile);
-        personalInfo_btnAdd = (Button) findViewById(R.id.add_product);
+        personalInfo_btnAdd = (Button) findViewById(R.id.personalInfo_add_product);
 
         // Get the User based on the unique User ID
         getUserById(user_id);
@@ -88,6 +88,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddProductActivity.class);
+                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });

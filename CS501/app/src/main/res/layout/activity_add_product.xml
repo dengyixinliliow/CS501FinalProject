@@ -6,146 +6,112 @@
     android:layout_height="match_parent"
     tools:context=".AddProductActivity">
 
-    <EditText
-        android:id="@+id/productIDEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="101dp"
-        android:ems="10"
-        android:hint="product Name"
-        app:layout_constraintBottom_toTopOf="@+id/renterIDEdit"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!--Linear Layout with horizontal orientation
+    and other properties-->
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/addProduct_imgView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sellerIDEdit" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/addProduct_layout_button"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Button for choosing image from gallery-->
+        <Button
+            android:id="@+id/addProduct_btnChoose"
+            android:text="Choose"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <!--Button for uploading image-->
+        <Button
+            android:id="@+id/addProduct_btnUpload"
+            android:text="Upload"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--Image View for showing image choosen from gallery-->
+    <ImageView
+        app:layout_constraintTop_toBottomOf="@id/addProduct_layout_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/addProduct_imgView"
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
 
     <EditText
-        android:id="@+id/renterIDEdit"
-        android:layout_width="wrap_content"
+        android:id="@+id/addProduct_edtPName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="101dp"
-        android:layout_marginEnd="100dp"
-        android:ems="10"
-        android:hint="Renter ID"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/tagsEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productIDEdit" />
+        app:layout_constraintBottom_toTopOf="@id/addProduct_edtPType"
+        app:layout_constraintTop_toBottomOf="@id/addProduct_imgView"
+        android:hint="product name"
+        />
 
     <EditText
-        android:id="@+id/tagsEdit"
-        android:layout_width="wrap_content"
+        android:id="@+id/addProduct_edtPType"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="101dp"
-        android:layout_marginEnd="100dp"
-        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPName"
+        app:layout_constraintBottom_toTopOf="@id/addProduct_edtPColor"
         android:hint="type"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/sizeEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/renterIDEdit" />
+        />
 
     <EditText
-        android:id="@+id/returnDate"
-        android:layout_width="wrap_content"
+        android:id="@+id/addProduct_edtPColor"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="200dp"
-        android:ems="10"
-        android:hint="returnDate"
-        android:inputType="date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rentDate" />
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPType"
+        android:hint="color"
+        />
 
     <EditText
-        android:id="@+id/priceEdit"
-        android:layout_width="wrap_content"
+        android:id="@+id/addProduct_edtPCategory"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="101dp"
-        android:ems="10"
-        android:hint="price"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/rentDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sizeEdit" />
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPColor"
+        android:hint="category"
+        />
 
     <EditText
-        android:id="@+id/rentDate"
-        android:layout_width="wrap_content"
+        android:id="@+id/addProduct_edtPSize"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="101dp"
-        android:ems="10"
-        android:hint="rent date"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/returnDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceEdit" />
-
-    <EditText
-        android:id="@+id/sellerIDEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="101dp"
-        android:ems="10"
-        android:hint="seller ID"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/productIDEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/sizeEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="101dp"
-        android:layout_marginEnd="100dp"
-        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPCategory"
         android:hint="size"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/priceEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsEdit" />
+        />
+
+    <EditText
+        android:id="@+id/addProduct_edtPCondition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPSize"
+        android:hint="condition"
+        />
+
+    <EditText
+        android:id="@+id/addProduct_edtPPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPCondition"
+        android:hint="price"
+        />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addProduct_btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="120dp"
-        android:text="submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/returnDate" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addProduct_edtPPrice"
+        android:text="submit" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="60dp"
-        android:text="All Products"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+
 
 
 
