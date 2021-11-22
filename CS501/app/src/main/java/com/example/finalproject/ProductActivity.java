@@ -74,12 +74,12 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
 
-//        product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addProductToCart();
-//            }
-//        });
+        product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addProductToCart();
+            }
+        });
     }
 
     public void addProductToCart() {

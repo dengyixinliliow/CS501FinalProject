@@ -60,11 +60,18 @@ public class SearchActivity extends AppCompatActivity {
         user_id = auth_user.getUid();
 
         search_btnCart = (Button)findViewById(R.id.search_btnCart);
-
         search_btnMen = (Button) findViewById(R.id.search_btnMen);
         search_btnWomen = (Button) findViewById(R.id.search_btnWomen);
         search_btnKids = (Button) findViewById(R.id.search_btnKids);
 
+        search_btnjackets_coats = (Button) findViewById(R.id.search_btn_jackets_coats);
+        search_btn_onepieces_dresses = (Button) findViewById(R.id.search_btn_onepieces_dresses);
+        search_btn_shirts = (Button) findViewById(R.id.search_btn_shirts);
+        search_btn_tops_tshirts = (Button) findViewById(R.id.search_btn_tops_tshirts);
+        search_btn_hoodies_sweatshirts = (Button) findViewById(R.id.search_btn_hoodies_sweatshirts);
+        search_btn_jeans_pants = (Button) findViewById(R.id.search_btn_jeans_pants);
+        search_btn_shoes = (Button) findViewById(R.id.search_btn_shoes);
+        search_btn_bags = (Button) findViewById(R.id.search_btn_bags);
 
         search_btnSearch = (Button) findViewById(R.id.search_btnSearch);
         search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
@@ -126,6 +133,84 @@ public class SearchActivity extends AppCompatActivity {
                 search_btnMen.setBackgroundColor(0xFF6200EE);
                 search_btnWomen.setBackgroundColor(0xFF6200EE);
                 category_to_filter = "kids";
+            }
+        });
+
+        search_btnjackets_coats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "jackets, coats");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_onepieces_dresses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "onepieces, dresses");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_shirts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "shirts");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_tops_tshirts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "tops, tshirts");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_hoodies_sweatshirts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "hoodies, sweatshirts");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_jeans_pants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "jeans, pants");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_shoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                startActivity(intent);
+            }
+        });
+
+        search_btn_bags.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                startActivity(intent);
             }
         });
 
