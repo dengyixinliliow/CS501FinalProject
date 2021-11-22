@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ProductsLVAdapter extends ArrayAdapter<Product> {
 
     private Context cont;
+    private String product_id;
 
     public ProductsLVAdapter(@NonNull Context context, List<Product> productsArrayList) {
         super(context, 0, productsArrayList);
@@ -51,6 +53,10 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
         product_btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                product_id = product.getProductId();
+                Intent intent = new Intent(cont, ProductActivity.class);
+                intent.putExtra("product_id", product_id);
+                cont.startActivity(intent);
                 //pass id as the intent
                 Log.e("test", "clicked");
             }
