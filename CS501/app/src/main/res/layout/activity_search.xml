@@ -47,26 +47,152 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/search_txtTitle"
-        android:layout_width="334dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="36dp"
-        android:text="Search Page"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/search_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/search_txtUsername"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/search_search_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
+        <Button
+            android:id="@+id/search_search_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Search"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/search_txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.889"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_txtTitle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_search_bar"
+        app:layout_constraintBottom_toTopOf="@id/search_btnMap"/>
+
+    <Button
+        android:id="@+id/search_btnMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="search in map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_txtUsername"
+        app:layout_constraintBottom_toTopOf="@id/search_department_bar"/>
+
+    <LinearLayout
+        android:id="@+id/search_department_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/search_btnMap"
+        app:layout_constraintBottom_toTopOf="@id/search_category_filter">
+
+        <Button
+            android:id="@+id/search_btnMen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Men"/>
+
+        <Button
+            android:id="@+id/search_btnWomen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Women"/>
+
+        <Button
+            android:id="@+id/search_btnKids"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kids"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search_category_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/search_department_bar">
+
+        <Button
+            android:id="@+id/search_btn_jackets_coats"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Jackets&amp;Coats"/>
+
+        <Button
+            android:id="@+id/search_btn_onepieces_dresses"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="One Pieces&amp;Dress"/>
+
+        <Button
+            android:id="@+id/search_btn_shirts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Shirts"/>
+
+        <Button
+            android:id="@+id/search_btn_tops_tshirts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Tops&amp;T-Shirts"/>
+
+        <Button
+            android:id="@+id/search_btn_hoodies_sweatshirts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Hoodies&amp;Sweatshirts"/>
+
+        <Button
+            android:id="@+id/search_btn_jeans_pants"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Jeans&amp;Pants"/>
+
+        <Button
+            android:id="@+id/search_btn_shoes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Shoes"/>
+
+        <Button
+            android:id="@+id/search_btn_bags"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Bags"/>
+
+    </LinearLayout>
+
+    <Button
+        app:layout_constraintTop_toBottomOf="@id/search_category_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/search_btnCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cart"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
