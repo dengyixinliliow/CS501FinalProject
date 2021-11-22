@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             // Move to personalInfo page
                             Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
-                            intent.putExtra("USERID", auth_user.getUid());
+//                            intent.putExtra("USERID", auth_user.getUid());
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.

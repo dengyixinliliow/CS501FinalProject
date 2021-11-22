@@ -30,18 +30,21 @@ public class SearchActivity extends AppCompatActivity {
     private Button search_btnProfile;
 
     private Map<String, Object> current_user;
-    private String user_id;
     public static final String USERNAME = "username";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Intent intent = getIntent();
-        user_id = intent.getStringExtra("USERID");
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
 
         search_btnSearch = (Button) findViewById(R.id.search_btnSearch);
         search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
@@ -57,7 +60,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to inbox page
                 Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
@@ -66,7 +68,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to orders page
                 Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
@@ -75,7 +76,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Move to personalInfo page
                 Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
-                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
