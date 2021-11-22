@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,6 +37,10 @@ public class AddProductActivity extends AppCompatActivity {
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
+
     // views
     private Button addProduct_btnSelect;
     private Button addProduct_btnUpload;
@@ -50,7 +56,6 @@ public class AddProductActivity extends AppCompatActivity {
 
     //Variable
     private String
-            user_id,
             img_id,
             random_product_id,
             product_img_url,
@@ -91,8 +96,9 @@ public class AddProductActivity extends AppCompatActivity {
         addProduct_edtPPrice = findViewById(R.id.addProduct_edtPPrice);
 
         // Get the User ID
-        Intent intent = getIntent();
-        user_id = intent.getStringExtra("USERID");
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
 
         // get the Firebase storage reference
         storage = FirebaseStorage.getInstance();
@@ -285,7 +291,7 @@ public class AddProductActivity extends AppCompatActivity {
     private void addProduct (FirebaseFirestore db) {
         Map<String, Object> product = new HashMap<>();
 
-        product.put("user_id", user_id);
+        product.put("seller_id", user_id);
         product.put("product_id", random_product_id);
         product.put("product_img_url", product_img_url);
         product.put("product_name", product_name);
@@ -295,6 +301,10 @@ public class AddProductActivity extends AppCompatActivity {
         product.put("product_size", product_size);
         product.put("product_condition", product_condition);
         product.put("product_price", product_price);
+        product.put("renter_id", null);
+        product.put("is_available", true);
+//        product.put("rent_date", null);
+//        product.put("return_date", null);
 
         db.collection("products")
                 .add(product)
