@@ -1,16 +1,25 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -28,6 +37,12 @@ public class ProductActivity extends AppCompatActivity {
     private Button product_btnAddToBag;
     private Button product_btnReviews;
 
+    public static final String USERID = "user_id";
+    public static final String PRODUCTID = "product_id";
+
+    private Map<String, Object> product;
+    private String product_id;
+
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
     private String user_id;
@@ -37,6 +52,10 @@ public class ProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+//        // get product id
+//        Intent intent = getIntent();
+//        product_id = intent.getStringExtra(PRODUCTID);
 
         // Get the User ID
         mAuth = FirebaseAuth.getInstance();
@@ -54,5 +73,38 @@ public class ProductActivity extends AppCompatActivity {
 
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
+
+//        product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addProductToCart();
+//            }
+//        });
+    }
+
+    public void addProductToCart() {
+
+        db.collection("carts");
+
+        // add product in carts database
+        product = new HashMap<String, Object>();
+        product.put(USERID, user_id);
+        product.put(PRODUCTID, product_id);
+
+        db.collection("carts")
+                .add(product)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.e(TAG, "onSuccess: product is added into cart " + user_id);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: " + e.getMessage());
+                    }
+                });
+
     }
 }
