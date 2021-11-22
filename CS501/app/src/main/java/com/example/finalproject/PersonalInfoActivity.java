@@ -71,10 +71,11 @@ public class PersonalInfoActivity extends AppCompatActivity {
         personalInfo_btnOrders = (Button) findViewById(R.id.personalInfo_btnOrders);
         personalInfo_btnProfile = (Button) findViewById(R.id.personalInfo_btnProfile);
 
+        personalInfo_btnAdd = (Button) findViewById(R.id.personalInfo_add_product);
+
         personalInfo_txtVerifyMsg = (TextView) findViewById(R.id.personalInfo_txtVerifyMsg);
         personalInfo_btnVerify = (Button) findViewById(R.id.personalInfo_btnVerify);
 
-        personalInfo_btnAdd = (Button) findViewById(R.id.add_product);
 
         if(!auth_user.isEmailVerified()) {
             personalInfo_txtVerifyMsg.setVisibility(View.VISIBLE);
@@ -123,6 +124,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddProductActivity.class);
+                intent.putExtra("USERID", user_id);
                 startActivity(intent);
             }
         });
