@@ -53,7 +53,7 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
 
         filter_result_title = (TextView) findViewById(R.id.filter_result_title);
         filter_result_title.setText(title);
-        
+
         productList = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
         fetchFilterResult(category, type);
