@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,9 +93,10 @@ public class CartActivity extends AppCompatActivity {
                                         String n = String.valueOf(pdataMap.get("product_name"));
                                         String p = String.valueOf(pdataMap.get("product_price"));
                                         String r = String.valueOf(pdataMap.get("renter_id"));
+                                        String url= String.valueOf(pdataMap.get("product_img_url"));
                                         Log.i(myflag, n);
                                         Log.i(myflag, r);
-                                        Cart_item item = new Cart_item(n, p, r, pid);
+                                        Cart_item item = new Cart_item(n, p, r, pid,url);
                                         if(r=="null" && s!=user_id){
                                             itemlist.add_item(item);
                                         }
@@ -108,7 +110,7 @@ public class CartActivity extends AppCompatActivity {
                                         sum+=Double.valueOf(s);
                                     }
                                     tvsum.setText("Total: "+String.valueOf(sum));
-                                    lvAdapter=new CartListAdapter(CartActivity.this,names,prices,pids,tvsum);
+                                    lvAdapter=new CartListAdapter(CartActivity.this,itemlist,tvsum);
                                     lvItem.setAdapter(lvAdapter);
                                 }
                                 else{
@@ -134,11 +136,11 @@ class CartListAdapter extends BaseAdapter{
 
     private
     String myflag="CartRowFlag";
-    Cart_item_list itemlist=new Cart_item_list();
+    Cart_item_list itemlist;
     ArrayList<String> names;
     ArrayList<String> prices;
     ArrayList<String> pids;
-    ArrayList<Integer> itemImages;
+    ArrayList<String> urls;
     Button btnRemove;
     Context context;
 
@@ -149,12 +151,15 @@ class CartListAdapter extends BaseAdapter{
     Double sum;
     TextView tvsum;
 
-    public CartListAdapter(Context aContext,ArrayList<String> n,ArrayList<String> p,ArrayList<String> pids,TextView tv) {
+    public CartListAdapter(Context aContext,Cart_item_list list,TextView tv) {
         context=aContext;
-        this.names=n;
-        this.prices=p;
-        this.pids=pids;
+        this.itemlist=list;
+        this.names=list.get_names();
+        this.prices=list.get_price();
+        this.pids=list.get_pid();
+        this.urls=list.get_imgs();
         this.tvsum=tv;
+
     }
 
     @Override
@@ -189,6 +194,7 @@ class CartListAdapter extends BaseAdapter{
 
         tvname.setText(names.get(i));
         tvprice.setText(prices.get(i));
+        Glide.with(context).load(urls.get(i)).into(img);
 //        imgEpisode.setImageResource(episodeImages.get(position).intValue());
 
         btnRemove= (Button) row.findViewById(R.id.cart_btnRemove);
@@ -207,9 +213,11 @@ class CartListAdapter extends BaseAdapter{
                                 document.getReference().delete();
                                 Toast.makeText(context, "Deleted successfully", Toast.LENGTH_LONG).show();
                                 Log.d(myflag, "deleted!");
+                                itemlist.remove_item(i);
                                 names.remove(i);
                                 prices.remove(i);
                                 pids.remove(i);
+                                urls.remove(i);
                                 sum=0.0;
                                 for(String s:prices){
                                     sum+=Double.valueOf(s);
@@ -235,17 +243,20 @@ class Cart_item{
     String pid;
     String price;
     String renter;
-    public Cart_item(String n,String p,String r, String productid){
+    String imgurl;
+    public Cart_item(String n,String p,String r, String productid,String url){
         this.name=n;
         this.price=p;
         this.renter=r;
         this.pid=productid;
+        this.imgurl=url;
     }
 
     public String get_name(){return name;}
     public String get_price(){return price;}
     public String get_renter(){return renter;}
     public String get_productid(){return pid;}
+    public String get_img(){return imgurl;}
 }
 
 class Cart_item_list{
@@ -260,8 +271,10 @@ class Cart_item_list{
     public void add_item(Cart_item i){
         items.add(i);
     }
+    public void remove_item(int i){items.remove(i);}
 
     public ArrayList<Cart_item> get_list(){return items;}
+
 
     public ArrayList<String> get_names(){
         ArrayList<String> out=new ArrayList<>();
@@ -290,6 +303,13 @@ class Cart_item_list{
         ArrayList<String> out = new ArrayList<>();
         for (Cart_item i : items) {
             out.add(i.get_productid());
+        }
+        return out;
+    }
+    public ArrayList<String> get_imgs() {
+        ArrayList<String> out = new ArrayList<>();
+        for (Cart_item i : items) {
+            out.add(i.get_img());
         }
         return out;
     }
