@@ -8,9 +8,11 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,9 +48,9 @@ public class AddProductActivity extends AppCompatActivity {
     private Button addProduct_btnUpload;
     private Button getAddProduct_btnSubmit;
     private EditText addProduct_edtPName;
-    private EditText addProduct_edtPType;
+    private Spinner addProduct_edtPType;
     private EditText addProduct_edtPColor;
-    private EditText addProduct_edtPCategory;
+    private Spinner addProduct_edtPCategory;
     private EditText addProduct_edtPSize;
     private EditText addProduct_edtPCondition;
     private EditText addProduct_edtPPrice;
@@ -88,12 +90,15 @@ public class AddProductActivity extends AppCompatActivity {
         addProduct_imageView = findViewById(R.id.addProduct_imgView);
 
         addProduct_edtPName = findViewById(R.id.addProduct_edtPName);
-        addProduct_edtPType = findViewById(R.id.addProduct_edtPType);
+        addProduct_edtPType = (Spinner) findViewById(R.id.addProduct_edtPType);
         addProduct_edtPColor = findViewById(R.id.addProduct_edtPColor);
-        addProduct_edtPCategory = findViewById(R.id.addProduct_edtPCategory);
-        addProduct_edtPSize = findViewById(R.id.addProduct_edtPCategory);
+        addProduct_edtPSize = (EditText) findViewById(R.id.addProduct_edtPSize);
         addProduct_edtPCondition = findViewById(R.id.addProduct_edtPCondition);
         addProduct_edtPPrice = findViewById(R.id.addProduct_edtPPrice);
+
+        addProduct_edtPCategory = (Spinner) findViewById(R.id.addProduct_edtPCategory);
+        populateSpinnerCategory();
+        populateSpinnerType();
 
         // Get the User ID
         mAuth = FirebaseAuth.getInstance();
@@ -278,11 +283,23 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
+    private void populateSpinnerCategory() {
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.category));
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        addProduct_edtPCategory.setAdapter(categoryAdapter);
+    }
+
+    private void populateSpinnerType() {
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.type));
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        addProduct_edtPType.setAdapter(typeAdapter);
+    }
+
     private void getData() {
         product_name = addProduct_edtPName.getText().toString();
-        product_type = addProduct_edtPType.getText().toString();
+        product_type = addProduct_edtPType.getSelectedItem().toString();
         product_color = addProduct_edtPColor.getText().toString();
-        product_category = addProduct_edtPCategory.getText().toString();
+        product_category = addProduct_edtPCategory.getSelectedItem().toString().toLowerCase();
         product_size = addProduct_edtPSize.getText().toString();
         product_condition = addProduct_edtPCondition.getText().toString();
         product_price = addProduct_edtPPrice.getText().toString();

@@ -14,4 +14,21 @@
     <string name="setting3">Manage Rentals</string>
     <string name="setting4">Manage Orders</string>
     <string name="setting5">Manage Messages</string>
+
+    <string-array name="category">
+        <item>Men</item>
+        <item>Women</item>
+        <item>Kids</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>jackets &amp; coats</item>
+        <item>one pieces &amp; dresses</item>
+        <item>shirts</item>
+        <item>tops &amp; t-shirts</item>
+        <item>hoodies &amp; sweatshirts</item>
+        <item>jeans &amp; pants</item>
+        <item>shoes</item>
+        <item>bags</item>
+    </string-array>
 </resources>

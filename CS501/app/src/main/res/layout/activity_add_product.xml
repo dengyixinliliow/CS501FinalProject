@@ -50,16 +50,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/addProduct_edtPType"
         app:layout_constraintTop_toBottomOf="@id/addProduct_imgView"
-        android:hint="product name"
         />
 
-    <EditText
+    <Spinner
         android:id="@+id/addProduct_edtPType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/addProduct_edtPName"
         app:layout_constraintBottom_toTopOf="@id/addProduct_edtPColor"
-        android:hint="type"
+        android:spinnerMode="dropdown"
         />
 
     <EditText
@@ -70,13 +69,12 @@
         android:hint="color"
         />
 
-    <EditText
+    <Spinner
         android:id="@+id/addProduct_edtPCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/addProduct_edtPColor"
-        android:hint="category"
-        />
+         />
 
     <EditText
         android:id="@+id/addProduct_edtPSize"
