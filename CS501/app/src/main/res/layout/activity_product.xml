@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/product_ivProduct" />
 
     <TextView
-        android:id="@+id/product_txtTags"
+        android:id="@+id/product_txtType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_txtTags" />
+        app:layout_constraintTop_toBottomOf="@+id/product_txtType" />
 
     <TextView
         android:id="@+id/product_txtPrice"
@@ -64,28 +64,26 @@
         app:layout_constraintTop_toBottomOf="@+id/product_txtSize" />
 
     <TextView
-        android:id="@+id/product_txtRentDate"
+        android:id="@+id/product_txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
         android:ems="10"
-        android:hint="rent date"
-        android:inputType="date"
+        android:hint="category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_txtPrice" />
 
     <TextView
-        android:id="@+id/product_txtReturnDate"
+        android:id="@+id/product_txtCondition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:ems="10"
-        android:hint="returnDate"
-        android:inputType="date"
+        android:hint="Condition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_txtRentDate" />
+        app:layout_constraintTop_toBottomOf="@+id/product_txtCategory" />
 
     <Button
         android:id="@+id/product_btnAddToBag"
@@ -95,7 +93,7 @@
         android:text="add to bag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_txtReturnDate" />
+        app:layout_constraintTop_toBottomOf="@+id/product_txtCondition" />
 
     <Button
         android:id="@+id/product_btnReviews"

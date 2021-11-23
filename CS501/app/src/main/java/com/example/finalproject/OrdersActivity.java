@@ -62,15 +62,5 @@ public class OrdersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        orders_btnOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //move to cart page
-                Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                intent.putExtra("USERID", user_id);
-                startActivity(intent);
-            }
-        });
     }
 }
