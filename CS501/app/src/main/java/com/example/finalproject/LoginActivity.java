@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser auth_user = mAuth.getCurrentUser();
 
                             // Move to personalInfo page
-                            Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
+                            Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
 //                            intent.putExtra("USERID", auth_user.getUid());
                             startActivity(intent);
                         } else {

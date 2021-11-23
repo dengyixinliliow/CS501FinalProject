@@ -53,6 +53,7 @@ public class SignupActivity extends AppCompatActivity {
     public static final String USERID = "user_id";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String ADDRESS = "address";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,7 @@ public class SignupActivity extends AppCompatActivity {
         user.put(USERNAME, edt_username);
         user.put(USERID, auth_user.getUid());
         user.put(PASSWORD, edt_password);
+        user.put(ADDRESS, null);
 
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

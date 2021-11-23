@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,8 +42,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView name;
     private TextView rateText;
-    private ImageView profilePic;
     private ListView lvSettings;
+
+    private Button profile_btnSearch;
+    private Button profile_btnInbox;
+    private Button profile_btnOrders;
+    private Button profile_btnProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +59,16 @@ public class ProfileActivity extends AppCompatActivity {
                 getString(R.string.setting2),
                 getString(R.string.setting3),
                 getString(R.string.setting4),
-                getString(R.string.setting5),
-                getString(R.string.setting6)};
+                getString(R.string.setting5)};
 
         name = (TextView) findViewById(R.id.name);
         rateText = (TextView) findViewById(R.id.rateText);
-        profilePic = (ImageView) findViewById(R.id.profilePic);
         lvSettings = (ListView) findViewById(R.id.lvSettings);
+
+        profile_btnSearch = (Button) findViewById(R.id.profile_btnSearch);
+        profile_btnInbox = (Button) findViewById(R.id.profile_btnInbox);
+        profile_btnOrders = (Button) findViewById(R.id.profile_btnOrders);
+        profile_btnProfile = (Button) findViewById(R.id.profile_btnProfile);
 
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
@@ -81,19 +89,18 @@ public class ProfileActivity extends AppCompatActivity {
                 String Option;
                 Option = String.valueOf(parent.getItemAtPosition(position));
 
-                if (Option.equals(options[0])) {            // Manage Account
+                if (Option.equals(options[0])) {            // Manage your account
+                    Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
+                    startActivity(intent);
+                } else if (Option.equals(options[1])) {     // Manage Reviews
 
-                } else if (Option.equals(options[1])) {     // Payments
-
-                } else if (Option.equals(options[2])) {     // Manage Reviews
-
-                } else if (Option.equals(options[3])) {     // Manage Rentals
+                } else if (Option.equals(options[2])) {     // Manage Rentals
                     Intent intent = new Intent(getBaseContext(), ManageProductsActivity.class);
                     startActivity(intent);
-                } else if (Option.equals(options[4])) {     // Manage Orders
+                } else if (Option.equals(options[3])) {     // Manage Orders
                     Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
                     startActivity(intent);
-                } else if (Option.equals(options[5])) {     // Manage Messages
+                } else if (Option.equals(options[4])) {     // Manage Messages
 
                 }
             }
