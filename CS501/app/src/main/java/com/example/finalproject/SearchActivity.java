@@ -83,6 +83,14 @@ public class SearchActivity extends AppCompatActivity {
 
         getUserById(user_id);
 
+        search_btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         search_btnInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
