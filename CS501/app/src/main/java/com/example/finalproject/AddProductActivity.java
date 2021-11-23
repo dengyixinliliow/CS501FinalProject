@@ -137,6 +137,8 @@ public class AddProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 addProduct(db);
+                Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
+                startActivity(to_all);
             }
         });
 
