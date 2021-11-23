@@ -184,7 +184,9 @@ public class PersonalInfoActivity extends AppCompatActivity {
                                 personalInfo_edtUsername.setText(current_user.get(USERNAME).toString());
                                 personalInfo_edtEmail.setText(current_user.get(EMAIL).toString());
                                 personalInfo_edtPassword.setText(current_user.get(PASSWORD).toString());
-                                personalInfo_edtAddress.setText(current_user.get(ADDRESS).toString());
+                                if (current_user.get(ADDRESS) != null) {
+                                    personalInfo_edtAddress.setText(current_user.get(ADDRESS).toString());
+                                }
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

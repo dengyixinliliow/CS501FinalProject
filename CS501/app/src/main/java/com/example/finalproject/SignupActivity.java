@@ -126,7 +126,7 @@ public class SignupActivity extends AppCompatActivity {
                             addUserToDatabase();
 
                             // Move to personalInfo page
-                            Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
+                            Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
                             //intent.putExtra("USERID", auth_user.getUid());
                             startActivity(intent);
                         } else {
