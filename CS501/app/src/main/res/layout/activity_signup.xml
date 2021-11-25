@@ -10,7 +10,7 @@
         android:id="@+id/signup_txtErrorMsg"
         android:layout_width="268dp"
         android:layout_height="44dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="100dp"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -34,10 +34,10 @@
         android:id="@+id/signup_btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:text="signup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtErrorMsg" />
 
@@ -112,6 +112,23 @@
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/signup_txtPassword"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtPassword" />
+
+    <TextView
+        android:id="@+id/signup_txtAdress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Address"
+        app:layout_constraintStart_toStartOf="@+id/signup_edtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtRepassword" />
+
+    <EditText
+        android:id="@+id/signup_edtAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintStart_toStartOf="@+id/signup_txtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtAdress" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

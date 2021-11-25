@@ -65,7 +65,8 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
         Query query;
 
         if (!category.equals("none")) {
-            query = productsRef.whereEqualTo("product_category", category). whereEqualTo("product_type", type);
+            query = productsRef.whereEqualTo("product_category", category).
+                    whereEqualTo("product_type", type);
         } else {
             query = productsRef. whereEqualTo("product_type", type);
         }

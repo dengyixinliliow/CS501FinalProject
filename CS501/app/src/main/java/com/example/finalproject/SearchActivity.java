@@ -127,7 +127,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Move to personalInfo page
-                Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
+                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
                 startActivity(intent);
             }
         });

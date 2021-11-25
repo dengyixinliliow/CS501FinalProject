@@ -59,6 +59,7 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText addProduct_edtPSize;
     private EditText addProduct_edtPCondition;
     private EditText addProduct_edtPPrice;
+    private EditText addProduct_edtDescription;
     private ImageView addProduct_imageView;
 
     //Variable
@@ -72,7 +73,8 @@ public class AddProductActivity extends AppCompatActivity {
             product_category,
             product_size,
             product_condition,
-            product_price;
+            product_price,
+            product_description;
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
@@ -100,6 +102,7 @@ public class AddProductActivity extends AppCompatActivity {
         addProduct_edtPSize = (EditText) findViewById(R.id.addProduct_edtPSize);
         addProduct_edtPCondition = findViewById(R.id.addProduct_edtPCondition);
         addProduct_edtPPrice = findViewById(R.id.addProduct_edtPPrice);
+        addProduct_edtDescription = findViewById(R.id.addProduct_edtDescription);
 
         addProduct_edtPCategory = (Spinner) findViewById(R.id.addProduct_edtPCategory);
         populateSpinnerCategory();
@@ -311,6 +314,7 @@ public class AddProductActivity extends AppCompatActivity {
         product_size = addProduct_edtPSize.getText().toString();
         product_condition = addProduct_edtPCondition.getText().toString();
         product_price = addProduct_edtPPrice.getText().toString();
+        product_description = addProduct_edtDescription.getText().toString();
     }
 
     private void addProduct (FirebaseFirestore db) {
@@ -326,6 +330,7 @@ public class AddProductActivity extends AppCompatActivity {
         product.put("product_size", product_size);
         product.put("product_condition", product_condition);
         product.put("product_price", product_price);
+        product.put("product_description", product_description);
         product.put("renter_id", null);
         product.put("is_available", true);
 //        product.put("rent_date", null);
