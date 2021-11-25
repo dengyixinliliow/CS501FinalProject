@@ -106,6 +106,41 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        profile_btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Move to search page
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        profile_btnOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Move to personalInfo page
+                Intent intent = new Intent(getBaseContext(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profile_btnInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Move to inbox page
+                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profile_btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Move to Profile Page
+                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void fetchUserProfile() {

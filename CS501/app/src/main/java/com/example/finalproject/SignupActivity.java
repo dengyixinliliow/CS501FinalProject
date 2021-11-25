@@ -34,11 +34,13 @@ public class SignupActivity extends AppCompatActivity {
     private EditText signup_edtUsername;
     private EditText signup_edtPassword;
     private EditText signup_edtRepassword;
+    private EditText signup_edtAddress;
 
     private String edt_email;
     private String edt_username;
     private String edt_password;
     private String edt_rePassword;
+    private String edt_address;
 
     private TextView signup_txtErrorMsg;
     private String error_message = "Email or Password is not correct! Please try again!";
@@ -68,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
         signup_edtUsername = (EditText) findViewById(R.id.signup_edtUsername);
         signup_edtPassword = (EditText) findViewById(R.id.signup_edtPassword);
         signup_edtRepassword = (EditText) findViewById(R.id.signup_edtRepassword);
-
+        signup_edtAddress = (EditText) findViewById(R.id.signup_edtAddress);
         signup_txtErrorMsg = (TextView) findViewById(R.id.signup_txtErrorMsg);
 
         signup_btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +80,9 @@ public class SignupActivity extends AppCompatActivity {
                 edt_username = signup_edtUsername.getText().toString();
                 edt_password = signup_edtPassword.getText().toString();
                 edt_rePassword = signup_edtRepassword.getText().toString();
+                edt_address = signup_edtAddress.getText().toString();
 
-                if(edt_email.isEmpty() || edt_password.isEmpty() || edt_username.isEmpty()) {
+                if(edt_email.isEmpty() || edt_password.isEmpty() || edt_username.isEmpty() || edt_address.isEmpty()) {
                     signup_txtErrorMsg.setText("All fields are required!");
                     return;
                 }
@@ -149,7 +152,7 @@ public class SignupActivity extends AppCompatActivity {
         user.put(USERNAME, edt_username);
         user.put(USERID, auth_user.getUid());
         user.put(PASSWORD, edt_password);
-        user.put(ADDRESS, null);
+        user.put(ADDRESS, edt_address);
 
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
