@@ -38,6 +38,9 @@
             android:name=".DisplayFilterResultsActivity"
             android:exported="true" />
         <activity
+            android:name=".DisplaySearchResultsActivity"
+            android:exported="true" />
+        <activity
             android:name=".OrdersActivity"
             android:exported="true" />
         <activity

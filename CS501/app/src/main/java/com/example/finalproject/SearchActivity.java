@@ -5,11 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -40,6 +51,9 @@ public class SearchActivity extends AppCompatActivity {
     private Button search_btn_shoes;
     private Button search_btn_bags;
     private Button search_btnCart;
+
+    private EditText search_search_box;
+    private Button search_search_btn;
 
     private Map<String, Object> current_user;
     public static final String USERNAME = "username";
@@ -73,11 +87,13 @@ public class SearchActivity extends AppCompatActivity {
         search_btn_shoes = (Button) findViewById(R.id.search_btn_shoes);
         search_btn_bags = (Button) findViewById(R.id.search_btn_bags);
 
-
         search_btnSearch = (Button) findViewById(R.id.search_btnSearch);
         search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
         search_btnOrders = (Button) findViewById(R.id.search_btnOrders);
         search_btnProfile = (Button) findViewById(R.id.search_btnProfile);
+
+        search_search_box = (EditText) findViewById(R.id.search_search_box);
+        search_search_btn = (Button) findViewById(R.id.search_search_btn);
 
         search_txtUsername = (TextView) findViewById(R.id.search_txtUsername);
 
@@ -225,6 +241,19 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        search_search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(search_search_box.getText().toString())) {
+                    Toast.makeText(SearchActivity.this, "empty search is not allowed",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
+                    intent.putExtra("search_keyword", search_search_box.getText().toString());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void getUserById(String user_id) {
