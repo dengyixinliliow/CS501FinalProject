@@ -81,7 +81,8 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
                                 String.valueOf(dataMap.get("product_name")),
                                 String.valueOf(dataMap.get("product_size")),
                                 String.valueOf(dataMap.get("product_price")),
-                                String.valueOf(dataMap.get("product_id"))
+                                String.valueOf(dataMap.get("product_id")),
+                                String.valueOf(dataMap.get("product_img_url"))
                         );
                         productList.add(product);
                     }

@@ -5,14 +5,14 @@ public class Product {
     private String size;
     private String price;
     private String id;
-//    private String product_img_url;
+    private String product_img_url;
 
-    public Product(String product_name, String size, String price, String id) {
+    public Product(String product_name, String size, String price, String id, String product_img_url) {
         this.product_name = product_name;
         this.size = size;
         this.price = price;
         this.id = id;
-//        this.product_img_url = product_img_url;
+        this.product_img_url = product_img_url;
     }
 
     public String getProductName() {
@@ -28,8 +28,8 @@ public class Product {
     }
 
     public String getProductId() { return id; }
-//
-//    public String getProductImgURL() {
-//        return product_img_url;
-//    }
+
+    public String getProductImgURL() {
+        return product_img_url;
+    }
 }

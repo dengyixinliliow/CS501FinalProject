@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -48,7 +50,8 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
         product_name.setText(product.getProductName());
         product_size.setText(product.getProductSize());
         product_price.setText(product.getProductPrice());
-        product_img.setImageResource(R.drawable.red_jacket);
+//        product_img.setImageResource(R.drawable.red_jacket);
+        Glide.with(cont).load(product.getProductImgURL()).into(product_img);
 
         product_btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override

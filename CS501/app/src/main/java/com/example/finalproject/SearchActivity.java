@@ -103,7 +103,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Move to orders page
-                Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
+                Intent intent = new Intent(getBaseContext(), CartActivity.class);
                 startActivity(intent);
             }
         });

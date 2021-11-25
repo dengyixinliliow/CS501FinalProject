@@ -143,6 +143,8 @@ public class AddProductActivity extends AppCompatActivity {
                 getData();
                 addProduct(db);
                 addToAlgolia();
+                Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
+                startActivity(to_all);
             }
         });
 

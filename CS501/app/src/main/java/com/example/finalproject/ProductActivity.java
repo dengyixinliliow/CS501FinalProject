@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -87,6 +88,8 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
 
+        product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
+
         getProductById(product_id);
 
         product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +120,8 @@ public class ProductActivity extends AppCompatActivity {
                                 product_txtPrice.setText(product.get(PRODUCT_PRICE).toString());
                                 product_txtCategory.setText(product.get(PRODUCT_CATEGORY).toString());
                                 product_txtCondition.setText(product.get(PRODUCT_CONDITION).toString());
+
+                                Glide.with(getBaseContext()).load(product.get(PRODUCT_IMG_URL).toString()).into(product_ivProduct);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
