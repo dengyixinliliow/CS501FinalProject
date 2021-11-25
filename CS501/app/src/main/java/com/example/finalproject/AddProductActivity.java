@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.Index;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +30,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -137,6 +142,7 @@ public class AddProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 addProduct(db);
+                addToAlgolia();
                 Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
                 startActivity(to_all);
             }
@@ -339,6 +345,25 @@ public class AddProductActivity extends AppCompatActivity {
                         Log.w("test", "Error adding document", e);
                     }
                 });
+    }
+
+    private void addToAlgolia() {
+        Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
+
+        Index index = client.initIndex("products");
+        try {
+            index.addObjectAsync(new JSONObject()
+                    .put("product_id", random_product_id)
+                    .put("product_img_url", product_img_url)
+                    .put("product_name", product_name)
+                    .put("product_type", product_type)
+                    .put("product_color", product_color)
+                    .put("product_category", product_category)
+                    .put("product_size", product_size)
+                    .put("product_price", product_price), null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
 
