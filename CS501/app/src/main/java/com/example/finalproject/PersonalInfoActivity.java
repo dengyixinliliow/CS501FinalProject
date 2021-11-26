@@ -50,9 +50,6 @@ public class PersonalInfoActivity extends AppCompatActivity {
     private Button personalInfo_btnProfile;
     private Button personalInfo_btnUpdate;
 
-    private TextView personalInfo_txtVerifyMsg;
-    private Button personalInfo_btnVerify;
-
     private Map<String, Object> current_user;
     private String user_id;
 
@@ -88,33 +85,6 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
         personalInfo_btnUpdate = (Button) findViewById(R.id.personalInfo_btnUpdate);
 
-        personalInfo_txtVerifyMsg = (TextView) findViewById(R.id.personalInfo_txtVerifyMsg);
-        personalInfo_btnVerify = (Button) findViewById(R.id.personalInfo_btnVerify);
-
-
-        if (!auth_user.isEmailVerified()) {
-            personalInfo_txtVerifyMsg.setVisibility(View.VISIBLE);
-            personalInfo_btnVerify.setVisibility(View.VISIBLE);
-
-            personalInfo_btnVerify.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send verification email
-                    auth_user.sendEmailVerification()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d(TAG, "Email sent.");
-                                        Toast.makeText(view.getContext(), "Verification Email Has Been Sent.", Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Log.d(TAG, "Email not sent.");
-                                    }
-                                }
-                            });
-                }
-            });
-        }
 
         getUserById(user_id);
 

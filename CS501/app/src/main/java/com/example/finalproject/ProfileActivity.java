@@ -44,6 +44,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView rateText;
     private ListView lvSettings;
 
+    private Button profile_btnSignout;
+
     private Button profile_btnSearch;
     private Button profile_btnInbox;
     private Button profile_btnOrders;
@@ -64,6 +66,8 @@ public class ProfileActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.name);
         rateText = (TextView) findViewById(R.id.rateText);
         lvSettings = (ListView) findViewById(R.id.lvSettings);
+
+        profile_btnSignout = (Button) findViewById(R.id.profile_btnSignout);
 
         profile_btnSearch = (Button) findViewById(R.id.profile_btnSearch);
         profile_btnInbox = (Button) findViewById(R.id.profile_btnInbox);
@@ -106,6 +110,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        profile_btnSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+                // Move to Login Page
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         profile_btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +155,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void signOut() {
+        // [START auth_sign_out]
+        FirebaseAuth.getInstance().signOut();
+        // [END auth_sign_out]
     }
 
     private void fetchUserProfile() {
