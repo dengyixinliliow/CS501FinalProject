@@ -51,34 +51,43 @@
         android:id="@+id/name"
         android:layout_width="147dp"
         android:layout_height="48dp"
+        android:layout_marginTop="32dp"
         android:text="Default"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/lvSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.404" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/rateText"
         android:layout_width="97dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="24dp"
         android:text="Rating:"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/lvSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.178"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <ListView
         android:id="@+id/lvSettings"
         android:layout_width="400dp"
         android:layout_height="435dp"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="148dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></ListView>
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateText"></ListView>
+
+    <Button
+        android:id="@+id/profile_btnSignout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="signout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvSettings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
