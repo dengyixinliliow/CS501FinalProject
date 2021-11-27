@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private Button product_btnAddToBag;
     private Button product_btnReviews;
+    private Button product_btnContactSeller;
 
     public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
@@ -53,10 +55,23 @@ public class ProductActivity extends AppCompatActivity {
     public static final String PRODUCT_CONDITION = "product_condition";
     public static final String PRODUCT_IMG_URL = "product_img_url";
     public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
+    public static final String SELLER_ID = "seller_id";
+    public static final String USERNAME = "username";
+
+    public static final String FIRST_MESSAGE = "Hello!";
+
+//    public static final String MESSAGES_DOCUMENT_NAME = "";
 
     private Map<String, Object> product;
     private String product_id;
+    private Map<String, Object> current_user;
+    private String current_username;
+    private String seller_name;
+    private String seller_id;
+    private Map<String, Object> message;
+    private String random_message_id;
 
+    // Firebase data
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
     private String user_id;
@@ -87,6 +102,7 @@ public class ProductActivity extends AppCompatActivity {
 
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
+        product_btnContactSeller = (Button) findViewById(R.id.product_btnContactSeller);
 
         product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
 
@@ -96,6 +112,21 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addProductToCart();
+            }
+        });
+
+        product_btnContactSeller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d(TAG, "user id: " + user_id);
+                Log.d(TAG, "seller id: " + seller_id);
+                // Add chat messages to chat database.
+                addMessagesToDatabase();
+
+//                // Move to inbox page
+//                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+//                startActivity(intent);
             }
         });
     }
@@ -112,6 +143,8 @@ public class ProductActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // store info of the current user
                                 product = document.getData();
+
+                                seller_id = product.get(SELLER_ID).toString();
 
                                 // Set Product Info in EditText
                                 product_txtName.setText(product.get(PRODUCT_NAME).toString());
@@ -133,8 +166,6 @@ public class ProductActivity extends AppCompatActivity {
 
     public void addProductToCart() {
 
-        db.collection("carts");
-
         // add product in carts database
         product = new HashMap<String, Object>();
         product.put(USER_ID, user_id);
@@ -152,6 +183,32 @@ public class ProductActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "onFailure: " + e.getMessage());
+                    }
+                });
+    }
+
+    public void addMessagesToDatabase() {
+
+        //generate random id for each product
+        random_message_id = UUID.randomUUID().toString();
+
+        message = new HashMap<String, Object>();
+        message.put(random_message_id, FIRST_MESSAGE);
+
+        db.collection("messages")
+                .document(user_id)
+                .collection(seller_id)
+                .add(message)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.e(TAG, "onSuccess: message added ");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: message not added, " + e.getMessage());
                     }
                 });
 
