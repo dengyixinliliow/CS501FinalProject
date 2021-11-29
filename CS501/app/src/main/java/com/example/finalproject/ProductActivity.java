@@ -64,8 +64,6 @@ public class ProductActivity extends AppCompatActivity {
 
     private Map<String, Object> product;
     private String product_id;
-    private Map<String, Object> current_user;
-    private String current_username;
     private String seller_name;
     private String seller_id;
     private Map<String, Object> message;
@@ -189,16 +187,16 @@ public class ProductActivity extends AppCompatActivity {
 
     public void addMessagesToDatabase() {
 
-        //generate random id for each product
-        random_message_id = UUID.randomUUID().toString();
+        Map<String, String> message = new HashMap<String, String>();
+        message.put(user_id, "hello");
 
-        message = new HashMap<String, Object>();
-        message.put(random_message_id, FIRST_MESSAGE);
+        Map<String, Object> chat = new HashMap<String, Object>();
+        chat.put("renter_id", user_id);
+        chat.put("seller_id", seller_id);
+        chat.put("messages", message);
 
-        db.collection("messages")
-                .document(user_id)
-                .collection(seller_id)
-                .add(message)
+        db.collection("chats")
+                .add(chat)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
