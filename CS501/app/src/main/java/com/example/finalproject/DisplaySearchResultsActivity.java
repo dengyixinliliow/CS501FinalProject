@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,13 +100,20 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     }
 }
 
+interface RecyclerViewClickListener {
+
+    void onClick(View view, int position);
+}
+
 class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Viewholder> {
 
     private Context context;
     private ArrayList<Product> productArrayList;
+    private RecyclerViewClickListener listener;
 
     // Constructor
     public ProductRVAdapter(Context context, ArrayList<Product> productArrayList) {
+        this.listener = listener;
         this.context = context;
         this.productArrayList = productArrayList;
     }
@@ -123,6 +133,14 @@ class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Viewholder>
         holder.productName.setText(model.getProductName());
         holder.productSize.setText("" + model.getProductSize());
         Glide.with(context).load(model.getProductImgURL()).into(holder.productImg);
+//        holder.productDetailBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, ProductActivity.class);
+//                intent.putExtra("product_id", model.getProductId());
+//                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -137,13 +155,17 @@ class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Viewholder>
     public class Viewholder extends RecyclerView.ViewHolder {
         private ImageView productImg;
         private TextView productName, productSize;
+        private Button productDetailBtn;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             productImg = itemView.findViewById(R.id.img);
             productName = itemView.findViewById(R.id.txt1);
             productSize = itemView.findViewById(R.id.txt2);
+            productDetailBtn = itemView.findViewById(R.id.product_btnDetail);
         }
+
+
     }
 }
 

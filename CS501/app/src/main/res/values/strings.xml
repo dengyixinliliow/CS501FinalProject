@@ -15,6 +15,7 @@
     <string name="setting4">Manage Orders</string>
     <string name="setting5">Manage Messages</string>
 
+    <!-- Strings used for spinner in add product activity -->
     <string-array name="category">
         <item>Men</item>
         <item>Women</item>
@@ -31,4 +32,8 @@
         <item>shoes</item>
         <item>bags</item>
     </string-array>
+
+    <!-- Strings the card view to display the product in search result and filter result page -->
+    <string name="card_img_content">Product Image</string>
+    <string name="card_button">Detail</string>
 </resources>
