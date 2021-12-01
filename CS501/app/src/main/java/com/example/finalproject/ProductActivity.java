@@ -119,12 +119,16 @@ public class ProductActivity extends AppCompatActivity {
 
                 Log.d(TAG, "user id: " + user_id);
                 Log.d(TAG, "seller id: " + seller_id);
-                // Add chat messages to chat database.
-                addMessagesToDatabase();
 
-//                // Move to inbox page
-//                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-//                startActivity(intent);
+
+
+                // Add chat messages to chat database.
+                //addMessagesToDatabase();
+
+                // Move to inbox page
+                Intent intent = new Intent(getBaseContext(), ContactActivity.class);
+                intent.putExtra(SELLER_ID, seller_id);
+                startActivity(intent);
             }
         });
     }
