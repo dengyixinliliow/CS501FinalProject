@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".SignupActivity">
 
+    <EditText
+        android:id="@+id/signup_edtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/signup_txtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtPhone" />
+
+    <TextView
+        android:id="@+id/signup_txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Phone Number"
+        app:layout_constraintStart_toStartOf="@+id/signup_edtUsername"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtUsername" />
+
     <TextView
         android:id="@+id/signup_txtErrorMsg"
         android:layout_width="271dp"
@@ -21,7 +39,7 @@
         android:id="@+id/signup_txtTitle"
         android:layout_width="334dp"
         android:layout_height="40dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="30dp"
         android:text="Signup Page"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -34,7 +52,7 @@
         android:id="@+id/signup_btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="5dp"
         android:text="signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -45,7 +63,7 @@
         android:id="@+id/signup_txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Email"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtTitle" />
@@ -54,7 +72,7 @@
         android:id="@+id/signup_txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Username"
         app:layout_constraintStart_toStartOf="@+id/signup_edtEmail"
         app:layout_constraintTop_toBottomOf="@+id/signup_edtEmail" />
@@ -72,10 +90,10 @@
         android:id="@+id/signup_txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Password"
-        app:layout_constraintStart_toStartOf="@+id/signup_edtUsername"
-        app:layout_constraintTop_toBottomOf="@+id/signup_edtUsername" />
+        app:layout_constraintStart_toStartOf="@+id/signup_edtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/signup_edtPhone" />
 
     <EditText
         android:id="@+id/signup_edtRepassword"
@@ -99,7 +117,7 @@
         android:id="@+id/signup_txtRepassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Confirmed Password"
         app:layout_constraintStart_toStartOf="@+id/signup_edtPassword"
         app:layout_constraintTop_toBottomOf="@+id/signup_edtPassword" />
@@ -117,7 +135,7 @@
         android:id="@+id/signup_txtAdress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Address"
         app:layout_constraintStart_toStartOf="@+id/signup_edtPassword"
         app:layout_constraintTop_toBottomOf="@+id/signup_edtRepassword" />

@@ -36,12 +36,14 @@ public class SignupActivity extends AppCompatActivity {
     private EditText signup_edtPassword;
     private EditText signup_edtRepassword;
     private EditText signup_edtAddress;
+    private EditText signup_edtPhone;
 
     private String edt_email;
     private String edt_username;
     private String edt_password;
     private String edt_rePassword;
     private String edt_address;
+    private String edt_phone;
 
     private Boolean btnVerify_clicked = false;
     private TextView signup_txtErrorMsg;
@@ -57,6 +59,7 @@ public class SignupActivity extends AppCompatActivity {
     public static final String USERID = "user_id";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String PHONE = "phone";
     public static final String ADDRESS = "address";
     public static final String VERIFICATION_EMAIL_SENT = "Verification Email Has Been Sent!";
     public static final String EMAIL_NOT_VERIFIED = "Please verify your email first!";
@@ -76,8 +79,10 @@ public class SignupActivity extends AppCompatActivity {
         signup_edtUsername = (EditText) findViewById(R.id.signup_edtUsername);
         signup_edtPassword = (EditText) findViewById(R.id.signup_edtPassword);
         signup_edtRepassword = (EditText) findViewById(R.id.signup_edtRepassword);
+        signup_edtPhone = (EditText) findViewById(R.id.signup_edtPhone);
         signup_edtAddress = (EditText) findViewById(R.id.signup_edtAddress);
         signup_txtErrorMsg = (TextView) findViewById(R.id.signup_txtErrorMsg);
+
 
         signup_btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +91,7 @@ public class SignupActivity extends AppCompatActivity {
                 edt_username = signup_edtUsername.getText().toString();
                 edt_password = signup_edtPassword.getText().toString();
                 edt_rePassword = signup_edtRepassword.getText().toString();
+                edt_phone = signup_edtPhone.getText().toString();
                 edt_address = signup_edtAddress.getText().toString();
 
                 if(edt_email.isEmpty() || edt_password.isEmpty() || edt_username.isEmpty() || edt_address.isEmpty()) {
@@ -168,6 +174,7 @@ public class SignupActivity extends AppCompatActivity {
         user.put(USERNAME, edt_username);
         user.put(USERID, auth_user.getUid());
         user.put(PASSWORD, edt_password);
+        user.put(PHONE, edt_phone);
         user.put(ADDRESS, edt_address);
 
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

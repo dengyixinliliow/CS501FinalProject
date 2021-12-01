@@ -96,15 +96,15 @@ public class InboxActivity extends AppCompatActivity {
             }
         });
 
-        inbox_lvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Contact contact = contacts_list.get(i);
-                Intent intent = new Intent(InboxActivity.this, ContactInfoActivity.class);
-                intent.putExtra("receiver_id", contact.getReceiver_id());
-                startActivity(intent);
-            }
-        });
+//        inbox_lvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Contact contact = contacts_list.get(i);
+//                Intent intent = new Intent(InboxActivity.this, ContactInfoActivity.class);
+//                intent.putExtra("receiver_id", contact.getReceiver_id());
+//                startActivity(intent);
+//            }
+//        });
     }
 
     public void getContactsById(String user_id) {
