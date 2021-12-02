@@ -37,11 +37,13 @@ public class PersonalInfoActivity extends AppCompatActivity {
     private String edt_email;
     private String edt_username;
     private String edt_password;
+    private String edt_phone;
     private String edt_address;
 
     private EditText personalInfo_edtUsername;
     private EditText personalInfo_edtEmail;
     private EditText personalInfo_edtPassword;
+    private EditText personalInfo_edtPhone;
     private EditText personalInfo_edtAddress;
 
     private Button personalInfo_btnSearch;
@@ -57,6 +59,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
     public static final String USERID = "user_id";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String PHONE = "phone";
     public static final String ADDRESS = "address";
 
     private FirebaseAuth mAuth;
@@ -76,6 +79,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         personalInfo_edtUsername = (EditText) findViewById(R.id.personalInfo_edtUsername);
         personalInfo_edtEmail = (EditText) findViewById(R.id.personalInfo_edtEmail);
         personalInfo_edtPassword = (EditText) findViewById(R.id.personalInfo_edtPassword);
+        personalInfo_edtPhone = (EditText) findViewById(R.id.personalInfo_edtPhone);
         personalInfo_edtAddress = (EditText) findViewById(R.id.personalInfo_edtAddress);
 
         personalInfo_btnSearch = (Button) findViewById(R.id.personalInfo_btnSearch);
@@ -94,9 +98,10 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 edt_email = personalInfo_edtEmail.getText().toString();
                 edt_username = personalInfo_edtUsername.getText().toString();
                 edt_password = personalInfo_edtPassword.getText().toString();
+                edt_phone = personalInfo_edtPhone.getText().toString();
                 edt_address = personalInfo_edtAddress.getText().toString();
 
-                updateDatabase(edt_firstName, edt_lastName, edt_email, edt_username, edt_password, edt_address);
+                updateDatabase(edt_firstName, edt_lastName, edt_email, edt_username, edt_password, edt_phone, edt_address);
             }
         });
 
@@ -154,6 +159,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                                 personalInfo_edtUsername.setText(current_user.get(USERNAME).toString());
                                 personalInfo_edtEmail.setText(current_user.get(EMAIL).toString());
                                 personalInfo_edtPassword.setText(current_user.get(PASSWORD).toString());
+                                personalInfo_edtPhone.setText(current_user.get(PHONE).toString());
                                 if (current_user.get(ADDRESS) != null) {
                                     personalInfo_edtAddress.setText(current_user.get(ADDRESS).toString());
                                 }
@@ -166,13 +172,14 @@ public class PersonalInfoActivity extends AppCompatActivity {
         // [END get_multiple]
     }
 
-    public void updateDatabase(String firstName, String lastName, String username, String email, String password, String address) {
+    public void updateDatabase(String firstName, String lastName, String username, String email, String password, String phone, String address) {
         DocumentReference documentReference = db.collection("users").document(user_id);
         Map<String, Object> updates = new HashMap<>();
         updates.put(EMAIL, edt_email);
         updates.put(USERNAME, edt_username);
         updates.put(USERID, auth_user.getUid());
         updates.put(PASSWORD, edt_password);
+        updates.put(PHONE, edt_phone);
         updates.put(ADDRESS, edt_address);
 
         documentReference.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
