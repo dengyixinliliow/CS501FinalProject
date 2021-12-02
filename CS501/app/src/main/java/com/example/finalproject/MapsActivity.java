@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,30 +13,93 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.finalproject.databinding.ActivityMapsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    private static final String TAG = "GoogleMaps";
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
+    private Marker mMarker;
+    private PopupWindow mPopupWindow;
+    private int mWidth;
+    private int mHeight;
+
 
     // for multiple locations
     private MarkerOptions options = new MarkerOptions();
     private ArrayList<LatLng> latlngs = new ArrayList<>();
+    List<Address> addressList;
 
     LocationManager locationManager;
+
+    private Map<String, Object> current_user;
+    private Map<Object, Object> idAndAddress = new HashMap<Object, Object>();
+    private String user_id;
+    public static final String ADDRESS = "address";
+
+    private FirebaseAuth mAuth;
+    FirebaseUser auth_user;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    // Source stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            if (address.size() == 0) {
+                return null;
+            }
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            Toast.makeText(getBaseContext(), "Can't find latitude and longitude.", Toast.LENGTH_SHORT).show();
+        }
+
+        return p1;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,96 +113,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //INSTANTIATE LOCATION MANAGER TO ENABLE TRACKING OF USER'S CURRENT LOCATION
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        // check if network provider is enabled
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            // write new onLocationlistener on request location updates method
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    // get latitude
-                    double latitude = location.getLatitude();
-
-                    // get longitude
-                    double longitude = location.getLongitude();
-
-                    // instantiate class, LatLng
-                    LatLng latLng = new LatLng(latitude, longitude);
-
-                    // TEST ADDING ONE EXTRA LOCATION
-                    latlngs.add(new LatLng(12.334343, 33.43434));
-
-                    // instantiate the class, Geocoder --> to get a meaningful address
-                    Geocoder geocoder = new Geocoder(getApplicationContext());
-                    try {
-                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                        String str = addressList.get(0).getLocality();
-                        str += addressList.get(0).getCountryName();
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-
-                        for (LatLng point : latlngs) {
-                            options.position(point);
-                            options.title("TEST LOCATION");
-                            options.snippet("an extra marker");
-                            mMap.addMarker(options);
+        CollectionReference productsRef = db.collection("products");
+        productsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map<String, Object> dataMap = document.getData();
+                        /**
+                        if (dataMap.get("product_address") != null) {
+                            addressList.add((Address) dataMap.get("product_address"));
                         }
-
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "No location found.", Toast.LENGTH_SHORT);
+                         */
+                        LatLng addressPt = getLocationFromAddress(getBaseContext(), String.valueOf(dataMap.get("product_address")));
+                        // Log.d("TAG", String.valueOf(dataMap.get("product_address")));
+                        // Log.d("TAG", addressList.toString());
+                        if (addressPt != null) {
+                            latlngs.add(new LatLng(addressPt.latitude, addressPt.longitude));
+                            Log.d("TAG", String.valueOf(addressPt.latitude));
+                            Log.d("TAG", String.valueOf(addressPt.longitude));
+                        }
+                        // Log.d("TAG", latlngs.toString());
                     }
                 }
-            });
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    // get latitude
-                    double latitude = location.getLatitude();
+            }
 
-                    // get longitude
-                    double longitude = location.getLongitude();
-
-                    // instantiate class, LatLng
-                    LatLng latLng = new LatLng(latitude, longitude);
-
-                    // instantiate the class, Geocoder --> to get a meaningful address
-                    Geocoder geocoder = new Geocoder(getApplicationContext());
-                    try {
-                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                        String str = addressList.get(0).getLocality();
-                        str += addressList.get(0).getCountryName();
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-
-                        for (LatLng point : latlngs) {
-                            options.position(point);
-                            options.title("TEST LOCATION");
-                            options.snippet("an extra marker");
-                            mMap.addMarker(options);
-                        }
-
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "No location found.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
+        });
     }
 
     /**
@@ -153,10 +153,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        for (LatLng point : latlngs) {
+            mMap.addMarker(new MarkerOptions()
+                .position(point)
+                .title("Test")
+                .snippet("Test snippet")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        }
     }
+
+    /**
+
+    private void fetchUserProfile() {
+        CollectionReference usersRef = db.collection("users");
+        CollectionReference productsRef = db.collection("products");
+
+        List<DocumentSnapshot> usersDocuments = usersRef.get().getResult().getDocuments();
+
+        for (DocumentSnapshot document : usersDocuments) {
+            Map<String, Object> user = document.getData();
+            if (user.get("address") != null) {
+                idAndAddress.put(user.get("user_id"), user.get("address").toString());
+            }
+        }
+
+
+        for (Object entry : idAndAddress.entrySet()) {
+            Query query = productsRef.whereEqualTo("seller_id", id);
+
+        }
+
+
+        usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+            }
+        });
+
+        Query query = usersRef.whereEqualTo("user_id", user_id);
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // store info of the current user
+                        current_user = document.getData();
+                        name.setText(current_user.get("username").toString());
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+
+    }
+    */
+
 }

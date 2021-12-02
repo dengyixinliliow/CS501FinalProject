@@ -66,6 +66,7 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText addProduct_edtPCondition;
     private EditText addProduct_edtPPrice;
     private EditText addProduct_edtDescription;
+    private EditText addProduct_edtAddress;
     private ImageView addProduct_imageView;
 
     //Variable
@@ -81,7 +82,8 @@ public class AddProductActivity extends AppCompatActivity {
             product_condition,
             product_address,
             product_price,
-            product_description;
+            product_description,
+            product_address;
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
@@ -110,6 +112,7 @@ public class AddProductActivity extends AppCompatActivity {
         addProduct_edtPCondition = findViewById(R.id.addProduct_edtPCondition);
         addProduct_edtPPrice = findViewById(R.id.addProduct_edtPPrice);
         addProduct_edtDescription = findViewById(R.id.addProduct_edtDescription);
+        addProduct_edtAddress = findViewById(R.id.addProduct_edtAddress);
 
         addProduct_edtPCategory = (Spinner) findViewById(R.id.addProduct_edtPCategory);
         populateSpinnerCategory();
@@ -346,6 +349,7 @@ public class AddProductActivity extends AppCompatActivity {
         product_condition = addProduct_edtPCondition.getText().toString();
         product_price = addProduct_edtPPrice.getText().toString();
         product_description = addProduct_edtDescription.getText().toString();
+        product_address = addProduct_edtAddress.getText().toString();
     }
 
     private void addProduct (FirebaseFirestore db) {
@@ -362,6 +366,7 @@ public class AddProductActivity extends AppCompatActivity {
         product.put("product_condition", product_condition);
         product.put("product_price", product_price);
         product.put("product_description", product_description);
+        product.put("product_address", product_address);
         product.put("renter_id", null);
         product.put("is_available", true);
         if (!product_address.equals("Null")) {
