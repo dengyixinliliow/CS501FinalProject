@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class ContactActivity extends AppCompatActivity {
@@ -32,8 +33,10 @@ public class ContactActivity extends AppCompatActivity {
     private Button inbox_btnOrders;
     private Button inbox_btnProfile;
 
-    private EditText contact_edtInput;
-    private Button contact_btnSend;
+    private TextView contact_txtContactIntro;
+    private Button contact_btnMessage;
+    private Button contact_btnCall;
+    private Button contact_btnEmail;
 
     public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
@@ -48,10 +51,14 @@ public class ContactActivity extends AppCompatActivity {
     public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
     public static final String SELLER_ID = "seller_id";
     public static final String USERNAME = "username";
+    public static final String EMAIL = "email";
+    public static final String PHONE = "phone";
 
     private String seller_id;
 
-    private String message;
+    private String contactintro_message = "Get in touch with ";
+
+    private String contact_option;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -70,24 +77,80 @@ public class ContactActivity extends AppCompatActivity {
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
 
-        contact_edtInput = (EditText) findViewById(R.id.contact_edtInput);
-        contact_btnSend = (Button) findViewById(R.id.contact_btnSend);
+        contact_txtContactIntro = (TextView) findViewById(R.id.contact_txtContactIntro);
+        contact_btnMessage = (Button) findViewById(R.id.contact_btnMessage);
+        contact_btnCall = (Button) findViewById(R.id.contact_btnCall);
+        contact_btnEmail = (Button) findViewById(R.id.contact_btnEmail);
 
         Intent intent = getIntent();
         seller_id = intent.getStringExtra(SELLER_ID);
 
-        contact_btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        getUsernameById(seller_id);
 
-                message = contact_edtInput.getText().toString();
-                if(message.isEmpty()) {
-                    return;
-                }
+        contact_btnMessage.setOnClickListener(new ContactsButton());
+        contact_btnCall.setOnClickListener(new ContactsButton());
+        contact_btnEmail.setOnClickListener(new ContactsButton());
 
-                getUserById(seller_id);
+    }
+
+    private class ContactsButton implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.contact_btnMessage:
+                    contact_option = "message";
+                    getUserById(seller_id);
+                    break;
+                case R.id.contact_btnCall:
+                    contact_option = "call";
+                    getUserById(seller_id);
+                    break;
+                case R.id.contact_btnEmail:
+                    contact_option = "email";
+                    getUserById(seller_id);
+                    break;
             }
-        });
+        }
+    }
+
+
+
+    public void getUsernameById(String user_id) {
+        // [START get_multiple]
+        db.collection("users")
+                .whereEqualTo("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // store info of the current user
+                                Map<String, Object> cur_user = document.getData();
+
+                                String cur_user_email = cur_user.get("email").toString();
+
+                                String cur_username = cur_user.get(USERNAME).toString();
+                                contactintro_message = contactintro_message + cur_username;
+                                contact_txtContactIntro.setText(contactintro_message);
+
+//                                // send email
+//                                // 必须明确使用mailto前缀来修饰邮件地址,如果使用   intent.putExtra(Intent.EXTRA_EMAIL, email)，结果将匹配不到任何应用
+//                                Uri uri = Uri.parse("mailto:" + cur_user_email);
+//                                String[] email = {cur_user_email};
+//                                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+////                                intent.putExtra(Intent.EXTRA_CC, email); // cc
+//                                intent.putExtra(Intent.EXTRA_SUBJECT, "topic"); // topic
+//                                intent.putExtra(Intent.EXTRA_TEXT, message); // content
+//                                startActivity(Intent.createChooser(intent, "choose email app"));
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
     }
 
     public void getUserById(String user_id) {
@@ -103,17 +166,39 @@ public class ContactActivity extends AppCompatActivity {
                                 // store info of the current user
                                 Map<String, Object> cur_user = document.getData();
 
-                                String cur_user_email = cur_user.get("email").toString();
+                                String cur_user_email = cur_user.get(EMAIL).toString();
+                                String cur_user_phone = cur_user.get(PHONE).toString();
 
-//                                // send email
-//                                // 必须明确使用mailto前缀来修饰邮件地址,如果使用   intent.putExtra(Intent.EXTRA_EMAIL, email)，结果将匹配不到任何应用
-//                                Uri uri = Uri.parse("mailto:" + cur_user_email);
-//                                String[] email = {cur_user_email};
-//                                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-////                                intent.putExtra(Intent.EXTRA_CC, email); // cc
-//                                intent.putExtra(Intent.EXTRA_SUBJECT, "topic"); // topic
-//                                intent.putExtra(Intent.EXTRA_TEXT, message); // content
-//                                startActivity(Intent.createChooser(intent, "choose email app"));
+                                if(contact_option.equals("message")) {
+                                    try {
+
+//                                        String message = "";
+                                        Log.d(TAG, "phone: " + cur_user_phone);
+                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                                        sendIntent.putExtra("address", cur_user_phone);
+//                                        sendIntent.putExtra("sms_body", message);
+                                        sendIntent.setType("vnd.android-dir/mms-sms");
+                                        startActivity(sendIntent);
+
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "SMS faild, please try again later!",
+                                                Toast.LENGTH_LONG).show();
+                                        e.printStackTrace();
+                                    }
+                                } else if(contact_option.equals("call")) {
+                                    Intent phoneCallMom = new Intent(Intent.ACTION_DIAL);  //or with two lines.
+                                    phoneCallMom.setData(Uri.parse("tel:"+cur_user_phone));   //REALLY SHOULD NOT HARD CODE PHONE #
+                                    startActivity(phoneCallMom);
+                                } else {
+                                    Uri uri = Uri.parse("mailto:" + cur_user_email);
+                                    String[] email = {cur_user_email};
+                                    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                                    //intent.putExtra(Intent.EXTRA_CC, email); // cc
+//                                    intent.putExtra(Intent.EXTRA_SUBJECT, "temple topic"); // topic
+//                                    intent.putExtra(Intent.EXTRA_TEXT, "hello email"); // content
+                                    startActivity(Intent.createChooser(intent, "choose email app"));
+                                }
 
                             }
                         } else {
