@@ -31,10 +31,10 @@
             android:text="Product Name" />
 
         <TextView
-            android:id="@+id/order_productPrice"
+            android:id="@+id/order_productSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Product Price" />
+            android:text="Seller Username" />
 
         <LinearLayout
             android:layout_width="match_parent"
