@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.10643115942028986" />
+        <entry key="app/src/main/res/layout/list_view_orders.xml" value="0.24641628838012278" />
         <entry key="app/src/main/res/layout/list_view_products.xml" value="0.3092701315292212" />
         <entry key="app/src/main/res/layout/marker_popup_window.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_manage_product.xml" value="0.2109375" />
