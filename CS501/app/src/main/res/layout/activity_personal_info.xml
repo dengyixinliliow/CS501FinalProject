@@ -7,10 +7,27 @@
     tools:context=".PersonalInfoActivity">
 
     <EditText
+        android:id="@+id/personalInfo_edtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/personalInfo_txtPhone" />
+
+    <TextView
+        android:id="@+id/personalInfo_txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Phone Number"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/personalInfo_edtPassword" />
+
+    <EditText
         android:id="@+id/personalInfo_edtAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
         android:ems="10"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/personalInfo_Address" />
@@ -19,11 +36,10 @@
         android:id="@+id/personalInfo_Address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="20dp"
         android:text="Address"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/personalInfo_edtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/personalInfo_edtPhone" />
 
     <TextView
         android:id="@+id/personalInfo_txtTitle"
@@ -49,8 +65,7 @@
         android:id="@+id/personalInfo_txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="Username"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/personalInfo_txtTitle" />
@@ -59,7 +74,6 @@
         android:id="@+id/personalInfo_edtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -69,7 +83,7 @@
         android:id="@+id/personalInfo_txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="20dp"
         android:text="Email"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/personalInfo_edtUsername" />
@@ -78,7 +92,6 @@
         android:id="@+id/personalInfo_edtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="none"
         android:enabled="false"
@@ -89,7 +102,7 @@
         android:id="@+id/personalInfo_txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="Password"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/personalInfo_edtEmail" />
@@ -98,7 +111,6 @@
         android:id="@+id/personalInfo_edtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
