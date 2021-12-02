@@ -105,7 +105,8 @@ public class ProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[4])) {     // Manage Messages
-
+                    Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+                    startActivity(intent);
                 }
             }
         });

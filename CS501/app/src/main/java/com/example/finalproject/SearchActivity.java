@@ -51,6 +51,7 @@ public class SearchActivity extends AppCompatActivity {
     private Button search_btn_shoes;
     private Button search_btn_bags;
     private Button search_btnCart;
+    private Button search_btnMap;
 
     private EditText search_search_box;
     private Button search_search_btn;
@@ -91,6 +92,7 @@ public class SearchActivity extends AppCompatActivity {
         search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
         search_btnOrders = (Button) findViewById(R.id.search_btnOrders);
         search_btnProfile = (Button) findViewById(R.id.search_btnProfile);
+        search_btnMap = (Button) findViewById(R.id.search_btnMap);
 
         search_search_box = (EditText) findViewById(R.id.search_search_box);
         search_search_btn = (Button) findViewById(R.id.search_search_btn);
@@ -252,6 +254,14 @@ public class SearchActivity extends AppCompatActivity {
                     intent.putExtra("search_keyword", search_search_box.getText().toString());
                     startActivity(intent);
                 }
+            }
+        });
+
+        search_btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
     }
