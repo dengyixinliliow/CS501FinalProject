@@ -29,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener{
 
     private static final String TAG = "profilePage";
 
@@ -45,11 +45,6 @@ public class ProfileActivity extends AppCompatActivity {
     private ListView lvSettings;
 
     private Button profile_btnSignout;
-
-    private Button profile_btnSearch;
-    private Button profile_btnInbox;
-    private Button profile_btnOrders;
-    private Button profile_btnProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +63,6 @@ public class ProfileActivity extends AppCompatActivity {
         lvSettings = (ListView) findViewById(R.id.lvSettings);
 
         profile_btnSignout = (Button) findViewById(R.id.profile_btnSignout);
-
-        profile_btnSearch = (Button) findViewById(R.id.profile_btnSearch);
-        profile_btnInbox = (Button) findViewById(R.id.profile_btnInbox);
-        profile_btnOrders = (Button) findViewById(R.id.profile_btnOrders);
-        profile_btnProfile = (Button) findViewById(R.id.profile_btnProfile);
 
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
@@ -102,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), ManageProductsActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[3])) {     // Manage Orders
-                    Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
+                    Intent intent = new Intent(getBaseContext(), CartActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[4])) {     // Manage Messages
                     Intent intent = new Intent(getBaseContext(), InboxActivity.class);
@@ -120,42 +110,6 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        profile_btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to search page
-                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        profile_btnOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to personalInfo page
-                Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        profile_btnInbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to inbox page
-                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        profile_btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Move to Profile Page
-                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     public void signOut() {
@@ -182,5 +136,11 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
     }
 }

@@ -46,5 +46,15 @@
                 android:text="Checkout" />
         </LinearLayout>
 
+        <fragment
+            android:id="@+id/fragment_nagivation"
+            android:name="com.example.finalproject.NavigationFragment"
+            android:layout_width="409dp"
+            android:layout_height="43dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout="@layout/fragment_navigation" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

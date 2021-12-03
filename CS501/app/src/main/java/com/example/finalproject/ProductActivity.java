@@ -111,7 +111,7 @@ public class ProductActivity extends AppCompatActivity {
 
         product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
 
-        getUserById(user_id);
+
 
         getProductById(product_id);
 
@@ -156,6 +156,7 @@ public class ProductActivity extends AppCompatActivity {
                                 product = document.getData();
 
                                 seller_id = product.get(SELLER_ID).toString();
+                                getUserById(seller_id);
 
                                 // Set Product Info in EditText
                                 product_txtName.setText(product.get(PRODUCT_NAME).toString());

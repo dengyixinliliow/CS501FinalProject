@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NavigationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageButton
+        android:id="@+id/navigation_btnSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fui_ic_mail_white_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/navigation_btnMessage"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/navigation_btnMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fui_ic_mail_white_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/navigation_btnOrders"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/navigation_btnSearch"
+        app:layout_constraintTop_toTopOf="@+id/navigation_btnSearch" />
+
+    <ImageButton
+        android:id="@+id/navigation_btnOrders"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fui_ic_mail_white_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/navigation_btnProfile"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/navigation_btnMessage"
+        app:layout_constraintTop_toTopOf="@+id/navigation_btnMessage" />
+
+    <ImageButton
+        android:id="@+id/navigation_btnProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fui_ic_mail_white_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/navigation_btnOrders"
+        app:layout_constraintTop_toTopOf="@+id/navigation_btnOrders" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
