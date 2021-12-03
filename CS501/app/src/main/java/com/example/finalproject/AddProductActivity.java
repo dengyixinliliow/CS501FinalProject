@@ -82,8 +82,7 @@ public class AddProductActivity extends AppCompatActivity {
             product_condition,
             product_address,
             product_price,
-            product_description,
-            product_address;
+            product_description;
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
