@@ -39,6 +39,8 @@ public class ProductActivity extends AppCompatActivity {
     private TextView product_txtPrice;
     private TextView product_txtCategory;
     private TextView product_txtCondition;
+    private TextView product_txtDescription;
+    private TextView product_txtSellerUsername;
 
     private Button product_btnAddToBag;
     private Button product_btnReviews;
@@ -53,9 +55,12 @@ public class ProductActivity extends AppCompatActivity {
     public static final String PRODUCT_COLOR = "product_color";
     public static final String PRODUCT_CATEGORY = "product_category";
     public static final String PRODUCT_CONDITION = "product_condition";
+    public static final String PRODUCT_DESCRIPTION = "product_description";
     public static final String PRODUCT_IMG_URL = "product_img_url";
     public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
     public static final String SELLER_ID = "seller_id";
+    public static final String SELLER_USERNAME = "seller_username";
+
     public static final String USERNAME = "username";
 
     public static final String FIRST_MESSAGE = "Hello!";
@@ -64,7 +69,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private Map<String, Object> product;
     private String product_id;
-    private String seller_name;
+    private String seller_username;
     private String seller_id;
     private Map<String, Object> message;
     private String random_message_id;
@@ -97,12 +102,16 @@ public class ProductActivity extends AppCompatActivity {
         product_txtPrice = (TextView) findViewById(R.id.product_txtPrice);
         product_txtCategory = (TextView) findViewById(R.id.product_txtCategory);
         product_txtCondition = (TextView) findViewById(R.id.product_txtCondition);
+        product_txtDescription = (TextView) findViewById(R.id.product_txtDescription);
+        product_txtSellerUsername = (TextView) findViewById(R.id.product_txtSellerUsername);
 
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
         product_btnContactSeller = (Button) findViewById(R.id.product_btnContactSeller);
 
         product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
+
+        getUserById(user_id);
 
         getProductById(product_id);
 
@@ -125,7 +134,7 @@ public class ProductActivity extends AppCompatActivity {
                 // Add chat messages to chat database.
                 //addMessagesToDatabase();
 
-                // Move to inbox page
+                // Move to Contact page
                 Intent intent = new Intent(getBaseContext(), ContactActivity.class);
                 intent.putExtra(SELLER_ID, seller_id);
                 startActivity(intent);
@@ -152,9 +161,10 @@ public class ProductActivity extends AppCompatActivity {
                                 product_txtName.setText(product.get(PRODUCT_NAME).toString());
                                 product_txtType.setText(product.get(PRODUCT_TYPE).toString());
                                 product_txtSize.setText(product.get(PRODUCT_SIZE).toString());
-                                product_txtPrice.setText(product.get(PRODUCT_PRICE).toString());
+                                product_txtPrice.setText("$" + product.get(PRODUCT_PRICE).toString());
                                 product_txtCategory.setText(product.get(PRODUCT_CATEGORY).toString());
                                 product_txtCondition.setText(product.get(PRODUCT_CONDITION).toString());
+                                product_txtDescription.setText(product.get(PRODUCT_DESCRIPTION).toString());
 
                                 Glide.with(getBaseContext()).load(product.get(PRODUCT_IMG_URL).toString()).into(product_ivProduct);
                             }
@@ -189,30 +199,55 @@ public class ProductActivity extends AppCompatActivity {
                 });
     }
 
-    public void addMessagesToDatabase() {
-
-        Map<String, String> message = new HashMap<String, String>();
-        message.put(user_id, "hello");
-
-        Map<String, Object> chat = new HashMap<String, Object>();
-        chat.put("renter_id", user_id);
-        chat.put("seller_id", seller_id);
-        chat.put("messages", message);
-
-        db.collection("chats")
-                .add(chat)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+    public void getUserById(String user_id) {
+        // [START get_multiple]
+        db.collection("users")
+                .whereEqualTo("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.e(TAG, "onSuccess: message added ");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "onFailure: message not added, " + e.getMessage());
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // store info of the current user
+                                Map<String, Object> current_user = document.getData();
+                                product_txtSellerUsername.setText(current_user.get(USERNAME).toString());
+                                // Set User Info in EditText
+//                                personalInfo_edtUsername.setText(current_user.get(USERNAME).toString());
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
                     }
                 });
-
+        // [END get_multiple]
     }
+
+//    public void addMessagesToDatabase() {
+//
+//        Map<String, String> message = new HashMap<String, String>();
+//        message.put(user_id, "hello");
+//
+//        Map<String, Object> chat = new HashMap<String, Object>();
+//        chat.put("renter_id", user_id);
+//        chat.put("seller_id", seller_id);
+//        chat.put("messages", message);
+//
+//        db.collection("chats")
+//                .add(chat)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.e(TAG, "onSuccess: message added ");
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.e(TAG, "onFailure: message not added, " + e.getMessage());
+//                    }
+//                });
+//
+//    }
 }
