@@ -31,14 +31,10 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private static final String TAG = "EmailPassword";
     private TextView search_txtUsername;
 
-    private Button search_btnSearch;
-    private Button search_btnInbox;
-    private Button search_btnOrders;
-    private Button search_btnProfile;
     private Button search_btnMen;
     private Button search_btnWomen;
     private Button search_btnKids;
@@ -88,10 +84,6 @@ public class SearchActivity extends AppCompatActivity {
         search_btn_shoes = (Button) findViewById(R.id.search_btn_shoes);
         search_btn_bags = (Button) findViewById(R.id.search_btn_bags);
 
-        search_btnSearch = (Button) findViewById(R.id.search_btnSearch);
-        search_btnInbox = (Button) findViewById(R.id.search_btnInbox);
-        search_btnOrders = (Button) findViewById(R.id.search_btnOrders);
-        search_btnProfile = (Button) findViewById(R.id.search_btnProfile);
         search_btnMap = (Button) findViewById(R.id.search_btnMap);
 
         search_search_box = (EditText) findViewById(R.id.search_search_box);
@@ -109,30 +101,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        search_btnInbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to inbox page
-                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-                startActivity(intent);
-            }
-        });
-        search_btnOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to orders page
-                Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                startActivity(intent);
-            }
-        });
-        search_btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to personalInfo page
-                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
         search_btnMen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -286,5 +254,11 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 });
         // [END get_multiple]
+    }
+
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
     }
 }

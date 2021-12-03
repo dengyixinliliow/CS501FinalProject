@@ -33,7 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private String myflag="CartFlag";
     private ListView lvItem;     //Reference to the listview GUI component
     private ListAdapter lvAdapter;   //Reference to the Adapter used to populate the listview.
@@ -128,6 +128,11 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
+    }
 }
 
 

@@ -22,14 +22,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class InboxActivity extends AppCompatActivity {
+public class InboxActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
     private static final String TAG = "EmailPassword";
 
-    private Button inbox_btnSearch;
-    private Button inbox_btnInbox;
-    private Button inbox_btnOrders;
-    private Button inbox_btnProfile;
 
     private ListView inbox_lvContacts;
     //private ScrollView inbox_svMessages;
@@ -54,10 +50,6 @@ public class InboxActivity extends AppCompatActivity {
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
 
-        inbox_btnSearch = (Button) findViewById(R.id.inbox_btnSearch);
-        inbox_btnInbox = (Button) findViewById(R.id.inbox_btnInbox);
-        inbox_btnOrders = (Button) findViewById(R.id.inbox_btnOrders);
-        inbox_btnProfile = (Button) findViewById(R.id.inbox_btnProfile);
 
         inbox_lvContacts = (ListView) findViewById(R.id.inbox_lvContacts);
 
@@ -69,32 +61,6 @@ public class InboxActivity extends AppCompatActivity {
 //        inbox_lvContacts = (ListView) findViewById(R.id.inbox_lvContacts);
 //        inbox_lvContacts.setAdapter(adapter);
 
-        inbox_btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to search page
-                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        inbox_btnOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to orders page
-                Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        inbox_btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to personalInfo page
-                Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
-                startActivity(intent);
-            }
-        });
 
 //        inbox_lvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -170,5 +136,10 @@ public class InboxActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
+    }
 }
 

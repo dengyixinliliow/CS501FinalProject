@@ -52,9 +52,6 @@
             android:name=".DisplaySearchResultsActivity"
             android:exported="true" />
         <activity
-            android:name=".OrdersActivity"
-            android:exported="true" />
-        <activity
             android:name=".InboxActivity"
             android:exported="true" />
         <activity
