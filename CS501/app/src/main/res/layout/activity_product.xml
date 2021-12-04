@@ -8,8 +8,8 @@
     tools:context=".ProductActivity">
 
     <ScrollView
-        android:layout_width="355dp"
-        android:layout_height="602dp"
+        android:layout_width="367dp"
+        android:layout_height="626dp"
         android:layout_marginTop="16dp"
         android:background="#FEF9F7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <ImageView
@@ -65,9 +64,11 @@
                 <Button
                     android:id="@+id/product_btnContactSeller"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="contact" />
+                    android:layout_height="37dp"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/btn_bg"
+                    android:text="contact"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,22 +209,26 @@
 
             <Button
                 android:id="@+id/product_btnReviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="13dp"
-                android:text="see reviews" />
+                android:layout_width="120dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_bg"
+                android:text="see reviews"
+                android:textColor="@color/black" />
 
         </LinearLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/product_btnAddToBag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="112dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_bg"
         android:text="add to bag"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

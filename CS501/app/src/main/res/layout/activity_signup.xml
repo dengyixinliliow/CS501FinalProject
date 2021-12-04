@@ -43,6 +43,7 @@
         android:layout_marginTop="30dp"
         android:text="Signup Page"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -54,6 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/black"
         android:text="signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -158,10 +161,12 @@
 
     <Button
         android:id="@+id/signup_btnVerify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/btn_bg"
         android:text="verify your email"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtErrorMsg" />
