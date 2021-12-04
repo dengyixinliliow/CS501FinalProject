@@ -126,6 +126,16 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
             }
         });
 
+        //Click the checkout button will start a payment page
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                intent.putExtra("total_amount", sum);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

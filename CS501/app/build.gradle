@@ -65,10 +65,16 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-firestore'
 
-    //The library used to display img url to real img
+    // The library used to display img url to real img
     implementation 'com.github.bumptech.glide:glide:4.10.0'
 
-    //used for search api
+    // Connect to Algolia
     implementation 'com.algolia:algoliasearch-android:3.+'
+
+    // Import the Stripe dependency
+    implementation 'com.stripe:stripe-android:14.2.1'
+    // for network call
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 }
