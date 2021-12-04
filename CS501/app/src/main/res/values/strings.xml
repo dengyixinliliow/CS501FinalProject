@@ -18,7 +18,7 @@
     <!-- Strings used for fragments for buttom 4 navigation buttons -->
     <string name="SEARCH_PAGE">search_page</string>
     <string name="MESSAGE_PAGE">message_page</string>
-    <string name="ORDERS_PAGE">orders_page</string>
+    <string name="CART_PAGE">cart_page</string>
     <string name="PROFILE_PAGE">profile_page</string>
 
     <!-- Strings used for spinner in add product activity -->
@@ -42,5 +42,16 @@
     <!-- Strings the card view to display the product in search result and filter result page -->
     <string name="card_img_content">Product Image</string>
     <string name="card_button">Detail</string>
+    <string name="send_verification_email">send verification email</string>
+    <string name="signup">signup</string>
+    <string name="signup_page">Signup Page</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmed_password">Confirmed Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="sign_up">sign up</string>
+    <string name="log_in">log in</string>
 
 </resources>

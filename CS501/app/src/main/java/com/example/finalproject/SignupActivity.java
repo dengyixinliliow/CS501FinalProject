@@ -47,7 +47,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private Boolean btnVerify_clicked = false;
     private TextView signup_txtErrorMsg;
-    private String error_message = "Email or Password is not correct! Please try again!";
+    private final String error_message = "Email or Password is not correct! Please try again!";
 
     private Map<String, Object> user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();

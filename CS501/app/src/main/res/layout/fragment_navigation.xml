@@ -13,42 +13,47 @@
     <ImageButton
         android:id="@+id/navigation_btnSearch"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/fui_ic_mail_white_24dp"
         app:layout_constraintEnd_toStartOf="@+id/navigation_btnMessage"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintHorizontal_weight="1"
+        android:background="#323232"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/navigation_btnMessage"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/fui_ic_mail_white_24dp"
-        app:layout_constraintEnd_toStartOf="@+id/navigation_btnOrders"
+        app:layout_constraintEnd_toStartOf="@+id/navigation_btnCart"
         app:layout_constraintHorizontal_weight="1"
+        android:background="#323232"
+
         app:layout_constraintStart_toEndOf="@+id/navigation_btnSearch"
         app:layout_constraintTop_toTopOf="@+id/navigation_btnSearch" />
 
     <ImageButton
-        android:id="@+id/navigation_btnOrders"
+        android:id="@+id/navigation_btnCart"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/fui_ic_mail_white_24dp"
         app:layout_constraintEnd_toStartOf="@+id/navigation_btnProfile"
         app:layout_constraintHorizontal_weight="1"
+        android:background="#323232"
         app:layout_constraintStart_toEndOf="@+id/navigation_btnMessage"
         app:layout_constraintTop_toTopOf="@+id/navigation_btnMessage" />
 
     <ImageButton
         android:id="@+id/navigation_btnProfile"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/fui_ic_mail_white_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/navigation_btnOrders"
-        app:layout_constraintTop_toTopOf="@+id/navigation_btnOrders" />
+        android:background="#323232"
+        app:layout_constraintStart_toEndOf="@+id/navigation_btnCart"
+        app:layout_constraintTop_toTopOf="@+id/navigation_btnCart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

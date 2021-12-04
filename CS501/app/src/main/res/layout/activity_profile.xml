@@ -54,10 +54,11 @@
     <fragment
         android:id="@+id/fragment_nagivation"
         android:name="com.example.finalproject.NavigationFragment"
-        android:layout_width="409dp"
-        android:layout_height="43dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout="@layout/fragment_navigation" />
 
