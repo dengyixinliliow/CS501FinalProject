@@ -124,6 +124,15 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
             }
         });
 
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                intent.putExtra("products_lists",pids);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
