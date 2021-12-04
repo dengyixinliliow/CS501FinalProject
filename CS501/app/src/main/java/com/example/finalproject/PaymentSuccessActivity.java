@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class PaymentSuccessActivity extends AppCompatActivity {
+public class PaymentSuccessActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
     private final Double ZERO = 0.00;
 
@@ -137,5 +137,11 @@ public class PaymentSuccessActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
     }
 }
