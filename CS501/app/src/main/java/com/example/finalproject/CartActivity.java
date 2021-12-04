@@ -33,7 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
+public class CartActivity extends AppCompatActivity {
     private String myflag="CartFlag";
     private ListView lvItem;     //Reference to the listview GUI component
     private ListAdapter lvAdapter;   //Reference to the Adapter used to populate the listview.
@@ -42,15 +42,13 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
     private Button btnCheckout;
     private String user_id;
     //from database
-    private
-    Cart_item_list itemlist=new Cart_item_list();
-    ArrayList<String> productids=new ArrayList<>();
-    ArrayList<String> names;
-    ArrayList<String> prices;
-    ArrayList<String> renters;
-    ArrayList<String> pids;
-    ArrayList<Integer> itemImages;
-    ArrayList<String> sellers;
+    private Cart_item_list itemlist=new Cart_item_list();
+    private ArrayList<String> productids=new ArrayList<>();
+    private ArrayList<String> names;
+    private ArrayList<String> prices;
+    private ArrayList<String> renters;
+    private ArrayList<String> pids;
+    private ArrayList<Integer> itemImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +91,11 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                         String pid=String.valueOf(pdataMap.get("product_id"));
                                         String n = String.valueOf(pdataMap.get("product_name"));
                                         String p = String.valueOf(pdataMap.get("product_price"));
-                                        String r = String.valueOf(pdataMap.get("renter_id"));
+                                        String is_avail=String.valueOf(pdataMap.get("is_available"));
                                         String url= String.valueOf(pdataMap.get("product_img_url"));
                                         Log.i(myflag, n);
-                                        Log.i(myflag, r);
-                                        Cart_item item = new Cart_item(n, p, r, pid,url);
-                                        if(r=="null" && s!=user_id){
+                                        if(is_avail=="true" && s!=user_id){
+                                            Cart_item item = new Cart_item(n, p, pid,url);
                                             itemlist.add_item(item);
                                         }
                                     }
@@ -127,24 +124,8 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
             }
         });
 
-        //Click the checkout button will start a payment page
-        btnCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
-                intent.putExtra("total_amount", sum);
-                intent.putExtra("products_list", itemlist.get_pid());
-                startActivity(intent);
-            }
-        });
-
     }
 
-    @Override
-    public void SwitchActivity(String page_name) {
-        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
-        navigationFragment.setOrginActivity(page_name, getBaseContext());
-    }
 }
 
 
@@ -261,17 +242,15 @@ class Cart_item{
     String price;
     String renter;
     String imgurl;
-    public Cart_item(String n,String p,String r, String productid,String url){
+    public Cart_item(String n,String p,String productid,String url){
         this.name=n;
         this.price=p;
-        this.renter=r;
         this.pid=productid;
         this.imgurl=url;
     }
 
     public String get_name(){return name;}
     public String get_price(){return price;}
-    public String get_renter(){return renter;}
     public String get_productid(){return pid;}
     public String get_img(){return imgurl;}
 }
@@ -308,13 +287,6 @@ class Cart_item_list{
         return out;
     }
 
-    public ArrayList<String> get_renters(){
-        ArrayList<String> out=new ArrayList<>();
-        for(Cart_item i:items){
-            out.add(i.get_renter());
-        }
-        return out;
-    }
 
     public ArrayList<String> get_pid() {
         ArrayList<String> out = new ArrayList<>();
