@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ public class LandingActivity extends AppCompatActivity {
     private Button landing_btnLogin;
     private Button landing_btnSignup;
 
+    private ConstraintLayout CL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +22,9 @@ public class LandingActivity extends AppCompatActivity {
 
         landing_btnLogin = (Button) findViewById(R.id.landing_btnLogin);
         landing_btnSignup = (Button) findViewById(R.id.landing_btnSignup);
+
+        CL = (ConstraintLayout) findViewById(R.id.landing_layoutBg);
+        CL.setAlpha(100);
 
         landing_btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

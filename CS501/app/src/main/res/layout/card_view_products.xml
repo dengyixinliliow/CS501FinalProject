@@ -50,11 +50,12 @@
             android:id="@+id/btnDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/card_button"
             android:layout_below="@id/txt2"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            />
+            android:background="@drawable/btn_bg"
+            android:text="@string/card_button"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
