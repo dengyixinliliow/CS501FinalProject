@@ -129,7 +129,6 @@ public class AddProductActivity extends AppCompatActivity {
         // connect to database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        getAddress(db);
         // on pressing btnSelect SelectImage() is called
         addProduct_btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -316,29 +315,6 @@ public class AddProductActivity extends AppCompatActivity {
         addProduct_edtPType.setAdapter(typeAdapter);
     }
 
-    private void getAddress(FirebaseFirestore db) {
-        CollectionReference productsRef = db.collection("users");
-        Query query = productsRef.whereEqualTo("user_id",user_id);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Map<String, Object> dataMap = document.getData();
-                        if (dataMap.get("address") == null) {
-                            product_address = "Null";
-                        } else {
-                            product_address = String.valueOf(dataMap.get("address"));
-                        }
-                    }
-
-                } else {
-                    Log.e("test", "Error getting documents: ", task.getException());
-                }
-            }
-        });
-    }
-
     private void getData() {
         product_name = addProduct_edtPName.getText().toString();
         product_type = addProduct_edtPType.getSelectedItem().toString();
@@ -366,16 +342,7 @@ public class AddProductActivity extends AppCompatActivity {
         product.put("product_price", product_price);
         product.put("product_description", product_description);
         product.put("product_address", product_address);
-        product.put("renter_id", null);
         product.put("is_available", true);
-        if (!product_address.equals("Null")) {
-            product.put("product_address", product_address);
-        } else {
-            //ask the user to put an address later
-            product.put("product_address", null);
-        }
-//        product.put("rent_date", null);
-//        product.put("return_date", null);
 
         db.collection("products")
                 .add(product)
