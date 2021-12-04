@@ -15,6 +15,7 @@ public class OrdersActivity extends AppCompatActivity {
     private Button orders_btnInbox;
     private Button orders_btnOrders;
     private Button orders_btnProfile;
+    private Button orders_btnreview;
 
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
@@ -34,6 +35,7 @@ public class OrdersActivity extends AppCompatActivity {
         orders_btnInbox = (Button) findViewById(R.id.orders_btnInbox);
         orders_btnOrders = (Button) findViewById(R.id.orders_btnOrders);
         orders_btnProfile = (Button) findViewById(R.id.orders_btnProfile);
+        orders_btnreview=(Button)findViewById(R.id.orders_btnReview);
 
 
         orders_btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +65,12 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
-        orders_btnOrders.setOnClickListener(new View.OnClickListener() {
+        orders_btnreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //move to cart page
-                Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                intent.putExtra("USERID", user_id);
+                Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
+                intent.putExtra("product_id","c0bf9e11-a50f-4e3a-9ac0-11b2f8516cec");
                 startActivity(intent);
             }
         });
