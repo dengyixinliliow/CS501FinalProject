@@ -8,8 +8,8 @@
     tools:context=".ProductActivity">
 
     <ScrollView
-        android:layout_width="367dp"
-        android:layout_height="626dp"
+        android:layout_width="369dp"
+        android:layout_height="635dp"
         android:layout_marginTop="16dp"
         android:background="#FEF9F7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,12 +19,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/product_ivProduct"
-                android:layout_width="167dp"
-                android:layout_height="187dp"
+                android:layout_width="193dp"
+                android:layout_height="193dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="44dp"
                 app:srcCompat="@drawable/fui_idp_button_background_facebook" />
@@ -65,7 +66,7 @@
                     android:id="@+id/product_btnContactSeller"
                     android:layout_width="wrap_content"
                     android:layout_height="37dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="50dp"
                     android:background="@drawable/btn_bg"
                     android:text="contact"
                     android:textColor="@color/black" />
@@ -211,8 +212,9 @@
                 android:id="@+id/product_btnReviews"
                 android:layout_width="120dp"
                 android:layout_height="34dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/btn_bg"
                 android:text="see reviews"
                 android:textColor="@color/black" />

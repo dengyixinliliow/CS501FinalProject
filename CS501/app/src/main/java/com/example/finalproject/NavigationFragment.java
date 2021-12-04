@@ -1,7 +1,6 @@
 package com.example.finalproject;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ public class NavigationFragment extends Fragment {
 
     private ImageButton navigation_btnSearch;
     private ImageButton navigation_btnMessage;
-    private ImageButton navigation_btnOrders;
+    private ImageButton navigation_btnCart;
     private ImageButton navigation_btnProfile;
 
     public NavigationFragment() {
@@ -51,12 +50,12 @@ public class NavigationFragment extends Fragment {
 
         navigation_btnSearch = (ImageButton) view.findViewById(R.id.navigation_btnSearch);
         navigation_btnMessage = (ImageButton) view.findViewById(R.id.navigation_btnMessage);
-        navigation_btnOrders = (ImageButton) view.findViewById(R.id.navigation_btnOrders);
+        navigation_btnCart = (ImageButton) view.findViewById(R.id.navigation_btnCart);
         navigation_btnProfile = (ImageButton) view.findViewById(R.id.navigation_btnProfile);
 
         navigation_btnSearch.setOnClickListener(new BtnOnClickListener());
         navigation_btnMessage.setOnClickListener(new BtnOnClickListener());
-        navigation_btnOrders.setOnClickListener(new BtnOnClickListener());
+        navigation_btnCart.setOnClickListener(new BtnOnClickListener());
         navigation_btnProfile.setOnClickListener(new BtnOnClickListener());
 
         return view;
@@ -72,8 +71,8 @@ public class NavigationFragment extends Fragment {
                 case R.id.navigation_btnMessage:
                     NF.SwitchActivity(getString(R.string.MESSAGE_PAGE));
                     break;
-                case R.id.navigation_btnOrders:
-                    NF.SwitchActivity(getString(R.string.ORDERS_PAGE));
+                case R.id.navigation_btnCart:
+                    NF.SwitchActivity(getString(R.string.CART_PAGE));
                     break;
                 case R.id.navigation_btnProfile:
                     NF.SwitchActivity(getString(R.string.PROFILE_PAGE));
@@ -88,10 +87,10 @@ public class NavigationFragment extends Fragment {
             Intent intent = new Intent(context, SearchActivity.class);
             startActivity(intent);
         } else if(page_name.equals(getString(R.string.MESSAGE_PAGE))) {
-            // Move to Inbox page
+            // Move to Message page
             Intent intent = new Intent(context, InboxActivity.class);
             startActivity(intent);
-        } else if(page_name.equals(getString(R.string.ORDERS_PAGE))) {
+        } else if(page_name.equals(getString(R.string.CART_PAGE))) {
             // Move to Cart page
             Intent intent = new Intent(context, CartActivity.class);
             startActivity(intent);
