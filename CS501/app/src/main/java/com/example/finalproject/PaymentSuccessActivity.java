@@ -8,12 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -33,6 +39,8 @@ public class PaymentSuccessActivity extends AppCompatActivity {
     private String payment_success_order_id;
     private String payment_success_owner_id;
     private ArrayList<String> payment_success_items_list;
+    private Map map = new HashMap();
+    private String product_owner = "123";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +63,34 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         // connect to database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         addOrder(db);
+
+        for (int i = 0; i < payment_success_items_list.size(); i++) {
+            getProductOwnerId(payment_success_items_list.get(i), db);
+        }
+    }
+
+    private void getProductOwnerId (String product_id, FirebaseFirestore db) {
+        CollectionReference productsRef = db.collection("products");
+        Query query = productsRef.whereEqualTo("product_id", product_id);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map<String, Object> dataMap = document.getData();
+                        product_owner = String.valueOf(dataMap.get("seller_id"));
+                        map.put(product_id, product_owner);
+                    }
+                    
+
+
+
+
+                } else {
+                    Log.e("test", "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 
     private void addOrder (FirebaseFirestore db) {
