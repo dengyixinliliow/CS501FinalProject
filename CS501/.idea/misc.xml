@@ -34,6 +34,9 @@
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/marker_popup_window.xml" value="0.2760416666666667" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/menu/menu_manage_product.xml" value="0.2046875" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/menu/menu_scrolling.xml" value="0.2046875" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1287037037037037" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_buyer_management.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.18085106382978725" />
@@ -50,6 +53,7 @@
         <entry key="app/src/main/res/layout/activity_manage_products.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_payment.xml" value="0.20244565217391305" />
+        <entry key="app/src/main/res/layout/activity_payment_success.xml" value="0.18034447821681865" />
         <entry key="app/src/main/res/layout/activity_personal_info.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
