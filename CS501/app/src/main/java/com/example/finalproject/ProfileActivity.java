@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
                     Intent intent = new Intent(getBaseContext(), ManageProductsActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[3])) {     // Manage Orders
-                    Intent intent = new Intent(getBaseContext(), CartActivity.class);
+                    Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[4])) {     // Manage Messages
                     Intent intent = new Intent(getBaseContext(), InboxActivity.class);
