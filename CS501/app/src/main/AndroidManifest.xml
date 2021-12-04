@@ -84,6 +84,9 @@
             android:name=".PaymentActivity"
             android:exported="true" />
         <activity
+            android:name=".PaymentSuccessActivity"
+            android:exported="true"/>
+        <activity
             android:name=".LandingActivity"
             android:exported="true">
             <intent-filter>

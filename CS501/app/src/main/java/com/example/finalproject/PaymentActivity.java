@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -29,11 +32,14 @@ import com.stripe.android.view.CardInputWidget;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -51,9 +57,13 @@ public class PaymentActivity extends AppCompatActivity {
 
     private final int CENT_TO_DOLLAR = 100;
     private double amount;
+    private String orderTime;
+    private String orderId;
     private TextView payment_amount;
     private CardInputWidget payment_cardInputWidget;
     private Button payment_btn;
+    private ArrayList<String> products;
+
 
     // we need paymentIntentClientSecret to start transaction
     private String paymentIntentClientSecret;
@@ -71,6 +81,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         amount = intent.getDoubleExtra("total_amount", 0.00);
+        products = intent.getStringArrayListExtra("products_list");
 
         payment_amount = (TextView) findViewById(R.id.payment_amount);
         payment_cardInputWidget = (CardInputWidget) findViewById(R.id.payment_cardInputWidget);
@@ -214,9 +225,23 @@ public class PaymentActivity extends AppCompatActivity {
             if (status == PaymentIntent.Status.Succeeded) {
                 // Payment completed successfully
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Toast toast =Toast.makeText(activity, "Ordered Successful", Toast.LENGTH_SHORT);
+                // generate order time
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+                Date date = new Date(System.currentTimeMillis());
+                orderTime = formatter.format(date);
+                // generate unique order id
+                orderId = UUID.randomUUID().toString();
+
+                Toast toast =Toast.makeText(activity, "Ordered Successful" + orderId, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
+                Intent intent = new Intent(PaymentActivity.this, PaymentSuccessActivity.class);
+                intent.putExtra("order_time", orderTime);
+                intent.putExtra("order_total", amount);
+                intent.putExtra("order_id", orderId);
+                intent.putExtra("products_list", products);
+                startActivity(intent);
+
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
                 // Payment failed – allow retrying using a different payment method
                 activity.displayAlert(

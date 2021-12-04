@@ -50,6 +50,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
     ArrayList<String> renters;
     ArrayList<String> pids;
     ArrayList<Integer> itemImages;
+    ArrayList<String> sellers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
             public void onClick(View view) {
                 Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
                 intent.putExtra("total_amount", sum);
+                intent.putExtra("products_list", itemlist.get_pid());
                 startActivity(intent);
             }
         });
