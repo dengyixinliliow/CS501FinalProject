@@ -47,6 +47,7 @@ public class ProductActivity extends AppCompatActivity {
     private Button product_btnAddToBag;
     private Button product_btnReviews;
     private Button product_btnContactSeller;
+    private Button product_btnBack;
 
     public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
@@ -111,10 +112,16 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
         product_btnContactSeller = (Button) findViewById(R.id.product_btnContactSeller);
+        product_btnBack = (Button) findViewById(R.id.product_btnBack);
 
         product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
 
-
+        product_btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getProductById(product_id);
 
@@ -145,6 +152,15 @@ public class ProductActivity extends AppCompatActivity {
                 // Move to Contact page
                 Intent intent = new Intent(getBaseContext(), ContactActivity.class);
                 intent.putExtra(SELLER_ID, seller_id);
+                startActivity(intent);
+            }
+        });
+
+        product_btnReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getBaseContext(), ViewReviewActivity.class);
+                intent.putExtra(PRODUCT_ID,product_id);
                 startActivity(intent);
             }
         });

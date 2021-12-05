@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
+
 
 public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private String myflag="CartFlag";
@@ -82,6 +84,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                     for(String productid:productids){
                         Query product_q=product.whereEqualTo("product_id", productid);
                         product_q.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()) {
@@ -107,7 +110,8 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                     for(String s:prices){
                                         sum+=Double.valueOf(s);
                                     }
-                                    tvsum.setText("Total: "+String.valueOf(sum));
+                                    String origin_tvsum = tvsum.getText().toString();
+                                    tvsum.setText(origin_tvsum + sum);
                                     lvAdapter=new CartListAdapter(CartActivity.this,itemlist,tvsum);
                                     lvItem.setAdapter(lvAdapter);
                                 }
@@ -141,6 +145,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
         navigationFragment.setOrginActivity(page_name, getBaseContext());
     }
+
 }
 
 
@@ -206,7 +211,8 @@ class CartListAdapter extends BaseAdapter{
         TextView tvprice = (TextView) row.findViewById(R.id.cart_tvPrice);
 
         tvname.setText(names.get(i));
-        tvprice.setText(prices.get(i));
+        String origin_tvprice = tvprice.getText().toString();
+        tvprice.setText(origin_tvprice + prices.get(i));
         Glide.with(context).load(urls.get(i)).into(img);
 //        imgEpisode.setImageResource(episodeImages.get(position).intValue());
 

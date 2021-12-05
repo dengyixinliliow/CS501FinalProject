@@ -41,7 +41,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
     private Map<String, Object> current_user;
 
     private TextView name;
-    private TextView rateText;
     private ListView lvSettings;
 
     private Button profile_btnSignout;
@@ -59,7 +58,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
                 getString(R.string.setting5)};
 
         name = (TextView) findViewById(R.id.name);
-        rateText = (TextView) findViewById(R.id.rateText);
         lvSettings = (ListView) findViewById(R.id.lvSettings);
 
         profile_btnSignout = (Button) findViewById(R.id.profile_btnSignout);
