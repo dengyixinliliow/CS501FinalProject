@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Price"
+            android:text="@string/price"
             android:id="@+id/cart_tvPrice"
             android:layout_gravity="center_horizontal" />
 
