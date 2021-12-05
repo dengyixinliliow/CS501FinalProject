@@ -95,6 +95,9 @@
             android:name=".PaymentSuccessActivity"
             android:exported="true" />
         <activity
+            android:name=".AddProductDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".LandingActivity"
             android:exported="true">
             <intent-filter>
