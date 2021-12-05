@@ -172,18 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        /**
-        for (LatLng point : latlngs) {
-            LatLng markPoint = new LatLng(point.latitude, point.longitude);
-            Log.d("TAG", String.valueOf(point.latitude));
-            Log.d("TAG", String.valueOf(point.longitude));
-            mMap.addMarker(new MarkerOptions()
-                .position(markPoint)
-                .title("Test")
-                .snippet("Test snippet")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        }
-         */
+
     }
 
 
