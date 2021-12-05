@@ -59,6 +59,7 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
                 product_id = product.getProductId();
                 Intent intent = new Intent(cont, ProductActivity.class);
                 intent.putExtra("product_id", product_id);
+                intent.putExtra("action_taker", "non-owner");
                 cont.startActivity(intent);
                 //pass id as the intent
                 Log.e("test", "clicked");

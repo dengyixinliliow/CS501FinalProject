@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
     private Button search_btnMap;
 
     private EditText search_search_box;
-    private Button search_search_btn;
+    private ImageButton search_search_btn;
 
     private Map<String, Object> current_user;
     public static final String USERNAME = "username";
@@ -87,7 +88,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         search_btnMap = (Button) findViewById(R.id.search_btnMap);
 
         search_search_box = (EditText) findViewById(R.id.search_search_box);
-        search_search_btn = (Button) findViewById(R.id.search_search_btn);
+        search_search_btn = (ImageButton) findViewById(R.id.search_search_btn);
 
         search_txtUsername = (TextView) findViewById(R.id.search_txtUsername);
 
