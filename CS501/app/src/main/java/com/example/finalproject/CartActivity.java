@@ -132,7 +132,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
-                intent.putExtra("products_lists",pids);
+                intent.putExtra("products_list",pids);
                 intent.putExtra("total_amount", sum);
                 startActivity(intent);
             }
