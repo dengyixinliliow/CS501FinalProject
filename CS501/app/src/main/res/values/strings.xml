@@ -57,5 +57,14 @@
     <string name="address">Address</string>
     <string name="sign_up">sign up</string>
     <string name="log_in">log in</string>
+    <string name="please_enter_your_review_title_here">Please enter your review title here:</string>
+    <string name="review_title">Review title</string>
+    <string name="please_enter_your_review_content_here">Please enter your review content here:</string>
+    <string name="please_enter_your_review_here">Please enter your review here</string>
+    <string name="submit">Submit</string>
+    <string name="price">Price: $</string>
+    <string name="total">Total: $</string>
+    <string name="call">call</string>
+    <string name="message">message</string>
 
 </resources>

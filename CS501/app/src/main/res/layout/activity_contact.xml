@@ -7,6 +7,17 @@
     android:background="#FCEAED"
     tools:context=".ContactActivity">
 
+    <TextView
+        android:id="@+id/contact_txtContactIntro"
+        android:layout_width="317dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="60dp"
+        android:text=""
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/contact_btnEmail"
         android:layout_width="wrap_content"
@@ -14,7 +25,7 @@
         android:layout_marginTop="108dp"
         android:background="@drawable/btn_bg"
         android:textColor="@color/black"
-        android:text="email"
+        android:text="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +38,7 @@
         android:layout_marginTop="52dp"
         android:background="@drawable/btn_bg"
         android:textColor="@color/black"
-        android:text="message"
+        android:text="@string/message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contact_txtContactIntro" />
@@ -39,19 +50,9 @@
         android:layout_marginTop="106dp"
         android:background="@drawable/btn_bg"
         android:textColor="@color/black"
-        android:text="call"
+        android:text="@string/call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contact_btnMessage" />
-
-    <TextView
-        android:id="@+id/contact_txtContactIntro"
-        android:layout_width="221dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="60dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
