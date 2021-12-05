@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
+            android:name=".ManageOrdersActivity"
+            android:exported="true" />
+        <activity
             android:name=".ContactActivity"
             android:exported="false" />
         <activity
