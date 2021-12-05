@@ -64,7 +64,7 @@
         <entry key="app/src/main/res/layout/activity_display_search_results.xml" value="0.18135764944275581" />
         <entry key="app/src/main/res/layout/activity_inbox.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_landing.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.11684782608695653" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_manage_productrow.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_manage_products.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
@@ -74,8 +74,10 @@
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_product_status.xml" value="0.18697916666666667" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_reviews_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_view_review.xml" value="0.25" />
         <entry key="app/src/main/res/layout/card_view_products.xml" value="0.6069038073484391" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/list_view_products.xml" value="0.18697916666666667" />
