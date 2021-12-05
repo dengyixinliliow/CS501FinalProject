@@ -74,7 +74,8 @@
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_product_status.xml" value="0.18697916666666667" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_search.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_view_products.xml" value="0.6069038073484391" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/list_view_products.xml" value="0.18697916666666667" />
