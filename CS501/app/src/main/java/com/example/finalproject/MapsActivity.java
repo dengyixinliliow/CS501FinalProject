@@ -69,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
 
     private Map<String, Object> current_user;
-    private Map<Object, Object> idAndAddress = new HashMap<Object, Object>();
+    private Map<String, LatLng> nameAndAddress = new HashMap<String, LatLng>();
     private String user_id;
     public static final String ADDRESS = "address";
 
@@ -126,6 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                          }
                          */
                         LatLng addressPt = getLocationFromAddress(getBaseContext(), String.valueOf(dataMap.get("product_address")));
+                        String productName = String.valueOf(dataMap.get("product_name"));
                         // Log.d("TAG", String.valueOf(dataMap.get("product_address")));
                         // Log.d("TAG", addressList.toString());
                         if (addressPt != null) {
@@ -134,6 +135,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Log.d("TAG", String.valueOf(latlngs.get(0).longitude));
                             // Log.d("TAG", String.valueOf(addressPt.latitude));
                             // Log.d("TAG", String.valueOf(addressPt.longitude));
+                            nameAndAddress.put(productName, addressPt);
                         }
                         // Log.d("TAG", latlngs.toString());
                     }
@@ -159,7 +161,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         // LatLng test = new LatLng(42.349340999999995, -71.1039816);
         // mMap.addMarker(new MarkerOptions().position(test));
+        for (Map.Entry<String, LatLng> entry: nameAndAddress.entrySet()) {
+            String productName = entry.getKey();
+            LatLng address = entry.getValue();
+            mMap.addMarker(new MarkerOptions()
+                    .position(address)
+                    .title(productName)
+                    .snippet("Test snippet")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
+        }
+
+        /**
         for (LatLng point : latlngs) {
             LatLng markPoint = new LatLng(point.latitude, point.longitude);
             Log.d("TAG", String.valueOf(point.latitude));
@@ -170,6 +183,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .snippet("Test snippet")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         }
+         */
     }
 
     /**
