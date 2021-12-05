@@ -50,89 +50,10 @@ public class InboxActivity extends AppCompatActivity implements NavigationFragme
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
 
-
         inbox_lvContacts = (ListView) findViewById(R.id.inbox_lvContacts);
 
         contacts_list = new ArrayList<>();
 
-        getContactsById(user_id);
-//        // set the items in contacts listview
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(InboxActivity.this, android.R.layout.simple_list_item_1, contacts);
-//        inbox_lvContacts = (ListView) findViewById(R.id.inbox_lvContacts);
-//        inbox_lvContacts.setAdapter(adapter);
-
-
-//        inbox_lvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Contact contact = contacts_list.get(i);
-//                Intent intent = new Intent(InboxActivity.this, ContactInfoActivity.class);
-//                intent.putExtra("receiver_id", contact.getReceiver_id());
-//                startActivity(intent);
-//            }
-//        });
-    }
-
-    public void getContactsById(String user_id) {
-        // [START get_multiple]
-        db.collection("chats")
-                .whereEqualTo("renter_id", user_id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // store info of the current user
-                                Map<String, Object> database_chat = document.getData();
-
-//                                // set the items in contacts listview
-//                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(InboxActivity.this, android.R.layout.simple_list_item_1, contacts);
-//                                inbox_lvContacts = (ListView) findViewById(R.id.inbox_lvContacts);
-//                                inbox_lvContacts.setAdapter(adapter);
-
-                                 getUserById(database_chat.get("seller_id").toString());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        // [END get_multiple]
-    }
-
-    public void getUserById(String user_id) {
-        // [START get_multiple]
-        db.collection("users")
-                .whereEqualTo("user_id", user_id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // store info of the current user
-                                Map<String, Object> database_user = document.getData();
-//                                contacts.add(database_user.get(USERNAME).toString());
-                                Log.d(TAG, "contact: " + database_user.get(USERNAME).toString());
-
-                                Contact contact = new Contact();
-                                contact.setReceiver_id(user_id);
-                                contact.setReceiver_name(database_user.get(USERNAME).toString());
-//
-                                contacts_list.add(contact);
-                                Log.d(TAG, "contact list: " + contacts_list.toString());
-                            }
-                            ContactsAdapter contactsAdapter = new ContactsAdapter(InboxActivity.this, contacts_list);
-                            inbox_lvContacts.setAdapter(contactsAdapter);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        // [END get_multiple]
     }
 
 
