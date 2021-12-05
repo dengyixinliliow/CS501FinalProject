@@ -142,6 +142,15 @@ public class ProductActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        product_btnReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getBaseContext(), ViewReviewActivity.class);
+                intent.putExtra(PRODUCT_ID,product_id);
+                startActivity(intent);
+            }
+        });
     }
 
     public void getProductById(String product_id) {
