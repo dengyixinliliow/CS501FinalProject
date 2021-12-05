@@ -140,6 +140,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // Log.d("TAG", latlngs.toString());
                     }
                     onMapReady(mMap);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.0902, -95.7129)));
+                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(@NonNull Marker marker) {
+                            return false;
+                        }
+                    });
                 }
             }
 
