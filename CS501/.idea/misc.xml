@@ -3,26 +3,67 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_display_search_results.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_orders.xml" value="0.8467741935483871" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_profile.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_review.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_reviews_card.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_view_review.xml" value="0.1" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/card_view_products.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/fragment_navigation.xml" value="0.17119565217391305" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22083333333333333" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/drawable/btn_bg.xml" value="0.37395833333333334" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22083333333333333" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/drawable/textview_bg.xml" value="0.38229166666666664" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.3238095238095238" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.1859375" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_add_product.xml" value="0.36614583333333334" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_cart.xml" value="0.36614583333333334" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_cartrow.xml" value="0.3578125" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_contact.xml" value="0.24791666666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_contact_info.xml" value="0.24791666666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_contact_row.xml" value="0.24791666666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_dislay_filter_results.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_display_search_results.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_inbox.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_landing.xml" value="0.33" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_manage_products.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_maps.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_orders.xml" value="0.2046875" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_personal_info.xml" value="0.33" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_product.xml" value="0.33" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_profile.xml" value="0.33" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_review.xml" value="0.36614583333333334" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_reviews_card.xml" value="0.36614583333333334" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_search.xml" value="0.2046875" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_signup.xml" value="0.33" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_view_review.xml" value="0.36614583333333334" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/card_view_products.xml" value="0.24791666666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/content_scrolling.xml" value="0.24791666666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/fragment_navigation.xml" value="0.18" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/list_view_products.xml" value="0.24791666666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/marker_popup_window.xml" value="0.2760416666666667" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/menu/menu_manage_product.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/menu/menu_scrolling.xml" value="0.2046875" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/drawable/edit_text_bg.xml" value="0.2713541666666667" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/drawable/textview_bg.xml" value="0.2064814814814815" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_add_product_detail.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_buyer_management.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_inbox.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.11684782608695653" />
-        <entry key="app/src/main/res/layout/activity_manage_orders.xml" value="0.12360688956433637" />
         <entry key="app/src/main/res/layout/activity_manage_products.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.20244565217391305" />
+        <entry key="app/src/main/res/layout/activity_payment_success.xml" value="0.18034447821681865" />
         <entry key="app/src/main/res/layout/activity_personal_info.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />
+        <entry key="app/src/main/res/layout/activity_product_status.xml" value="0.18697916666666667" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_search.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.10643115942028986" />
-        <entry key="app/src/main/res/layout/list_view_orders.xml" value="0.24641628838012278" />
-        <entry key="app/src/main/res/layout/list_view_products.xml" value="0.3092701315292212" />
-        <entry key="app/src/main/res/layout/marker_popup_window.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_manage_product.xml" value="0.2109375" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.20244565217391305" />
       </map>
     </option>
   </component>

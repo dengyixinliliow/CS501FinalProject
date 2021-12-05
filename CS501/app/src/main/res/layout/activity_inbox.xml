@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FCEAED"
     tools:context=".InboxActivity">
 
     <TextView
@@ -19,47 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/inbox_btnOrders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Orders"
-        app:layout_constraintBaseline_toBaselineOf="@+id/inbox_btnProfile"
-        app:layout_constraintEnd_toStartOf="@+id/inbox_btnProfile"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/inbox_btnInbox" />
-
-    <Button
-        android:id="@+id/inbox_btnProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/inbox_btnOrders" />
-
-    <Button
-        android:id="@+id/inbox_btnInbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Inbox"
-        app:layout_constraintBaseline_toBaselineOf="@+id/inbox_btnOrders"
-        app:layout_constraintEnd_toStartOf="@+id/inbox_btnOrders"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/inbox_btnSearch" />
-
-    <Button
-        android:id="@+id/inbox_btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        app:layout_constraintBaseline_toBaselineOf="@+id/inbox_btnInbox"
-        app:layout_constraintEnd_toStartOf="@+id/inbox_btnInbox"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ListView
         android:id="@+id/inbox_lvContacts"
         android:layout_width="409dp"
@@ -68,5 +28,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inbox_txtTitle" />
-
+    <fragment
+        android:id="@+id/fragment_nagivation"
+        android:name="com.example.finalproject.NavigationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

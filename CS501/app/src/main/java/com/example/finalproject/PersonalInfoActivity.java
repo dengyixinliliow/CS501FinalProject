@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -28,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonalInfoActivity extends AppCompatActivity {
+public class PersonalInfoActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
     private static final String TAG = "EmailPassword";
 
@@ -46,10 +47,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
     private EditText personalInfo_edtPhone;
     private EditText personalInfo_edtAddress;
 
-    private Button personalInfo_btnSearch;
-    private Button personalInfo_btnInbox;
-    private Button personalInfo_btnOrders;
-    private Button personalInfo_btnProfile;
+    private Button personalInfo_btnBack;
     private Button personalInfo_btnUpdate;
 
     private Map<String, Object> current_user;
@@ -82,13 +80,15 @@ public class PersonalInfoActivity extends AppCompatActivity {
         personalInfo_edtPhone = (EditText) findViewById(R.id.personalInfo_edtPhone);
         personalInfo_edtAddress = (EditText) findViewById(R.id.personalInfo_edtAddress);
 
-        personalInfo_btnSearch = (Button) findViewById(R.id.personalInfo_btnSearch);
-        personalInfo_btnInbox = (Button) findViewById(R.id.personalInfo_btnInbox);
-        personalInfo_btnOrders = (Button) findViewById(R.id.personalInfo_btnOrders);
-        personalInfo_btnProfile = (Button) findViewById(R.id.personalInfo_btnProfile);
-
+        personalInfo_btnBack = (Button) findViewById(R.id.personalInfo_btnBack);
         personalInfo_btnUpdate = (Button) findViewById(R.id.personalInfo_btnUpdate);
 
+        personalInfo_btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getUserById(user_id);
 
@@ -102,41 +102,6 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 edt_address = personalInfo_edtAddress.getText().toString();
 
                 updateDatabase(edt_firstName, edt_lastName, edt_email, edt_username, edt_password, edt_phone, edt_address);
-            }
-        });
-
-        personalInfo_btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to search page
-                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        personalInfo_btnOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to personalInfo page
-                Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        personalInfo_btnInbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Move to inbox page
-                Intent intent = new Intent(getBaseContext(), InboxActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        personalInfo_btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Move to Profile Page
-                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
-                startActivity(intent);
             }
         });
     }
@@ -197,4 +162,9 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
+    }
 }

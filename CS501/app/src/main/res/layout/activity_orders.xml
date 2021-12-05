@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".OrdersActivity">
 
-    <TextView
-        android:id="@+id/orders_txtTitle"
-        android:layout_width="334dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="36dp"
-        android:text="Orders Page"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/orders_btnProfile"
         android:layout_width="wrap_content"
@@ -59,5 +46,15 @@
         app:layout_constraintEnd_toStartOf="@+id/orders_btnProfile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/orders_btnInbox" />
+
+    <Button
+        android:id="@+id/orders_btnReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review"
+        app:layout_constraintBottom_toTopOf="@+id/orders_btnInbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

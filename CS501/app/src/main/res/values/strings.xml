@@ -15,6 +15,12 @@
     <string name="setting4">Manage Orders</string>
     <string name="setting5">Manage Messages</string>
 
+    <!-- Strings used for fragments for buttom 4 navigation buttons -->
+    <string name="SEARCH_PAGE">search_page</string>
+    <string name="MESSAGE_PAGE">message_page</string>
+    <string name="CART_PAGE">cart_page</string>
+    <string name="PROFILE_PAGE">profile_page</string>
+
     <!-- Strings used for spinner in add product activity -->
     <string-array name="category">
         <item>Men</item>
@@ -33,7 +39,32 @@
         <item>bags</item>
     </string-array>
 
+    <!--String for payment page-->
+    <string name="payment_button">Place Order</string>
+    <string name="payment_title">Place your Order</string>
+
     <!-- Strings the card view to display the product in search result and filter result page -->
     <string name="card_img_content">Product Image</string>
     <string name="card_button">Detail</string>
+    <string name="send_verification_email">send verification email</string>
+    <string name="signup">signup</string>
+    <string name="signup_page">Signup Page</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmed_password">Confirmed Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="sign_up">sign up</string>
+    <string name="log_in">log in</string>
+    <string name="please_enter_your_review_title_here">Please enter your review title here:</string>
+    <string name="review_title">Review title</string>
+    <string name="please_enter_your_review_content_here">Please enter your review content here:</string>
+    <string name="please_enter_your_review_here">Please enter your review here</string>
+    <string name="submit">Submit</string>
+    <string name="price">Price: $</string>
+    <string name="total">Total: $</string>
+    <string name="call">call</string>
+    <string name="message">message</string>
+
 </resources>

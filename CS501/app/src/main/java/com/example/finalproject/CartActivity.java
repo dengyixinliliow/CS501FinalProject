@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +34,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity {
+
+public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private String myflag="CartFlag";
     private ListView lvItem;     //Reference to the listview GUI component
     private ListAdapter lvAdapter;   //Reference to the Adapter used to populate the listview.
@@ -42,14 +44,13 @@ public class CartActivity extends AppCompatActivity {
     private Button btnCheckout;
     private String user_id;
     //from database
-    private
-    Cart_item_list itemlist=new Cart_item_list();
-    ArrayList<String> productids=new ArrayList<>();
-    ArrayList<String> names;
-    ArrayList<String> prices;
-    ArrayList<String> renters;
-    ArrayList<String> pids;
-    ArrayList<Integer> itemImages;
+    private Cart_item_list itemlist=new Cart_item_list();
+    private ArrayList<String> productids=new ArrayList<>();
+    private ArrayList<String> names;
+    private ArrayList<String> prices;
+    private ArrayList<String> renters;
+    private ArrayList<String> pids;
+    private ArrayList<Integer> itemImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class CartActivity extends AppCompatActivity {
                     for(String productid:productids){
                         Query product_q=product.whereEqualTo("product_id", productid);
                         product_q.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()) {
@@ -92,12 +94,11 @@ public class CartActivity extends AppCompatActivity {
                                         String pid=String.valueOf(pdataMap.get("product_id"));
                                         String n = String.valueOf(pdataMap.get("product_name"));
                                         String p = String.valueOf(pdataMap.get("product_price"));
-                                        String r = String.valueOf(pdataMap.get("renter_id"));
+                                        String is_avail=String.valueOf(pdataMap.get("is_available"));
                                         String url= String.valueOf(pdataMap.get("product_img_url"));
                                         Log.i(myflag, n);
-                                        Log.i(myflag, r);
-                                        Cart_item item = new Cart_item(n, p, r, pid,url);
-                                        if(r=="null" && s!=user_id){
+                                        if(is_avail=="true" && s!=user_id){
+                                            Cart_item item = new Cart_item(n, p, pid,url);
                                             itemlist.add_item(item);
                                         }
                                     }
@@ -109,7 +110,8 @@ public class CartActivity extends AppCompatActivity {
                                     for(String s:prices){
                                         sum+=Double.valueOf(s);
                                     }
-                                    tvsum.setText("Total: "+String.valueOf(sum));
+                                    String origin_tvsum = tvsum.getText().toString();
+                                    tvsum.setText(origin_tvsum + sum);
                                     lvAdapter=new CartListAdapter(CartActivity.this,itemlist,tvsum);
                                     lvItem.setAdapter(lvAdapter);
                                 }
@@ -126,6 +128,22 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                intent.putExtra("products_list",pids);
+                intent.putExtra("total_amount", sum);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    public void SwitchActivity(String page_name) {
+        NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
+        navigationFragment.setOrginActivity(page_name, getBaseContext());
     }
 
 }
@@ -193,7 +211,8 @@ class CartListAdapter extends BaseAdapter{
         TextView tvprice = (TextView) row.findViewById(R.id.cart_tvPrice);
 
         tvname.setText(names.get(i));
-        tvprice.setText(prices.get(i));
+        String origin_tvprice = tvprice.getText().toString();
+        tvprice.setText(origin_tvprice + prices.get(i));
         Glide.with(context).load(urls.get(i)).into(img);
 //        imgEpisode.setImageResource(episodeImages.get(position).intValue());
 
@@ -244,17 +263,15 @@ class Cart_item{
     String price;
     String renter;
     String imgurl;
-    public Cart_item(String n,String p,String r, String productid,String url){
+    public Cart_item(String n,String p,String productid,String url){
         this.name=n;
         this.price=p;
-        this.renter=r;
         this.pid=productid;
         this.imgurl=url;
     }
 
     public String get_name(){return name;}
     public String get_price(){return price;}
-    public String get_renter(){return renter;}
     public String get_productid(){return pid;}
     public String get_img(){return imgurl;}
 }
@@ -291,13 +308,6 @@ class Cart_item_list{
         return out;
     }
 
-    public ArrayList<String> get_renters(){
-        ArrayList<String> out=new ArrayList<>();
-        for(Cart_item i:items){
-            out.add(i.get_renter());
-        }
-        return out;
-    }
 
     public ArrayList<String> get_pid() {
         ArrayList<String> out = new ArrayList<>();
