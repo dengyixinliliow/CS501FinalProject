@@ -186,54 +186,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
     }
 
-    /**
-
-    private void fetchUserProfile() {
-        CollectionReference usersRef = db.collection("users");
-        CollectionReference productsRef = db.collection("products");
-
-        List<DocumentSnapshot> usersDocuments = usersRef.get().getResult().getDocuments();
-
-        for (DocumentSnapshot document : usersDocuments) {
-            Map<String, Object> user = document.getData();
-            if (user.get("address") != null) {
-                idAndAddress.put(user.get("user_id"), user.get("address").toString());
-            }
-        }
-
-
-        for (Object entry : idAndAddress.entrySet()) {
-            Query query = productsRef.whereEqualTo("seller_id", id);
-
-        }
-
-
-        usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-            }
-        });
-
-        Query query = usersRef.whereEqualTo("user_id", user_id);
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // store info of the current user
-                        current_user = document.getData();
-                        name.setText(current_user.get("username").toString());
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
-
-
-    }
-    */
 
 }
