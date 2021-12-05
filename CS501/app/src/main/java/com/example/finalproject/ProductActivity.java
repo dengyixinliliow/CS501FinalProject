@@ -76,6 +76,7 @@ public class ProductActivity extends AppCompatActivity {
     private String seller_id;
     private Map<String, Object> message;
     private String random_message_id;
+    private String clicker;
     private Boolean product_exist_in_cart = false;
 
     // Firebase data
@@ -115,6 +116,10 @@ public class ProductActivity extends AppCompatActivity {
         product_btnBack = (Button) findViewById(R.id.product_btnBack);
 
         product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
+
+        if (intent.getStringExtra("action_taker").equals("owner")) {
+            product_btnAddToBag.setVisibility(View.GONE);
+        };
 
         product_btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
