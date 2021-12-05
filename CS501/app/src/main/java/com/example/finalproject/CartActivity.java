@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+
 public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private String myflag="CartFlag";
     private ListView lvItem;     //Reference to the listview GUI component
@@ -140,6 +141,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
         navigationFragment.setOrginActivity(page_name, getBaseContext());
     }
+
 }
 
 
