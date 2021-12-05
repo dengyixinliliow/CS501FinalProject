@@ -31,6 +31,19 @@
             android:name=".OrdersActivity"
             android:exported="true" />
         <activity
+            android:name=".OrderDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ViewReviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ReviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrdersActivity"
+            android:exported="true" />
+        <activity
+
             android:name=".ContactActivity"
             android:exported="false" />
         <activity
