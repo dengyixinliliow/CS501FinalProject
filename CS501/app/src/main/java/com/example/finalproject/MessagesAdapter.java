@@ -1,28 +1,22 @@
 package com.example.finalproject;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
-public class ContactsAdapter extends ArrayAdapter<Contact> {
+public class MessagesAdapter extends ArrayAdapter<Message> {
 
     Context context;
 
-    public ContactsAdapter(Context context, List<Contact> constacts_list) {
+    public MessagesAdapter(Context context, List<Message> constacts_list) {
         super(context, 0, constacts_list);
         context = context;
     }
@@ -33,14 +27,16 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
 //        View row;
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_contact_row, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_message_row, parent, false);
         }
 
-        TextView contact_name = (TextView) listItemView.findViewById(R.id.contact_name);
+        TextView message_product_id = (TextView) listItemView.findViewById(R.id.message_txtProductId);
+        TextView message_type = (TextView) listItemView.findViewById(R.id.message_txtType);
 
-        Contact contact = getItem(position);
+        Message message = getItem(position);
 
-        contact_name.setText(contact.getReceiver_name());
+        message_product_id.setText(message.getProduct_id());
+        message_type.setText(message.getType());
 
         return listItemView;
     }

@@ -12,13 +12,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class ProductStatusActivity extends AppCompatActivity {
@@ -54,12 +61,18 @@ public class ProductStatusActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     FirebaseUser auth_user;
+    private String user_id;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_status);
+
+        // Get the User ID
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
 
         Intent intent = getIntent();
         pid = intent.getStringExtra("product_id");
@@ -79,6 +92,7 @@ public class ProductStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateProductStatus(pid);
+                addMessage(pid);
             }
         });
 
@@ -120,6 +134,29 @@ public class ProductStatusActivity extends AppCompatActivity {
     public void updateProductStatus(String product_id) {
         // [START get_multiple]
         db.collection("products")
+            .whereEqualTo("product_id", product_id)
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            document.getReference().update(IS_AVAILABLE, true);
+                            getProductById(pid);
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                }
+            });
+    }
+
+
+
+    private void addMessage (String product_id) {
+        // get renter_id
+        // [START get_multiple]
+        db.collection("products")
                 .whereEqualTo("product_id", product_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -127,13 +164,43 @@ public class ProductStatusActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                document.getReference().update(IS_AVAILABLE, true);
-                                getProductById(pid);
+                                Map<String, Object> cur_product = document.getData();
+
+                                // set renter_id
+                                Object product_obj = cur_product.get("renter_id");
+                                String cur_product_renter_id;
+                                if(product_obj == null) {
+                                    cur_product_renter_id = "null";
+                                } else {
+                                    cur_product_renter_id = product_obj.toString();
+                                }
+
+                                Map<String, Object> message = new HashMap<String, Object>();
+
+                                message.put("seller_id", user_id);
+                                message.put("product_id", pid);
+                                message.put("renter_id", cur_product_renter_id);
+                                message.put("type", "product returned");
+
+                                db.collection("messages").add(message)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("test", "Error adding document", e);
+                                    }
+                                });
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+
+
     }
 }
