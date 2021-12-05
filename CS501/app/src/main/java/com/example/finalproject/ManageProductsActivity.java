@@ -148,6 +148,17 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
             }
         });
 
+        mproduct_btnStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                product_id = product.getProductId();
+                Intent intent = new Intent(cont, ProductStatusActivity.class);
+                intent.putExtra("product_id", product_id);
+                intent.putExtra("product_name", product.getProductName());
+                cont.startActivity(intent);
+            }
+        });
+
         return listItemView;
     }
 }
