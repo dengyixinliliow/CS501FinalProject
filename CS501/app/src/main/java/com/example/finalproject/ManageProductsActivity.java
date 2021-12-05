@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ public class ManageProductsActivity extends AppCompatActivity {
 
     private String user_id;
     private ListView product_list_view;
+    private Button manage_product_add_btn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class ManageProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_products);
 
         product_list_view = (ListView) findViewById(R.id.manage_products_list_view);
+        manage_product_add_btn = (Button) findViewById(R.id.manage_products_add_btn);
 
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
@@ -50,6 +54,14 @@ public class ManageProductsActivity extends AppCompatActivity {
         productList = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
         fetchSellerProducts();
+
+        manage_product_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ManageProductsActivity.this, AddProductActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void fetchSellerProducts() {

@@ -75,6 +75,7 @@ public class ProductActivity extends AppCompatActivity {
     private String seller_id;
     private Map<String, Object> message;
     private String random_message_id;
+    private Boolean product_exist_in_cart = false;
 
     // Firebase data
     private FirebaseAuth mAuth;
@@ -120,7 +121,12 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addProductToCart();
+
+                checkProductExist();
+
+//                if(!product_exist_in_cart) {
+//                    addProductToCart();
+//                }
             }
         });
 
@@ -188,6 +194,45 @@ public class ProductActivity extends AppCompatActivity {
         // [END get_multiple]
     }
 
+    public void checkProductExist() {
+
+        product = new HashMap<String, Object>();
+        product.put(USER_ID, user_id);
+        product.put(PRODUCT_ID, product_id);
+
+        // [START get_multiple]
+        db.collection("carts")
+//                .whereEqualTo(PRODUCT_ID, product.get(PRODUCT_ID))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // store info of the current user
+                                Map<String, Object> current_data = document.getData();
+                                String current_user_id = current_data.get(USER_ID).toString();
+                                String current_product_id = current_data.get(PRODUCT_ID).toString();
+
+                                if(current_user_id.equals(user_id) && current_product_id.equals(product_id)) {
+                                    CharSequence text = "Product already in cart!";
+                                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    product_exist_in_cart = true;
+                                }
+                            }
+                            if(!product_exist_in_cart) {
+                                addProductToCart();
+                            }
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
+    }
+
     public void addProductToCart() {
 
         // add product in carts database
@@ -195,15 +240,18 @@ public class ProductActivity extends AppCompatActivity {
         product.put(USER_ID, user_id);
         product.put(PRODUCT_ID, product_id);
 
+
         db.collection("carts")
                 .add(product)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+
+                        CharSequence text = "Product added to cart!";
+                        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                        toast.show();
+
                         Log.e(TAG, "onSuccess: product is added into cart " + user_id);
-                        // Move to Cart page
-                        Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -33,7 +33,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener{
+
+public class CartActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private String myflag="CartFlag";
     private ListView lvItem;     //Reference to the listview GUI component
     private ListAdapter lvAdapter;   //Reference to the Adapter used to populate the listview.
@@ -121,6 +122,15 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                 else{
                     Log.e(myflag,"not success query");
                 }
+            }
+        });
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                intent.putExtra("products_lists",pids);
+                startActivity(intent);
             }
         });
 
