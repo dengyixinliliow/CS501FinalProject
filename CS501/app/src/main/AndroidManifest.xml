@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
+            android:name=".OrderDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".ViewReviewActivity"
             android:exported="true" />
         <activity
