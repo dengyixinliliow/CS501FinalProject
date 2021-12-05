@@ -121,24 +121,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> dataMap = document.getData();
                         /**
-                        if (dataMap.get("product_address") != null) {
-                            addressList.add((Address) dataMap.get("product_address"));
-                        }
+                         if (dataMap.get("product_address") != null) {
+                         addressList.add((Address) dataMap.get("product_address"));
+                         }
                          */
                         LatLng addressPt = getLocationFromAddress(getBaseContext(), String.valueOf(dataMap.get("product_address")));
                         // Log.d("TAG", String.valueOf(dataMap.get("product_address")));
                         // Log.d("TAG", addressList.toString());
                         if (addressPt != null) {
                             latlngs.add(new LatLng(addressPt.latitude, addressPt.longitude));
-                            Log.d("TAG", String.valueOf(addressPt.latitude));
-                            Log.d("TAG", String.valueOf(addressPt.longitude));
+                            //Log.d("TAG", String.valueOf(latlngs.get(0).latitude));
+                            //Log.d("TAG", String.valueOf(latlngs.get(0).longitude));
+                            // Log.d("TAG", String.valueOf(addressPt.latitude));
+                            // Log.d("TAG", String.valueOf(addressPt.longitude));
                         }
                         // Log.d("TAG", latlngs.toString());
                     }
+                    onMapReady(mMap);
                 }
             }
 
         });
+
     }
 
     /**
@@ -153,9 +157,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // LatLng test = new LatLng(42.349340999999995, -71.1039816);
+        // mMap.addMarker(new MarkerOptions().position(test));
+
         for (LatLng point : latlngs) {
+            LatLng markPoint = new LatLng(point.latitude, point.longitude);
+            Log.d("TAG", String.valueOf(point.latitude));
+            Log.d("TAG", String.valueOf(point.longitude));
             mMap.addMarker(new MarkerOptions()
-                .position(point)
+                .position(markPoint)
                 .title("Test")
                 .snippet("Test snippet")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
