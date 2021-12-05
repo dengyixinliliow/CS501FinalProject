@@ -39,6 +39,7 @@ public class ReviewActivity extends AppCompatActivity {
     private EditText review_title;
     private EditText review_body;
     private Button submit;
+    private Button review_btnBack;
     private ImageView img;
     private String title_string;
     private String body_string;
@@ -60,6 +61,15 @@ public class ReviewActivity extends AppCompatActivity {
         review_title=(EditText) findViewById(R.id.review_title);
         review_body=(EditText) findViewById(R.id.review_body);
         submit=(Button)findViewById(R.id.review_submit);
+        review_btnBack = (Button) findViewById(R.id.review_btnBack);
+
+        review_btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         review_title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
