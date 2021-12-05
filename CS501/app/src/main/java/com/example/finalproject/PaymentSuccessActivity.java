@@ -120,7 +120,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             Map<String, Object> message = new HashMap<>();
             message.put("seller_id", entry.getValue());
             message.put("product_id", entry.getKey());
-            message.put("action_taker", payment_success_owner_id);
+            message.put("renter_id", payment_success_owner_id);
             message.put("type", "order placed");
 
             db.collection("messages").add(message)
