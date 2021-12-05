@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FCEAED"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProductStatusActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/pstatus_pname"
+        android:layout_width="300dp"
+        android:layout_height="100dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Status:"/>
+        <TextView
+            android:id="@+id/pstatus_pstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/pstatus_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/black"
+        android:text="contact"/>
+
+    <Button
+        android:id="@+id/pstatus_receive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/black"
+        android:text="Received the item"/>
+
+
+
+
+
+</LinearLayout>

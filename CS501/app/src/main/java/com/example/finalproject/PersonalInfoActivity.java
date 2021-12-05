@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneStateListener;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -124,7 +125,9 @@ public class PersonalInfoActivity extends AppCompatActivity implements Navigatio
                                 personalInfo_edtUsername.setText(current_user.get(USERNAME).toString());
                                 personalInfo_edtEmail.setText(current_user.get(EMAIL).toString());
                                 personalInfo_edtPassword.setText(current_user.get(PASSWORD).toString());
-                                personalInfo_edtPhone.setText(current_user.get(PHONE).toString());
+                                if (current_user.get(PHONE) != null) {
+                                    personalInfo_edtPhone.setText(current_user.get(PHONE).toString());
+                                }
                                 if (current_user.get(ADDRESS) != null) {
                                     personalInfo_edtAddress.setText(current_user.get(ADDRESS).toString());
                                 }

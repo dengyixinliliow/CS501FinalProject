@@ -47,6 +47,7 @@ public class ProductActivity extends AppCompatActivity {
     private Button product_btnAddToBag;
     private Button product_btnReviews;
     private Button product_btnContactSeller;
+    private Button product_btnBack;
 
     public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
@@ -62,9 +63,7 @@ public class ProductActivity extends AppCompatActivity {
     public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
     public static final String SELLER_ID = "seller_id";
     public static final String SELLER_USERNAME = "seller_username";
-
     public static final String USERNAME = "username";
-
     public static final String FIRST_MESSAGE = "Hello!";
 
 //    public static final String MESSAGES_DOCUMENT_NAME = "";
@@ -75,6 +74,7 @@ public class ProductActivity extends AppCompatActivity {
     private String seller_id;
     private Map<String, Object> message;
     private String random_message_id;
+    private String clicker;
     private Boolean product_exist_in_cart = false;
 
     // Firebase data
@@ -111,10 +111,20 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
         product_btnContactSeller = (Button) findViewById(R.id.product_btnContactSeller);
+        product_btnBack = (Button) findViewById(R.id.product_btnBack);
 
         product_ivProduct=(ImageView)findViewById(R.id.product_ivProduct);
 
+        if (intent.getStringExtra("action_taker").equals("owner")) {
+            product_btnAddToBag.setVisibility(View.GONE);
+        };
 
+        product_btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getProductById(product_id);
 

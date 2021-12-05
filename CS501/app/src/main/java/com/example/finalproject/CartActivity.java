@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -47,7 +49,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
     private ArrayList<String> productids=new ArrayList<>();
     private ArrayList<String> names;
     private ArrayList<String> prices;
-    private ArrayList<String> renters;
+    private ArrayList<String> sellerids=new ArrayList<>();
     private ArrayList<String> pids;
     private ArrayList<Integer> itemImages;
 
@@ -63,6 +65,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         FirebaseUser auth_user = mAuth.getCurrentUser();
         user_id=auth_user.getUid();
         Log.i(myflag,user_id);
+
 
         //get every item in cart names, prices, renters for later use
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -83,6 +86,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                     for(String productid:productids){
                         Query product_q=product.whereEqualTo("product_id", productid);
                         product_q.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()) {
@@ -96,7 +100,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                         String url= String.valueOf(pdataMap.get("product_img_url"));
                                         Log.i(myflag, n);
                                         if(is_avail=="true" && s!=user_id){
-                                            Cart_item item = new Cart_item(n, p, pid,url);
+                                            Cart_item item = new Cart_item(n, p, pid,url,s);
                                             itemlist.add_item(item);
                                         }
                                     }
@@ -104,11 +108,13 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                     names=itemlist.get_names();
                                     prices=itemlist.get_price();
                                     pids=itemlist.get_pid();
+                                    sellerids=itemlist.get_sellers();
                                     sum=0.0;
                                     for(String s:prices){
                                         sum+=Double.valueOf(s);
                                     }
-                                    tvsum.setText("Total: "+String.valueOf(sum));
+                                    //final
+                                    tvsum.setText("Total: $" + sum);
                                     lvAdapter=new CartListAdapter(CartActivity.this,itemlist,tvsum);
                                     lvItem.setAdapter(lvAdapter);
                                 }
@@ -128,8 +134,14 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // get all cart items
+                // stor
+
                 Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
-                intent.putExtra("products_lists",pids);
+                intent.putExtra("products_list",pids);
+                intent.putExtra("total_amount", sum);
+                intent.putExtra("products_seller_list",sellerids);
                 startActivity(intent);
             }
         });
@@ -207,7 +219,8 @@ class CartListAdapter extends BaseAdapter{
         TextView tvprice = (TextView) row.findViewById(R.id.cart_tvPrice);
 
         tvname.setText(names.get(i));
-        tvprice.setText(prices.get(i));
+        String origin_tvprice = tvprice.getText().toString();
+        tvprice.setText(origin_tvprice + prices.get(i));
         Glide.with(context).load(urls.get(i)).into(img);
 //        imgEpisode.setImageResource(episodeImages.get(position).intValue());
 
@@ -256,19 +269,21 @@ class Cart_item{
     String name;
     String pid;
     String price;
-    String renter;
     String imgurl;
-    public Cart_item(String n,String p,String productid,String url){
+    String seller_id;
+    public Cart_item(String n,String p,String productid,String url, String seller_id){
         this.name=n;
         this.price=p;
         this.pid=productid;
         this.imgurl=url;
+        this.seller_id=seller_id;
     }
 
     public String get_name(){return name;}
     public String get_price(){return price;}
     public String get_productid(){return pid;}
     public String get_img(){return imgurl;}
+    public String get_seller(){return seller_id;}
 }
 
 class Cart_item_list{
@@ -315,6 +330,13 @@ class Cart_item_list{
         ArrayList<String> out = new ArrayList<>();
         for (Cart_item i : items) {
             out.add(i.get_img());
+        }
+        return out;
+    }
+    public ArrayList<String> get_sellers() {
+        ArrayList<String> out = new ArrayList<>();
+        for (Cart_item i : items) {
+            out.add(i.get_seller());
         }
         return out;
     }

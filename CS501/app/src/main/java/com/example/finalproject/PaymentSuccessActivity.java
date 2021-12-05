@@ -31,16 +31,18 @@ import java.util.Map;
 public class PaymentSuccessActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
     private final Double ZERO = 0.00;
+    private final long ZERO1 = 0;
 
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
 
-    private String payment_success_order_time;
+    private long payment_success_order_time;
     private Double payment_success_order_total;
     private String payment_success_order_id;
     private String payment_success_owner_id;
+    private ArrayList<String> getPayment_success_seller_id;
     private ArrayList<String> payment_success_items_list;
-    private Map map = new HashMap();
+    private Map map=new HashMap();
     private String product_owner = "123";
 
     @Override
@@ -50,10 +52,11 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
 
         //Get info passed from payment activity
         Intent intent = getIntent();
-        payment_success_order_time = intent.getStringExtra("order_time");
+        payment_success_order_time = intent.getLongExtra("order_time", ZERO1);
         payment_success_order_total = intent.getDoubleExtra("order_total", ZERO);
         payment_success_order_id = intent.getStringExtra("order_id");
         payment_success_items_list = intent.getStringArrayListExtra("products_list");
+        getPayment_success_seller_id = intent.getStringArrayListExtra("products_seller_list");
         //used for database
         FirebaseStorage storage;
         StorageReference storageReference;
@@ -63,32 +66,20 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         payment_success_owner_id = auth_user.getUid();
         // connect to database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        for (int i = 0; i < payment_success_items_list.size(); i++) {
-            getProductOwnerId(payment_success_items_list.get(i), db);
-        }
-    }
-
-    private void getProductOwnerId (String product_id, FirebaseFirestore db) {
-        CollectionReference productsRef = db.collection("products");
-        Query query = productsRef.whereEqualTo("product_id", product_id);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Map<String, Object> dataMap = document.getData();
-                        product_owner = String.valueOf(dataMap.get("seller_id"));
-                        map.put(product_id, product_owner);
-                    }
-                    addOrder(db, map);
-                    addMessage(db, map);
-                } else {
-                    Log.e("test", "Error getting documents: ", task.getException());
-                }
+        Log.i("test",String.valueOf(getPayment_success_seller_id.size()));
+        Log.i("test",String.valueOf(getPayment_success_seller_id.toString()));
+        Log.i("test",String.valueOf(payment_success_items_list.size()));
+        Log.i("test",String.valueOf(payment_success_items_list.toString()));
+        if (getPayment_success_seller_id.size() == payment_success_items_list.size()) {
+            for (int i = 0; i < payment_success_items_list.size(); i++) {
+                map.put(payment_success_items_list.get(i), getPayment_success_seller_id.get(i));
             }
-        });
+        }
+
+        addOrder(db,map);
+        addMessage(db,map);
     }
+
 
     private void addOrder (FirebaseFirestore db, Map map) {
         Map<String, Object> order = new HashMap<>();
@@ -120,7 +111,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             Map<String, Object> message = new HashMap<>();
             message.put("seller_id", entry.getValue());
             message.put("product_id", entry.getKey());
-            message.put("action_taker", payment_success_owner_id);
+            message.put("renter_id", payment_success_owner_id);
             message.put("type", "order placed");
 
             db.collection("messages").add(message)
