@@ -110,8 +110,8 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         }
 
 
-        addOrder(db,map);
-        addMessage(db,map);
+        addOrder(map);
+        addMessage(map);
 
         to_orderdetail.setOnClickListener(new View.OnClickListener() {
             @Override
