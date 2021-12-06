@@ -34,26 +34,22 @@
             <TextView
                 android:id="@+id/orderDetailRowName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/orderDetailRowSize"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/orderDetailRowPrice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/orderDetailRowSeller"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,13 +59,13 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/orderDetailContact"
+                android:id="@+id/orderDetailRowContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Contact" />
 
             <Button
-                android:id="@+id/orderDetailReview"
+                android:id="@+id/orderDetailRowReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Review" />

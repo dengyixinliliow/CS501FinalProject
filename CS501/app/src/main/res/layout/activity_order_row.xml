@@ -37,12 +37,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@id/orderRowImage"
-            android:textColor="@color/black"
+            android:textColor="@color/text_brown"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!--Text VIew to display COurse Rating-->
-        <!--Image used in present in drawable folder-->
         <TextView
             android:id="@+id/orderRowTime"
             android:layout_width="match_parent"
