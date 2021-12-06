@@ -71,6 +71,8 @@
             android:layout_toEndOf="@id/orderRowImage"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:text="Detail" />
+            android:background="@drawable/btn_bg"
+            android:text="Detail"
+            android:layout_margin="@dimen/margin_10"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

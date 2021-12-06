@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class OrdersActivity extends AppCompatActivity implements NavigationFragm
     private FirebaseUser auth_user;
     private String user_id;
     private Map<String,Map<String,Object>> datamaplist=new HashMap<>();
+    private ImageView return_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,14 @@ public class OrdersActivity extends AppCompatActivity implements NavigationFragm
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
+
+        return_icon=(ImageView)findViewById(R.id.order_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference orderdb=db.collection("orders");

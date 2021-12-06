@@ -46,12 +46,19 @@ public class ManageProductsActivity extends AppCompatActivity {
     private String user_id;
     private ListView product_list_view;
     private Button manage_product_add_btn;
+    private ImageView return_icon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_products);
-
+        return_icon=(ImageView)findViewById(R.id.manage_product_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         product_list_view = (ListView) findViewById(R.id.manage_products_list_view);
         manage_product_add_btn = (Button) findViewById(R.id.manage_products_add_btn);
         product_list_view.setDivider(null);

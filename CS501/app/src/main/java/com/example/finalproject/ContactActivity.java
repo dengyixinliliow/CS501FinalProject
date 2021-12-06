@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class ContactActivity extends AppCompatActivity {
     private Button contact_btnMessage;
     private Button contact_btnCall;
     private Button contact_btnEmail;
+    private ImageView return_icon;
 
     public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
@@ -81,6 +83,7 @@ public class ContactActivity extends AppCompatActivity {
         contact_btnMessage = (Button) findViewById(R.id.contact_btnMessage);
         contact_btnCall = (Button) findViewById(R.id.contact_btnCall);
         contact_btnEmail = (Button) findViewById(R.id.contact_btnEmail);
+        return_icon=(ImageView)findViewById(R.id.ContactReturn);
 
         Intent intent = getIntent();
         seller_id = intent.getStringExtra(SELLER_ID);
@@ -90,6 +93,7 @@ public class ContactActivity extends AppCompatActivity {
         contact_btnMessage.setOnClickListener(new ContactsButton());
         contact_btnCall.setOnClickListener(new ContactsButton());
         contact_btnEmail.setOnClickListener(new ContactsButton());
+        return_icon.setOnClickListener(new ContactsButton());
 
     }
 
@@ -108,6 +112,9 @@ public class ContactActivity extends AppCompatActivity {
                 case R.id.contact_btnEmail:
                     contact_option = "email";
                     getUserById(seller_id);
+                    break;
+                case R.id.ContactReturn:
+                    finish();
                     break;
             }
         }
