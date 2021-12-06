@@ -196,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //Log.d("TAG", "setting on click" + name);
                     String[] productInfo = (String[]) marker.getTag();
                     map_productName.setText(productInfo[0]);
-                    map_productPrice.setText(productInfo[1]);
+                    map_productPrice.setText("$" + productInfo[1]);
                     // Log.d("TAG", map_productName.getText().toString());
 
                     markerInfoContainer.addView(viewContainer);
