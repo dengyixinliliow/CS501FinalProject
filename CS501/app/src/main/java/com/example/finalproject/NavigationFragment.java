@@ -88,7 +88,7 @@ public class NavigationFragment extends Fragment {
             startActivity(intent);
         } else if(page_name.equals(getString(R.string.MESSAGE_PAGE))) {
             // Move to Message page
-            Intent intent = new Intent(context, InboxActivity.class);
+            Intent intent = new Intent(context, MessageActivity.class);
             startActivity(intent);
         } else if(page_name.equals(getString(R.string.CART_PAGE))) {
             // Move to Cart page

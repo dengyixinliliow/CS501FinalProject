@@ -32,11 +32,15 @@ import java.util.Map;
 
 public class PaymentSuccessActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
+    private static final String TAG = "EmailPassword";
+
     private final Double ZERO = 0.00;
     private final long ZERO1 = 0;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser auth_user;
+    FirebaseUser auth_user;
+    private String user_id;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private long payment_success_order_time;
     private Double payment_success_order_total;
@@ -47,7 +51,25 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
     private Map map=new HashMap();
     private String product_owner = "123";
 
+
     private Button to_orderdetail;
+    public static final String USER_ID = "user_id";
+    public static final String PRODUCT_ID = "product_id";
+    public static final String PRODUCT_NAME = "product_name";
+    public static final String PRODUCT_TYPE = "product_type";
+    public static final String PRODUCT_SIZE = "product_size";
+    public static final String PRODUCT_PRICE = "product_price";
+    public static final String PRODUCT_COLOR = "product_color";
+    public static final String PRODUCT_CATEGORY = "product_category";
+    public static final String PRODUCT_CONDITION = "product_condition";
+    public static final String PRODUCT_DESCRIPTION = "product_description";
+    public static final String PRODUCT_IMG_URL = "product_img_url";
+    public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
+    public static final String SELLER_ID = "seller_id";
+    public static final String SELLER_USERNAME = "seller_username";
+    public static final String USERNAME = "username";
+    public static final String FIRST_MESSAGE = "Hello!";
+    public static final String IS_AVAILABLE = "is_available";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,24 +83,32 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         payment_success_order_id = intent.getStringExtra("order_id");
         payment_success_items_list = intent.getStringArrayListExtra("products_list");
         getPayment_success_seller_id = intent.getStringArrayListExtra("products_seller_list");
-        //used for database
-        FirebaseStorage storage;
-        StorageReference storageReference;
+
         // Get the User ID
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
-        payment_success_owner_id = auth_user.getUid();
+        user_id = auth_user.getUid();
+        payment_success_owner_id = user_id;
+
         // connect to database
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         Log.i("test",String.valueOf(getPayment_success_seller_id.size()));
         Log.i("test",String.valueOf(getPayment_success_seller_id.toString()));
         Log.i("test",String.valueOf(payment_success_items_list.size()));
         Log.i("test",String.valueOf(payment_success_items_list.toString()));
         if (getPayment_success_seller_id.size() == payment_success_items_list.size()) {
             for (int i = 0; i < payment_success_items_list.size(); i++) {
-                map.put(payment_success_items_list.get(i), getPayment_success_seller_id.get(i));
+                String cur_product_id = payment_success_items_list.get(i);
+                String cur_seller_id = getPayment_success_seller_id.get(i);
+                map.put(cur_product_id, cur_seller_id);
+
+                // clear user's shopping bag after checkout
+                clearCart(user_id);
+
+                // update product status and add product renter id
+                updateProduct(cur_product_id);
             }
         }
+
 
         addOrder(db,map);
         addMessage(db,map);
@@ -96,8 +126,44 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         });
     }
 
+    private void clearCart(String user_id) {
+        db.collection("carts")
+                .whereEqualTo("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
-    private void addOrder (FirebaseFirestore db, Map map) {
+    private void updateProduct(String product_id) {
+        db.collection("products")
+                .whereEqualTo("product_id", product_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().update(IS_AVAILABLE, false);
+                                document.getReference().update("renter_id", user_id);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void addOrder (Map map) {
         Map<String, Object> order = new HashMap<>();
         order.put("order_id", payment_success_order_id);
         order.put("order_total", payment_success_order_total);
@@ -119,7 +185,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         });
     }
 
-    private void addMessage (FirebaseFirestore db, Map map) {
+    private void addMessage (Map map) {
         Iterator<Map.Entry<String, String>> itr = map.entrySet().iterator();
 
         while (itr.hasNext()) {
@@ -145,6 +211,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
 
         }
     }
+
 
     @Override
     public void SwitchActivity(String page_name) {

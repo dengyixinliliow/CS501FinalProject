@@ -131,12 +131,7 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 checkProductExist();
-
-//                if(!product_exist_in_cart) {
-//                    addProductToCart();
-//                }
             }
         });
 

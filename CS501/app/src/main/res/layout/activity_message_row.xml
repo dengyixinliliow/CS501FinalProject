@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCEAED">
+    android:layout_margin="30dp">
 
     <TextView
-        android:id="@+id/contact_name"
+        android:id="@+id/message_txtMessageInfo"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="20dp"
-        android:paddingTop="40dp"
-        android:paddingLeft="20dp"
-        android:text="TextView" />
+        android:gravity="center"
+        android:background="@drawable/edit_text_bg"
+        android:text="Message Content"
+        android:textSize="18dp" />
+
 </LinearLayout>
