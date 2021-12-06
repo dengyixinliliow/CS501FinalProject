@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,6 +66,7 @@ public class ProductStatusActivity extends AppCompatActivity {
     public static final String USERNAME = "username";
     public static final String FIRST_MESSAGE = "Hello!";
     public static final String IS_AVAILABLE = "is_available";
+    private ImageView return_icon;
 
     private FirebaseAuth mAuth;
     FirebaseUser auth_user;
@@ -75,6 +77,14 @@ public class ProductStatusActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_status);
+
+        return_icon=(ImageView)findViewById(R.id.pstatus_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Get the User ID
         mAuth = FirebaseAuth.getInstance();

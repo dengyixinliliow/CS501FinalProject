@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCEAED"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_pink"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ProductStatusActivity"
-    android:orientation="vertical">
+    tools:context=".ProductStatusActivity">
+
+    <ImageView
+        android:id="@+id/pstatus_return"
+        android:layout_width="@dimen/return_icon"
+        android:layout_height="@dimen/return_icon"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/return_icon" />
 
     <TextView
         android:id="@+id/pstatus_pname"
-        android:layout_width="300dp"
-        android:layout_height="100dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/pstatus_return"
+        android:text="Product Name"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="@color/text_brown"
+        app:layout_constraintBottom_toTopOf="@id/pstatus_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="20dp"/>
 
     <LinearLayout
+        android:id="@+id/pstatus_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/pstatus_pname">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Status:"/>
+            android:text="Current Status:"
+            android:layout_margin="20dp"
+            android:textColor="@color/text_brown"
+            android:textSize="15sp"/>
         <TextView
             android:id="@+id/pstatus_pstatus"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textColor="@color/text_brown"
+            android:textSize="15sp"
+            android:text="stauts"/>
     </LinearLayout>
 
     <Button
@@ -31,7 +57,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_bg"
         android:textColor="@color/black"
-        android:text="contact"/>
+        android:text="contact"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/pstatus_layout"/>
 
     <Button
         android:id="@+id/pstatus_receive"
@@ -39,10 +68,15 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_bg"
         android:textColor="@color/black"
-        android:text="Received the item"/>
+        android:text="Received the item"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/pstatus_contact"
+        />
 
 
 
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
