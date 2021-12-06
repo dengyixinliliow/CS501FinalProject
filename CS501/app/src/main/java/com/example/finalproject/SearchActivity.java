@@ -35,9 +35,9 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private static final String TAG = "EmailPassword";
 
-    private Button search_btnMen;
-    private Button search_btnWomen;
-    private Button search_btnKids;
+    private ImageButton search_btnMen;
+    private ImageButton search_btnWomen;
+    private ImageButton search_btnKids;
     private Button search_btnjackets_coats;
     private Button search_btn_onepieces_dresses;
     private Button search_btn_shirts;
@@ -70,10 +70,9 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
 
-        search_btnCart = (Button)findViewById(R.id.search_btnCart);
-        search_btnMen = (Button) findViewById(R.id.search_btnMen);
-        search_btnWomen = (Button) findViewById(R.id.search_btnWomen);
-        search_btnKids = (Button) findViewById(R.id.search_btnKids);
+        search_btnMen = (ImageButton) findViewById(R.id.search_btnMen);
+        search_btnWomen = (ImageButton) findViewById(R.id.search_btnWomen);
+        search_btnKids = (ImageButton) findViewById(R.id.search_btnKids);
 
         search_btnjackets_coats = (Button) findViewById(R.id.search_btn_jackets_coats);
         search_btn_onepieces_dresses = (Button) findViewById(R.id.search_btn_onepieces_dresses);
@@ -89,20 +88,12 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         search_search_box = (EditText) findViewById(R.id.search_search_box);
         search_search_btn = (ImageButton) findViewById(R.id.search_search_btn);
 
-        search_btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), CartActivity.class);
-                startActivity(intent);
-            }
-        });
-
         search_btnMen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search_btnMen.setBackgroundColor(0xFFFFC0CB);
-                search_btnWomen.setBackgroundColor(0xFF6200EE);
-                search_btnKids.setBackgroundColor(0xFF6200EE);
+                search_btnMen.setImageResource(R.drawable.men_selected);
+                search_btnWomen.setImageResource(R.drawable.women_icon);
+                search_btnKids.setImageResource(R.drawable.baby_icon);
                 category_to_filter = "men";
             }
         });
@@ -110,9 +101,9 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         search_btnWomen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search_btnWomen.setBackgroundColor(0xFFFFC0CB);
-                search_btnMen.setBackgroundColor(0xFF6200EE);
-                search_btnKids.setBackgroundColor(0xFF6200EE);
+                search_btnWomen.setImageResource(R.drawable.women_selected);
+                search_btnMen.setImageResource(R.drawable.men_icon);
+                search_btnKids.setImageResource(R.drawable.baby_icon);
                 category_to_filter = "women";
             }
         });
@@ -120,9 +111,9 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         search_btnKids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search_btnKids.setBackgroundColor(0xFFFFC0CB);
-                search_btnMen.setBackgroundColor(0xFF6200EE);
-                search_btnWomen.setBackgroundColor(0xFF6200EE);
+                search_btnKids.setImageResource(R.drawable.baby_selected);
+                search_btnWomen.setImageResource(R.drawable.women_icon);
+                search_btnMen.setImageResource(R.drawable.men_icon);
                 category_to_filter = "kids";
             }
         });

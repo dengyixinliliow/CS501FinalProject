@@ -48,7 +48,7 @@
     <string name="card_button">Detail</string>
     <string name="send_verification_email">send verification email</string>
     <string name="signup">signup</string>
-    <string name="signup_page">Signup Page</string>
+    <string name="signup_page">Signup</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>

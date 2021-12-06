@@ -2,12 +2,14 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -98,11 +100,22 @@ public class AddProductDetailActivity extends AppCompatActivity {
         getAddProduct_btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData();
-                addProduct(db);
-                addToAlgolia();
-                Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
-                startActivity(to_all);
+                if((TextUtils.isEmpty(addProduct_edtPName.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPColor.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPSize.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPCondition.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPPrice.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtAddress.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtDescription.getText().toString()))) {
+                    Toast.makeText(AddProductDetailActivity.this, "All fields are required!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    getData();
+                    addProduct(db);
+                    addToAlgolia();
+                    Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
+                    startActivity(to_all);
+                }
             }
         });
     }

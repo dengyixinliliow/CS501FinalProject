@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
-                android:layout_marginHorizontal="10dp">
+                android:layout_marginHorizontal="15dp">
 
                 <EditText
                     android:id="@+id/search_search_box"
@@ -67,106 +67,136 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CATEGORIES:"
+                android:textColor="@color/bg_pink"
+                android:layout_margin="20dp"/>
+
             <LinearLayout
                 android:id="@+id/search_department_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp">
 
-                <Button
+                <ImageButton
                     android:id="@+id/search_btnMen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/black"
                     android:layout_weight="1"
-                    android:text="Men"/>
+                    android:src="@drawable/men_icon" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/search_btnWomen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Women"/>
+                    android:src="@drawable/women_icon"
+                    android:background="@color/black"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/search_btnKids"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Kids"/>
+                    android:background="@color/black"
+                    android:src="@drawable/baby_icon"
+                    android:text="Kids" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CLOTHES TYPE:"
+                android:textColor="@color/bg_pink"
+                android:layout_margin="20dp"/>
 
             <LinearLayout
                 android:id="@+id/search_category_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/search_department_bar">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/search_btn_jackets_coats"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Jackets&amp;Coats"/>
+                    android:text="Jackets&amp;Coats"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_onepieces_dresses"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="One Pieces&amp;Dress"/>
+                    android:text="One Pieces&amp;Dress"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_shirts"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Shirts"/>
+                    android:text="Shirts"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_tops_tshirts"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tops&amp;T-Shirts"/>
+                    android:text="Tops&amp;T-Shirts"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_hoodies_sweatshirts"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Hoodies&amp;Sweatshirts"/>
+                    android:text="Hoodies&amp;Sweatshirts"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_jeans_pants"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Jeans&amp;Pants"/>
+                    android:text="Jeans&amp;Pants"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_shoes"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Shoes"/>
+                    android:text="Shoes"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
                 <Button
                     android:id="@+id/search_btn_bags"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Bags"/>
+                    android:text="Bags"
+                    android:textColor="@color/bg_pink"
+                    android:background="@color/black"/>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/search_btnCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cart"/>
-
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:src="@drawable/market_img_bt"/>
 
         </LinearLayout>
 
