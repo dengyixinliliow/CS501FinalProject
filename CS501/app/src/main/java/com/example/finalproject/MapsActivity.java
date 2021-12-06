@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -15,6 +16,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,7 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
 
     private Map<String, Object> current_user;
-    private Map<String, LatLng> nameAndAddress = new HashMap<String, LatLng>();
+    private Map<LatLng, String[]> nameAndAddress = new HashMap<LatLng, String[]>();
     private String user_id;
     public static final String ADDRESS = "address";
 
@@ -127,6 +130,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                          */
                         LatLng addressPt = getLocationFromAddress(getBaseContext(), String.valueOf(dataMap.get("product_address")));
                         String productName = String.valueOf(dataMap.get("product_name"));
+                        String productPrice = String.valueOf(dataMap.get("product_price"));
+                        String productID = String.valueOf(dataMap.get("product_id"));
                         // Log.d("TAG", String.valueOf(dataMap.get("product_address")));
                         // Log.d("TAG", addressList.toString());
                         if (addressPt != null) {
@@ -135,11 +140,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Log.d("TAG", String.valueOf(latlngs.get(0).longitude));
                             // Log.d("TAG", String.valueOf(addressPt.latitude));
                             // Log.d("TAG", String.valueOf(addressPt.longitude));
-                            nameAndAddress.put(productName, addressPt);
+                            String[] productInfo = {productName, productPrice, productID};
+                            nameAndAddress.put(addressPt, productInfo);
                         }
                         // Log.d("TAG", latlngs.toString());
                     }
                     onMapReady(mMap);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.0902, -95.7129)));
                 }
             }
 
@@ -161,14 +168,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         // LatLng test = new LatLng(42.349340999999995, -71.1039816);
         // mMap.addMarker(new MarkerOptions().position(test));
-        for (Map.Entry<String, LatLng> entry: nameAndAddress.entrySet()) {
-            String productName = entry.getKey();
-            LatLng address = entry.getValue();
+        for (Map.Entry<LatLng, String[]> entry: nameAndAddress.entrySet()) {
+            LatLng address = entry.getKey();
+            String[] info = entry.getValue(); // Product Name, Product Price, Product ID
+
             mMap.addMarker(new MarkerOptions()
                     .position(address)
-                    .title(productName)
-                    .snippet("Test snippet")
+                    //.title(productName)
+                    //.snippet("Test snippet")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(@NonNull Marker marker) {
+                    View mainView = getLayoutInflater().inflate(R.layout.marker_info_window, null);
+                    ViewFlipper markerInfoContainer = (ViewFlipper) mainView.findViewById(R.id.markerInfoContainer);
+                    View viewContainer = getLayoutInflater().inflate(R.layout.marker_info_layout, null);
+                    TextView map_productName = (TextView) viewContainer.findViewById(R.id.map_productName);
+                    TextView map_productPrice = (TextView) viewContainer.findViewById(R.id.map_productPrice);
+                    Button map_detailBtn = (Button) viewContainer.findViewById(R.id.map_detailBtn);
+                    map_productName.setText(info[0]);
+                    map_productPrice.setText(info[1]);
+
+                    markerInfoContainer.addView(viewContainer);
+
+                    PopupWindow popupWindow = new PopupWindow(mainView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popupWindow.showAtLocation(findViewById(R.id.map), Gravity.CENTER_HORIZONTAL, 0, 0);
+
+                    map_detailBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getBaseContext(), ProductActivity.class);
+                            intent.putExtra("product_id", info[2]);
+                            intent.putExtra("action_taker", "owner");
+                            startActivity(intent);
+                        }
+                    });
+
+                    return false;
+                }
+            });
 
         }
 
