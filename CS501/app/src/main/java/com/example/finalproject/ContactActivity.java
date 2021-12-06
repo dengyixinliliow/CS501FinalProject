@@ -141,16 +141,6 @@ public class ContactActivity extends AppCompatActivity {
                                 contactintro_message = contactintro_message + cur_username;
                                 contact_txtContactIntro.setText(contactintro_message);
 
-//                                // send email
-//                                // 必须明确使用mailto前缀来修饰邮件地址,如果使用   intent.putExtra(Intent.EXTRA_EMAIL, email)，结果将匹配不到任何应用
-//                                Uri uri = Uri.parse("mailto:" + cur_user_email);
-//                                String[] email = {cur_user_email};
-//                                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-////                                intent.putExtra(Intent.EXTRA_CC, email); // cc
-//                                intent.putExtra(Intent.EXTRA_SUBJECT, "topic"); // topic
-//                                intent.putExtra(Intent.EXTRA_TEXT, message); // content
-//                                startActivity(Intent.createChooser(intent, "choose email app"));
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

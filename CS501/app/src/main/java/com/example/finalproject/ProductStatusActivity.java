@@ -110,6 +110,38 @@ public class ProductStatusActivity extends AppCompatActivity {
 
         pstatus_pname.setText(pname);
 
+        pstatus_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // [START get_multiple]
+                db.collection("products")
+                        .whereEqualTo("product_id", pid)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // store info of the current user
+                                        Map<String, Object> cur_product = document.getData();
+
+                                        String cur_renter_id = cur_product.get("renter_id").toString();
+
+                                        // Move to Contact page
+                                        Intent intent = new Intent(getBaseContext(), ContactActivity.class);
+                                        intent.putExtra(SELLER_ID, cur_renter_id);
+                                        startActivity(intent);
+
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+                // [END get_multiple]
+            }
+        });
+
         pstatus_receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
