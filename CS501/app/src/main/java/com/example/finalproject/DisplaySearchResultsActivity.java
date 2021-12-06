@@ -25,6 +25,8 @@ import com.algolia.search.saas.Client;
 import com.algolia.search.saas.CompletionHandler;
 import com.algolia.search.saas.Index;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,13 +40,18 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
     Index index = client.initIndex("products");
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
     private String search_result_keyword;
+    private String user_id;
     private String search_result_product_name;
     private String search_result_product_size;
     private String search_result_product_price;
     private String search_result_product_id;
+    private String search_result_product_seller;
     private String search_result_product_img_url;
     private ListView search_result_listView;
+    private boolean search_result_availability;
 
 
     @Override
@@ -57,6 +64,10 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
 
         search_result_listView = (ListView) findViewById(R.id.search_result_listView);
 
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
+
         CompletionHandler completionHandler = new CompletionHandler() {
             @Override
             public void requestCompleted(JSONObject content, AlgoliaException error) {
@@ -65,22 +76,25 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                     JSONArray hits = content.getJSONArray("hits");
                     for (int i = 0; i < hits.length(); i++) {
                         JSONObject jsonObject = hits.getJSONObject(i);
+                        search_result_availability = jsonObject.getBoolean("product_availability");
                         search_result_product_name = jsonObject.getString("product_name");
                         search_result_product_size = jsonObject.getString("product_size");
                         search_result_product_price = jsonObject.getString("product_price");
-                        search_result_product_id = jsonObject.getString("product_id");
+                        search_result_product_id = jsonObject.getString("objectID");
                         search_result_product_img_url = jsonObject.getString("product_img_url");
+                        search_result_product_seller = jsonObject.getString("product_seller");
 
-                        Product product = new Product(
-                                search_result_product_name,
-                                search_result_product_size,
-                                search_result_product_price,
-                                search_result_product_id,
-                                search_result_product_img_url
-                        );
+                        if (search_result_availability && !user_id.equals(search_result_product_seller)) {
+                            Product product = new Product(
+                                    search_result_product_name,
+                                    search_result_product_size,
+                                    search_result_product_price,
+                                    search_result_product_id,
+                                    search_result_product_img_url
+                            );
 
-                        productList.add(product);
-
+                            productList.add(product);
+                        }
                     }
 
 //                    ProductRVAdapter productRVAdapter = new ProductRVAdapter(DisplaySearchResultsActivity.this, productList);
@@ -91,6 +105,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
 
                     ProductsLVAdapter productsLVAdapter = new ProductsLVAdapter(DisplaySearchResultsActivity.this, productList);
                     search_result_listView.setAdapter(productsLVAdapter);
+
 
                 } catch (JSONException e){
                     e.printStackTrace();

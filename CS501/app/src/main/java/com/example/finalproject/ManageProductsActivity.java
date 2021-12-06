@@ -20,6 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.algolia.search.saas.AbstractQuery;
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +35,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,6 +170,29 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
                 intent.putExtra("product_id", product_id);
                 intent.putExtra("product_name", product.getProductName());
                 cont.startActivity(intent);
+            }
+        });
+
+        mproduct_btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteFromAlgolia(product.getProductId());
+            }
+
+            private void deleteFromAlgolia(String product_id) {
+                Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
+                Index index = client.initIndex("products");
+
+                CompletionHandler completeHandler = new CompletionHandler() {
+                    @Override
+                    public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
+                        Log.e("test", "deleted successfully");
+                    }
+                };
+
+//                com.algolia.search.saas.Query query = new com.algolia.search.saas.Query().setFilters("product_id:4bfcb520-206e-4351-b7d9-8f2d845e7e8e")
+//                        .setAroundLatLng(new AbstractQuery.LatLng(40.71, -74.01));
+                index.deleteObjectAsync(product_id, completeHandler);
             }
         });
 

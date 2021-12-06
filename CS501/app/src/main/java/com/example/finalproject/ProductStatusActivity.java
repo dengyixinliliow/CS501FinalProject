@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,6 +25,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -93,6 +100,11 @@ public class ProductStatusActivity extends AppCompatActivity {
             public void onClick(View view) {
                 updateProductStatus(pid);
                 addMessage(pid);
+                try {
+                    updateProductStatusAlgolia(pid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -149,6 +161,24 @@ public class ProductStatusActivity extends AppCompatActivity {
                     }
                 }
             });
+    }
+
+    private void updateProductStatusAlgolia(String product_id) throws JSONException {
+        Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
+        Index index = client.initIndex("products");
+
+        CompletionHandler completeHandler = new CompletionHandler() {
+            @Override
+            public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
+                Log.e("test", "test");
+            }
+        };
+
+        index.partialUpdateObjectAsync(
+                new JSONObject("{\"product_availability\": true }"),
+                product_id,
+                completeHandler
+        );
     }
 
 

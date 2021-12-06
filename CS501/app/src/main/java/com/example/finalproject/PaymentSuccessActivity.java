@@ -10,20 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +52,6 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
     private ArrayList<String> getPayment_success_seller_id;
     private ArrayList<String> payment_success_items_list;
     private Map map=new HashMap();
-    private String product_owner = "123";
 
 
     private Button to_orderdetail;
@@ -90,6 +92,8 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         user_id = auth_user.getUid();
         payment_success_owner_id = user_id;
 
+        to_orderdetail = (Button) findViewById(R.id.payment_success_btn);
+
         // connect to database
         Log.i("test",String.valueOf(getPayment_success_seller_id.size()));
         Log.i("test",String.valueOf(getPayment_success_seller_id.toString()));
@@ -101,17 +105,24 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                 String cur_seller_id = getPayment_success_seller_id.get(i);
                 map.put(cur_product_id, cur_seller_id);
 
-                // clear user's shopping bag after checkout
-                clearCart(user_id);
-
                 // update product status and add product renter id
                 updateProduct(cur_product_id);
+
+                // update the algolia database product status
+                try {
+                    updateAlgoliaProduct(cur_product_id);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
 
         addOrder(map);
         addMessage(map);
+
+         //clear user's shopping bag after checkout
+        clearCart(user_id);
 
         to_orderdetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +172,24 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                         }
                     }
                 });
+    }
+
+    private void updateAlgoliaProduct(String product_id) throws JSONException {
+        Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
+        Index index = client.initIndex("products");
+
+        CompletionHandler completeHandler = new CompletionHandler() {
+            @Override
+            public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
+                Log.e("test", "test");
+            }
+        };
+
+        index.partialUpdateObjectAsync(
+                new JSONObject("{\"product_availability\": false }"),
+                product_id,
+                completeHandler
+        );
     }
 
     private void addOrder (Map map) {
