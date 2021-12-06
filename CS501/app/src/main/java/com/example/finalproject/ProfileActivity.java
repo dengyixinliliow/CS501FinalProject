@@ -49,10 +49,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
 
         final String[] options = {
                 getString(R.string.setting1),
-                getString(R.string.setting2),
                 getString(R.string.setting3),
-                getString(R.string.setting4),
-                getString(R.string.setting5)};
+                getString(R.string.setting4)};
 
         name = (TextView) findViewById(R.id.name);
         lvSettings = (ListView) findViewById(R.id.lvSettings);
@@ -72,6 +70,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
 
         lvSettings.setAdapter(optionsListAdapter);
 
+        lvSettings.setDivider(null);
+
         lvSettings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -81,16 +81,11 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
                 if (Option.equals(options[0])) {            // Manage your account
                     Intent intent = new Intent(getBaseContext(), PersonalInfoActivity.class);
                     startActivity(intent);
-                } else if (Option.equals(options[1])) {     // Manage Reviews
-
-                } else if (Option.equals(options[2])) {     // Manage Rentals
+                } else if (Option.equals(options[1])) {     // Manage Rentals
                     Intent intent = new Intent(getBaseContext(), ManageProductsActivity.class);
                     startActivity(intent);
-                } else if (Option.equals(options[3])) {     // Manage Orders
+                } else if (Option.equals(options[2])) {     // Manage Rentals
                     Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
-                    startActivity(intent);
-                } else if (Option.equals(options[4])) {     // Manage Messages
-                    Intent intent = new Intent(getBaseContext(), MessageActivity.class);
                     startActivity(intent);
                 }
             }
@@ -124,7 +119,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // store info of the current user
                         current_user = document.getData();
-                        name.setText(current_user.get("username").toString());
+                        name.setText("Welcome, " + current_user.get("username").toString() + "!");
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
