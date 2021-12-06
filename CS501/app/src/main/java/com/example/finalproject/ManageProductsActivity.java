@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ManageProductsActivity extends AppCompatActivity {
-
+    private static final String TAG = "EmailPassword";
     //variables for getting currentUser
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
@@ -121,9 +121,16 @@ public class ManageProductsActivity extends AppCompatActivity {
 }
 
 class ManageProductListViewAdapter extends ArrayAdapter<Product> {
+    private static final String TAG = "EmailPassword";
 
     private Context cont;
     private String product_id;
+
+    // Firebase data
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public ManageProductListViewAdapter(@NonNull Context context, List<Product> productsArrayList) {
         super(context, 0, productsArrayList);
@@ -137,6 +144,11 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_manage_productrow, parent, false);
         }
+
+        // Get the User ID
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
 
         ImageView mproduct_img = (ImageView) listItemView.findViewById(R.id.managep_img);
         TextView mproduct_name = (TextView) listItemView.findViewById(R.id.managep_pname);
@@ -177,6 +189,8 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View view) {
                 deleteFromAlgolia(product.getProductId());
+
+                deleteFromFirestore(product.getProductId());
             }
 
             private void deleteFromAlgolia(String product_id) {
@@ -197,5 +211,26 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
         });
 
         return listItemView;
+    }
+
+    public void deleteFromFirestore(String product_id) {
+        // [START get_multiple]
+        db.collection("products")
+                .whereEqualTo("product_id", product_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // delete the current product
+                                document.getReference().delete();
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
     }
 }
