@@ -52,6 +52,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private String search_result_product_img_url;
     private ListView search_result_listView;
     private boolean search_result_availability;
+    private ImageView return_icon;
 
 
     @Override
@@ -67,6 +68,14 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
+
+        return_icon=(ImageView)findViewById(R.id.search_result_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         CompletionHandler completionHandler = new CompletionHandler() {
             @Override

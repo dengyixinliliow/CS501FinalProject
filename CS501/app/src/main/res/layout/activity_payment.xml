@@ -7,12 +7,21 @@
     android:background="#FCEAED"
     tools:context=".PaymentActivity">
 
+    <ImageView
+        android:id="@+id/payment_return"
+        android:layout_width="@dimen/return_icon"
+        android:layout_height="@dimen/return_icon"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/return_icon" />
+
     <TextView
         android:id="@+id/payment_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/payment_title"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_return"
         app:layout_constraintBottom_toTopOf="@id/payment_amount"
         />
 

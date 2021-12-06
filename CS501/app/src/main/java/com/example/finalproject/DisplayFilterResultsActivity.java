@@ -3,7 +3,9 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
     private String user_id;
     private String seller_id;
     private boolean availability;
+    private ImageView return_icon;
 
     private TextView filter_result_title;
 
@@ -61,6 +64,14 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
         } else {
             title = type;
         }
+
+        return_icon=(ImageView)findViewById(R.id.filter_result_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         availability = true;
 

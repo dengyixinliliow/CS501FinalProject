@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,7 @@ public class PaymentActivity extends AppCompatActivity {
     private Button payment_btn;
     private ArrayList<String> products;
     private ArrayList<String> products_sellers;
+    private ImageView return_icon;
 
 
     // we need paymentIntentClientSecret to start transaction
@@ -95,6 +97,14 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setTitle("Transaction in progress");
         progressDialog.setCancelable(false);
         httpClient = new OkHttpClient();
+
+        return_icon=(ImageView)findViewById(R.id.payment_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         stripe = new Stripe(
                 getApplicationContext(),
