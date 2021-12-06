@@ -96,16 +96,16 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
                                 String new_message = "";
                                 if(cur_type.equals("order placed")) {
                                     if(user_id.equals(cur_seller_id)) {
-                                        new_message = "Your product " + product_name + "was been ordered!";
+                                        new_message = "Your product " + product_name + " has been ordered!";
                                     } else {
-                                        new_message = "Your order " + product_name + "was been placed!";
+                                        new_message = "Your order " + product_name + " has been placed!";
                                     }
 
                                 } else {
                                     if(user_id.equals(cur_seller_id)) {
-                                        new_message = "You received your " + product_name + " !";
+                                        new_message = "You received your " + product_name + "!";
                                     } else {
-                                        new_message = "Your order " + product_name + "was been received!";
+                                        new_message = "Your order " + product_name + " has been received!";
                                     }
                                 }
 
