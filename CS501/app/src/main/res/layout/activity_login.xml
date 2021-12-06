@@ -7,6 +7,31 @@
     android:background="#FCEAED"
     tools:context=".LoginActivity">
 
+    <ImageView
+        android:id="@+id/login_return"
+        android:layout_width="@dimen/return_icon"
+        android:layout_height="@dimen/return_icon"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/return_icon" />
+
+
+    <LinearLayout
+        android:id="@+id/login_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintTop_toBottomOf="@id/login_return"
+        app:layout_constraintBottom_toTopOf="@id/login_edtEmail"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/login_bg"/>
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/login_btnLogin"
         android:layout_width="108dp"
@@ -24,13 +49,13 @@
         android:id="@+id/login_edtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/login_txtEmail"
-        app:layout_constraintTop_toBottomOf="@+id/login_txtTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/login_title_layout" />
 
     <EditText
         android:id="@+id/login_edtPassword"
@@ -67,20 +92,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/login_txtTitle"
-        android:layout_width="334dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:text="Login Page"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/login_txtErrorMsg"

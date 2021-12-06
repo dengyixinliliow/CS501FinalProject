@@ -20,9 +20,10 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:src="@drawable/market_img"/>
+                android:src="@drawable/market_bgimg"/>
 
             <LinearLayout
+                android:layout_marginTop="20dp"
                 android:id="@+id/search_search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -193,10 +194,10 @@
 
             </LinearLayout>
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:src="@drawable/market_img_bt"/>
+                android:background="#F4B6B0"/>
 
         </LinearLayout>
 

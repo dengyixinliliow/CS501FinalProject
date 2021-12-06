@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_signup;
     private EditText edt_email;
     private EditText edt_password;
+    private ImageView return_icon;
 
     private String email;
     private String password;
@@ -46,6 +48,15 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 //        setSupportActionBar(myToolbar);
+
+        return_icon=(ImageView)findViewById(R.id.login_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, LandingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         mAuth = FirebaseAuth.getInstance();
