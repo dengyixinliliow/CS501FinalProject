@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_add_product.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_add_product_detail.xml" value="0.22" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_display_search_results.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_manage_products.xml" value="0.11775362318840579" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_orders.xml" value="0.8467741935483871" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_profile.xml" value="0.17119565217391305" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_review.xml" value="0.14666666666666667" />
