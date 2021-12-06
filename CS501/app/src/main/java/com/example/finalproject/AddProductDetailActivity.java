@@ -35,8 +35,6 @@ public class AddProductDetailActivity extends AppCompatActivity {
     private String user_id;
 
     // views
-    private Button addProduct_btnSelect;
-    private Button addProduct_btnUpload;
     private Button getAddProduct_btnSubmit;
     private EditText addProduct_edtPName;
     private Spinner addProduct_edtPType;
@@ -172,7 +170,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
         Index index = client.initIndex("products");
         try {
             index.addObjectAsync(new JSONObject()
-                    .put("product_id", random_product_id)
+                    .put("objectID", random_product_id)
                     .put("product_img_url", img_url)
                     .put("product_name", product_name)
                     .put("product_type", product_type)
@@ -180,7 +178,9 @@ public class AddProductDetailActivity extends AppCompatActivity {
                     .put("product_category", product_category)
                     .put("product_size", product_size)
                     .put("product_description", product_description)
-                    .put("product_price", product_price), null);
+                    .put("product_seller", user_id)
+                    .put("product_availability", true)
+                                                                                                                                       .put("product_price", product_price), null);
         } catch (JSONException e) {
             e.printStackTrace();
         }

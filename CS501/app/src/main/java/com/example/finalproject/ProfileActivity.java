@@ -9,13 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -93,7 +90,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationFrag
                     Intent intent = new Intent(getBaseContext(), OrdersActivity.class);
                     startActivity(intent);
                 } else if (Option.equals(options[4])) {     // Manage Messages
-                    Intent intent = new Intent(getBaseContext(), InboxActivity.class);
+                    Intent intent = new Intent(getBaseContext(), MessageActivity.class);
                     startActivity(intent);
                 }
             }

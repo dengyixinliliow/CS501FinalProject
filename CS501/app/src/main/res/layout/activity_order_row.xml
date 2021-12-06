@@ -37,12 +37,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@id/orderRowImage"
-            android:textColor="@color/black"
+            android:textColor="@color/text_brown"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!--Text VIew to display COurse Rating-->
-        <!--Image used in present in drawable folder-->
         <TextView
             android:id="@+id/orderRowTime"
             android:layout_width="match_parent"
@@ -73,6 +71,8 @@
             android:layout_toEndOf="@id/orderRowImage"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:text="Detail" />
+            android:background="@drawable/btn_bg"
+            android:text="Detail"
+            android:layout_margin="@dimen/margin_10"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
