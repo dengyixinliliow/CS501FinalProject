@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FCEAED"
-    tools:context=".InboxActivity">
+    tools:context=".MessageActivity">
 
     <TextView
-        android:id="@+id/inbox_txtTitle"
+        android:id="@+id/message_txtTitle"
         android:layout_width="334dp"
         android:layout_height="40dp"
         android:layout_marginTop="36dp"
-        android:text="Inbox Page"
+        android:text="Message Page"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,13 +21,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/inbox_lvContacts"
+        android:id="@+id/message_lvContacts"
         android:layout_width="409dp"
         android:layout_height="589dp"
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inbox_txtTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/message_txtTitle" />
     <fragment
         android:id="@+id/fragment_nagivation"
         android:name="com.example.finalproject.NavigationFragment"
