@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
 
     // views
     private Button getAddProduct_btnSubmit;
+    private ImageView return_icon;
     private EditText addProduct_edtPName;
     private Spinner addProduct_edtPType;
     private EditText addProduct_edtPColor;
@@ -67,6 +69,13 @@ public class AddProductDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_detail);
+        return_icon=(ImageView) findViewById(R.id.addProductDetailReturn);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         img_url = intent.getStringExtra("product_img");

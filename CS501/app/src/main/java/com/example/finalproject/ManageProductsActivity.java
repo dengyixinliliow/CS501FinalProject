@@ -63,7 +63,8 @@ public class ManageProductsActivity extends AppCompatActivity {
         return_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent=new Intent(getBaseContext(),ProfileActivity.class);
+                startActivity(intent);
             }
         });
         product_list_view = (ListView) findViewById(R.id.manage_products_list_view);

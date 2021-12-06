@@ -281,4 +281,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_weight="1"/>
 
+    <ImageView
+        android:id="@+id/addProductDetailReturn"
+        android:layout_width="@dimen/return_icon"
+        android:layout_height="@dimen/return_icon"
+        android:layout_margin="@dimen/margin_5"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/return_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

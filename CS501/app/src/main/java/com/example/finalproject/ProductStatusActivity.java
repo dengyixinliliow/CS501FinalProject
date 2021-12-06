@@ -16,6 +16,7 @@ import com.algolia.search.saas.AlgoliaException;
 import com.algolia.search.saas.Client;
 import com.algolia.search.saas.CompletionHandler;
 import com.algolia.search.saas.Index;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +41,8 @@ public class ProductStatusActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
 
+    private TextView pstatus_txtRenter;
+    private TextView pstatus_txtRenterName;
     private TextView pstatus_status;
     private TextView pstatus_pname;
     private Button pstatus_contact;
@@ -95,11 +98,13 @@ public class ProductStatusActivity extends AppCompatActivity {
         pid = intent.getStringExtra("product_id");
         pname = intent.getStringExtra("product_name");
 
-
+        pstatus_txtRenter = (TextView) findViewById(R.id.pstatus_txtRenter);
+        pstatus_txtRenterName = (TextView) findViewById(R.id.pstatus_txtRenterName);
         pstatus_status = (TextView) findViewById(R.id.pstatus_pstatus);
         pstatus_pname = (TextView) findViewById(R.id.pstatus_pname);
         pstatus_contact = (Button) findViewById(R.id.pstatus_contact);
         pstatus_receive = (Button) findViewById(R.id.pstatus_receive);
+
 
         getProductById(pid);
 
@@ -118,6 +123,59 @@ public class ProductStatusActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setRenterName(String product_id) {
+        // [START get_multiple]
+        db.collection("products")
+                .whereEqualTo(PRODUCT_ID, product_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // store info of the current user
+                                Map<String, Object> product = document.getData();
+
+                                String renter_id = product.get("renter_id").toString();
+
+                                // get and set the renter's username based on the renter_id
+                                getUserById(renter_id);
+
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
+    }
+
+    public void getUserById(String user_id) {
+        // [START get_multiple]
+        db.collection("users")
+                .whereEqualTo("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // store info of the current user
+                                Map<String, Object> current_user = document.getData();
+                                pstatus_txtRenterName.setText(current_user.get(USERNAME).toString());
+                                // Set User Info in EditText
+//                                personalInfo_edtUsername.setText(current_user.get(USERNAME).toString());
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
     }
 
     public void getProductById(String product_id) {
@@ -140,8 +198,14 @@ public class ProductStatusActivity extends AppCompatActivity {
 
                                     pstatus_contact.setVisibility(View.GONE);
                                     pstatus_receive.setVisibility(View.GONE);
+
+                                    pstatus_txtRenter.setVisibility(View.GONE);
+                                    pstatus_txtRenterName.setVisibility(View.GONE);
                                 } else {
+                                    pstatus_txtRenter.setVisibility(View.VISIBLE);
+                                    pstatus_txtRenterName.setVisibility(View.VISIBLE);
                                     pstatus_status.setText("Unavailable");
+                                    setRenterName(pid);
                                 }
 
                             }

@@ -103,6 +103,9 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                             Cart_item item = new Cart_item(n, p, pid,url,s);
                                             itemlist.add_item(item);
                                         }
+                                        else{
+                                            document.getReference().delete();
+                                        }
                                     }
                                     Log.i(myflag,String.valueOf(itemlist.get_list().size()));
                                     names=itemlist.get_names();
@@ -134,15 +137,15 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // get all cart items
                 // stor
-
-                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
-                intent.putExtra("products_list",pids);
-                intent.putExtra("total_amount", sum);
-                intent.putExtra("products_seller_list",sellerids);
-                startActivity(intent);
+                if(sum!=0){
+                    Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                    intent.putExtra("products_list",pids);
+                    intent.putExtra("total_amount", sum);
+                    intent.putExtra("products_seller_list",sellerids);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -30,10 +30,36 @@
         android:layout_marginLeft="20dp"/>
 
     <LinearLayout
-        android:id="@+id/pstatus_layout"
+        android:id="@+id/prenter_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/pstatus_pname">
+
+        <TextView
+            android:id="@+id/pstatus_txtRenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Renter Name: "
+            android:layout_margin="20dp"
+            android:textColor="@color/text_brown"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/pstatus_txtRenterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:textColor="@color/text_brown"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pstatus_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/prenter_layout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
