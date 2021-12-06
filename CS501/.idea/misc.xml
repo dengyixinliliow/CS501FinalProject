@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_add_product.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_contact.xml" value="0.22" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_contact_info.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_display_search_results.xml" value="0.17119565217391305" />
-        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_order_detail.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_manage_productrow.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_manage_products.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_order_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_order_detail_card.xml" value="0.22" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_order_row.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/mojim/Desktop/CS501/CS501FinalProject/CS501/app/src/main/res/layout/activity_orders.xml" value="0.14666666666666667" />

@@ -5,7 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/bg_pink"
     tools:context=".OrdersActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_pink">
+
+        <ImageView
+            android:id="@+id/order_return"
+            android:layout_width="@dimen/return_icon"
+            android:layout_height="@dimen/return_icon"
+            android:layout_margin="@dimen/margin_5"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/return_icon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/ordersListView"

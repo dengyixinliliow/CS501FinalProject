@@ -68,6 +68,7 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText addProduct_edtDescription;
     private EditText addProduct_edtAddress;
     private ImageView addProduct_imageView;
+    private ImageView return_icon;
 
     //Variable
     private String
@@ -95,6 +96,13 @@ public class AddProductActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        return_icon=(ImageView)findViewById(R.id.add_product_return) ;
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //generate random id for each product
         random_product_id = UUID.randomUUID().toString();

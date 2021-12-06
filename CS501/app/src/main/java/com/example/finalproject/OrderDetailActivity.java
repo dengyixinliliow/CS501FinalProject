@@ -38,6 +38,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private ArrayList<OrderDetail_item> odItemlist=new ArrayList<>();
     private ListView lvOrderDetail;
     private ListAdapter lvAdapter;
+    private ImageView return_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,14 @@ public class OrderDetailActivity extends AppCompatActivity {
         order_price=(TextView) findViewById(R.id.orderDetailTotal);
         order_number.setText(o_number);
         order_price.setText("$"+o_price);
+        //clickable return img
+        return_icon=(ImageView)findViewById(R.id.orderDetailReturn);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         lvOrderDetail=(ListView)findViewById(R.id.orderDetailLV);
         //connect database

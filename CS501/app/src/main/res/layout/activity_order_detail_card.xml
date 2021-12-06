@@ -27,48 +27,64 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/orderDetailRowName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/orderDetailRowSize"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/orderDetailRowPrice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/orderDetailRowSeller"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/orderDetailRowContact"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact" />
+                android:text="Contact"
+                android:textSize="@dimen/text_12"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_5"
+                android:background="@drawable/btn_bg"/>
 
             <Button
                 android:id="@+id/orderDetailRowReview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Review" />
+                android:text="Review"
+                android:textSize="@dimen/text_12"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin_5"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:background="@drawable/btn_bg"/>
         </LinearLayout>
     </LinearLayout>
 
