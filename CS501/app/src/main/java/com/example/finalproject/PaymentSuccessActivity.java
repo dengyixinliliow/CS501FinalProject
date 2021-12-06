@@ -3,6 +3,8 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +51,8 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
     private Map map=new HashMap();
     private String product_owner = "123";
 
+
+    private Button to_orderdetail;
     public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
     public static final String PRODUCT_NAME = "product_name";
@@ -66,7 +70,6 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
     public static final String USERNAME = "username";
     public static final String FIRST_MESSAGE = "Hello!";
     public static final String IS_AVAILABLE = "is_available";
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,8 +109,21 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             }
         }
 
-        addOrder(map);
-        addMessage(map);
+
+        addOrder(db,map);
+        addMessage(db,map);
+
+        to_orderdetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent to_od=new Intent(getBaseContext(),OrderDetailActivity.class);
+                to_od.putExtra("order_number",payment_success_order_id);
+                to_od.putExtra("order_total",payment_success_order_total);
+                to_od.putExtra("product_ids",payment_success_items_list);
+                to_od.putExtra("seller_ids",getPayment_success_seller_id);
+                startActivity(to_od);
+            }
+        });
     }
 
     private void clearCart(String user_id) {
