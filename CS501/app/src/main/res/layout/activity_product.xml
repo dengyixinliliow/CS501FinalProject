@@ -224,16 +224,28 @@
                 android:hint="product description"
                 android:textSize="20dp" />
 
-            <Button
-                android:id="@+id/product_btnReviews"
-                android:layout_width="120dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_bg"
-                android:text="see reviews"
-                android:textColor="@color/black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/product_btnReviews"
+                    android:layout_width="120dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/btn_bg"
+                    android:text="see reviews"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/product_tvReviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -2,7 +2,7 @@
 
 <network-security-config xmlns:tools="http://schemas.android.com/tools">
     <domain-config cleartextTrafficPermitted="true" >
-        <domain includeSubdomains="true">10.0.2.2</domain> <!--For emulator-->
-        <domain includeSubdomains="true">192.168.86.30</domain><!--For real device, get your ip from pc-->
+<!--        <domain includeSubdomains="true">10.0.2.2</domain> &lt;!&ndash;For emulator&ndash;&gt;-->
+        <domain includeSubdomains="true">155.41.45.161</domain><!--For real device, get your ip from pc-->
     </domain-config>
 </network-security-config>
