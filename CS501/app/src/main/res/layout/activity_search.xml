@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchActivity"
-    android:background="@drawable/market_bg"
+    android:background="@color/black"
     >
 
     <ScrollView
@@ -17,9 +17,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="230dp"/>
+                android:layout_height="230dp"
+                android:src="@drawable/market_img"/>
 
             <LinearLayout
                 android:id="@+id/search_search_bar"
@@ -48,13 +49,9 @@
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/search_txtUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"/>
 
             <LinearLayout
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
@@ -63,14 +60,18 @@
                     android:id="@+id/search_btnMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="search in map" />
+                    android:text="See Nearby Products on Map"
+                    android:textColor="@color/bg_pink"
+                    android:backgroundTint="@color/black"
+                    />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/search_department_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
 
                 <Button
                     android:id="@+id/search_btnMen"

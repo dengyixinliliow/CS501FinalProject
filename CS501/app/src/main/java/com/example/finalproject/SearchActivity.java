@@ -34,7 +34,6 @@ import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
     private static final String TAG = "EmailPassword";
-    private TextView search_txtUsername;
 
     private Button search_btnMen;
     private Button search_btnWomen;
@@ -89,10 +88,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
 
         search_search_box = (EditText) findViewById(R.id.search_search_box);
         search_search_btn = (ImageButton) findViewById(R.id.search_search_btn);
-
-        search_txtUsername = (TextView) findViewById(R.id.search_txtUsername);
-
-        getUserById(user_id);
 
         search_btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,28 +228,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
                 startActivity(intent);
             }
         });
-    }
-
-    public void getUserById(String user_id) {
-        // [START get_multiple]
-        db.collection("users")
-                .whereEqualTo("user_id", user_id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                current_user = document.getData();  // store info of the current user
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                search_txtUsername.setText("Welcome " + current_user.get(USERNAME).toString());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        // [END get_multiple]
     }
 
     @Override
