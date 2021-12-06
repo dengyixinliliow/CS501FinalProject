@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchActivity"
-    android:background="@color/black"
+    android:background="@color/bg_pink"
     >
 
     <ScrollView
@@ -45,7 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:background="@color/black"
+                    android:background="@color/bg_pink"
                     android:src="@drawable/search_btn"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
@@ -62,8 +62,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See Nearby Products on Map"
-                    android:textColor="@color/bg_pink"
-                    android:backgroundTint="@color/black"
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"
                     />
 
             </LinearLayout>
@@ -72,7 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CATEGORIES:"
-                android:textColor="@color/bg_pink"
+                android:textColor="@color/text_brown"
+                android:textStyle="bold"
                 android:layout_margin="20dp"/>
 
             <LinearLayout
@@ -85,9 +86,9 @@
                     android:id="@+id/search_btnMen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/black"
                     android:layout_weight="1"
-                    android:src="@drawable/men_icon" />
+                    android:src="@drawable/men_icon"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/search_btnWomen"
@@ -95,14 +96,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/women_icon"
-                    android:background="@color/black"/>
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/search_btnKids"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/black"
+                    android:background="?android:attr/selectableItemBackground"
                     android:src="@drawable/baby_icon"
                     android:text="Kids" />
             </LinearLayout>
@@ -111,7 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CLOTHES TYPE:"
-                android:textColor="@color/bg_pink"
+                android:textColor="@color/text_brown"
+                android:textStyle="bold"
                 android:layout_margin="20dp"/>
 
             <LinearLayout
@@ -126,8 +128,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Jackets&amp;Coats"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_onepieces_dresses"
@@ -135,8 +137,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="One Pieces&amp;Dress"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_shirts"
@@ -144,8 +146,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Shirts"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_tops_tshirts"
@@ -153,8 +155,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Tops&amp;T-Shirts"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_hoodies_sweatshirts"
@@ -162,8 +164,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Hoodies&amp;Sweatshirts"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_jeans_pants"
@@ -171,8 +173,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Jeans&amp;Pants"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_shoes"
@@ -180,8 +182,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Shoes"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <Button
                     android:id="@+id/search_btn_bags"
@@ -189,8 +191,17 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Bags"
-                    android:textColor="@color/bg_pink"
-                    android:background="@color/black"/>
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
+
+                <Button
+                    android:id="@+id/search_btn_accessories"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Accessories"
+                    android:textColor="@color/text_brown"
+                    android:background="?android:attr/selectableItemBackground"/>
 
             </LinearLayout>
 

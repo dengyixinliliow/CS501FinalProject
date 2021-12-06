@@ -37,6 +37,7 @@
         <item>jeans &amp; pants</item>
         <item>shoes</item>
         <item>bags</item>
+        <item>accessories</item> 
     </string-array>
 
     <!--String for payment page-->
