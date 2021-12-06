@@ -103,6 +103,9 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                             Cart_item item = new Cart_item(n, p, pid,url,s);
                                             itemlist.add_item(item);
                                         }
+                                        else{
+                                            document.getReference().delete();
+                                        }
                                     }
                                     Log.i(myflag,String.valueOf(itemlist.get_list().size()));
                                     names=itemlist.get_names();
