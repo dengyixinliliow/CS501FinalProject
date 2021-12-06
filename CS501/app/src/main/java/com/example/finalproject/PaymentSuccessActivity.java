@@ -97,6 +97,9 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                 String cur_seller_id = getPayment_success_seller_id.get(i);
                 map.put(cur_product_id, cur_seller_id);
 
+                // clear user's shopping bag after checkout
+                clearCart(user_id);
+
                 // update product status and add product renter id
                 updateProduct(cur_product_id);
             }
@@ -104,6 +107,24 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
 
         addOrder(map);
         addMessage(map);
+    }
+
+    private void clearCart(String user_id) {
+        db.collection("carts")
+                .whereEqualTo("user_id", user_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     private void updateProduct(String product_id) {
