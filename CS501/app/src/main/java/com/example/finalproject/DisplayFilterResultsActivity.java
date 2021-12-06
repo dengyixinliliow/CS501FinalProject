@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -23,9 +25,14 @@ import java.util.Map;
 
 public class DisplayFilterResultsActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
     private String category;
     private String type;
     private String title;
+    private String user_id;
+    private String seller_id;
+    private boolean availability;
 
     private TextView filter_result_title;
 
@@ -42,6 +49,10 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
 
         filter_result_lv = (ListView) findViewById(R.id.filter_result_lv);
 
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
+
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
         type = intent.getStringExtra("type");
@@ -50,6 +61,8 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
         } else {
             title = type;
         }
+
+        availability = true;
 
         filter_result_title = (TextView) findViewById(R.id.filter_result_title);
         filter_result_title.setText(title);
@@ -78,14 +91,18 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> dataMap = document.getData();
                         Log.d("MissionActivity", document.getId() + " => " + dataMap);
-                        Product product = new Product(
-                                String.valueOf(dataMap.get("product_name")),
-                                String.valueOf(dataMap.get("product_size")),
-                                String.valueOf(dataMap.get("product_price")),
-                                String.valueOf(dataMap.get("product_id")),
-                                String.valueOf(dataMap.get("product_img_url"))
-                        );
-                        productList.add(product);
+                        availability = Boolean.valueOf(dataMap.get("is_available").toString());
+                        seller_id = String.valueOf(dataMap.get("seller_id"));
+                        if (availability && !seller_id.equals(user_id)) {
+                            Product product = new Product(
+                                    String.valueOf(dataMap.get("product_name")),
+                                    String.valueOf(dataMap.get("product_size")),
+                                    String.valueOf(dataMap.get("product_price")),
+                                    String.valueOf(dataMap.get("product_id")),
+                                    String.valueOf(dataMap.get("product_img_url"))
+                            );
+                            productList.add(product);
+                        }
                     }
 
                     ProductsLVAdapter productsLVAdapter = new ProductsLVAdapter(DisplayFilterResultsActivity.this, productList);
