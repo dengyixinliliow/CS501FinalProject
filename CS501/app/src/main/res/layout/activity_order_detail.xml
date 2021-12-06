@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_pink"
+    tools:context=".OrderDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bg_pink"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/orderDetailReturn"
+                android:layout_width="@dimen/return_icon"
+                android:layout_height="@dimen/return_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:clickable="true"
+                app:srcCompat="@drawable/return_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/orderDetailfix3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Number: "
+            android:textSize="@dimen/subtitle_font"
+            android:textColor="@color/text_brown"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/orderDetailNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/value_under_subtitle"
+            android:textColor="@color/text_brown"/>
+
+        <TextView
+            android:id="@+id/orderDetailfix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Items: "
+            android:textSize="@dimen/subtitle_font"
+            android:textColor="@color/text_brown"
+            android:textStyle="bold"/>
+
+        <ListView
+            android:id="@+id/orderDetailLV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:divider="@color/bg_pink"
+            android:layout_weight="1">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/orderDetailfix2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Price: "
+            android:textSize="@dimen/subtitle_font"
+            android:textColor="@color/text_brown"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/orderDetailTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/subtitle_font"
+            android:textColor="@color/text_brown"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

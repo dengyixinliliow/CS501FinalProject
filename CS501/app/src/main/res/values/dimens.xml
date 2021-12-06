@@ -2,4 +2,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="subtitle_font">20dp</dimen>
+    <dimen name="value_under_subtitle">17dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="text_12">12dp</dimen>
+    <dimen name="return_icon">30dp</dimen>
 </resources>

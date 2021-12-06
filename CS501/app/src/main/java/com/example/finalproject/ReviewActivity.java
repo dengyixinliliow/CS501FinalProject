@@ -123,8 +123,7 @@ public class ReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 submit_review(user_id,product_id,title_string,body_string);
-                Intent intent=new Intent(getBaseContext(),OrdersActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

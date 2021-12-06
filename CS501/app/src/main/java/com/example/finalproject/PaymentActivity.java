@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class PaymentActivity extends AppCompatActivity {
     private CardInputWidget payment_cardInputWidget;
     private Button payment_btn;
     private ArrayList<String> products;
+    private ArrayList<String> products_sellers;
+    private ImageView return_icon;
 
 
     // we need paymentIntentClientSecret to start transaction
@@ -80,19 +83,28 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
 
         Intent intent = getIntent();
-        amount = intent.getDoubleExtra("total_amount", 0.00);
+        amount = intent.getDoubleExtra("total_amount", 1000);
         products = intent.getStringArrayListExtra("products_list");
+        products_sellers = intent.getStringArrayListExtra("products_seller_list");
 
         payment_amount = (TextView) findViewById(R.id.payment_amount);
         payment_cardInputWidget = (CardInputWidget) findViewById(R.id.payment_cardInputWidget);
         payment_btn = (Button) findViewById(R.id.payment_btn);
 
-        payment_amount.setText(Double.toString(amount));
+        payment_amount.setText("Here is your total amount: " + Double.toString(amount));
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Transaction in progress");
         progressDialog.setCancelable(false);
         httpClient = new OkHttpClient();
+
+        return_icon=(ImageView)findViewById(R.id.payment_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         stripe = new Stripe(
                 getApplicationContext(),
@@ -107,6 +119,8 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void startCheckout() {
         {
@@ -227,19 +241,21 @@ public class PaymentActivity extends AppCompatActivity {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 // generate order time
                 SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+
                 Date date = new Date(System.currentTimeMillis());
                 orderTime = formatter.format(date);
                 // generate unique order id
                 orderId = UUID.randomUUID().toString();
 
-                Toast toast =Toast.makeText(activity, "Ordered Successful" + orderId, Toast.LENGTH_SHORT);
+                Toast toast =Toast.makeText(activity, "Ordered Successful" + orderId + amount, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
                 Intent intent = new Intent(PaymentActivity.this, PaymentSuccessActivity.class);
-                intent.putExtra("order_time", orderTime);
+                intent.putExtra("order_time", System.currentTimeMillis());
                 intent.putExtra("order_total", amount);
                 intent.putExtra("order_id", orderId);
                 intent.putExtra("products_list", products);
+                intent.putExtra("products_seller_list", products_sellers);
                 startActivity(intent);
 
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {

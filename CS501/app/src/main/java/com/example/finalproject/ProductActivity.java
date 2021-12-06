@@ -63,9 +63,7 @@ public class ProductActivity extends AppCompatActivity {
     public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
     public static final String SELLER_ID = "seller_id";
     public static final String SELLER_USERNAME = "seller_username";
-
     public static final String USERNAME = "username";
-
     public static final String FIRST_MESSAGE = "Hello!";
 
 //    public static final String MESSAGES_DOCUMENT_NAME = "";
@@ -133,12 +131,7 @@ public class ProductActivity extends AppCompatActivity {
         product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 checkProductExist();
-
-//                if(!product_exist_in_cart) {
-//                    addProductToCart();
-//                }
             }
         });
 

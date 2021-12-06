@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText signup_edtRepassword;
     private EditText signup_edtAddress;
     private EditText signup_edtPhone;
+    private ImageView return_icon;
 
     private String edt_email;
     private String edt_username;
@@ -82,6 +84,14 @@ public class SignupActivity extends AppCompatActivity {
         signup_edtPhone = (EditText) findViewById(R.id.signup_edtPhone);
         signup_edtAddress = (EditText) findViewById(R.id.signup_edtAddress);
         signup_txtErrorMsg = (TextView) findViewById(R.id.signup_txtErrorMsg);
+
+        return_icon=(ImageView)findViewById(R.id.signup_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         signup_btnVerify.setOnClickListener(new View.OnClickListener() {

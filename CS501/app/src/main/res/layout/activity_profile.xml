@@ -7,22 +7,33 @@
     android:background="#FCEAED"
     tools:context=".ProfileActivity">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="147dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/username"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/profile_img"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/profile_bg"
+        app:layout_constraintBottom_toTopOf="@id/name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/username"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/text_brown"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_img" />
+
     <ListView
         android:id="@+id/lvSettings"
-        android:layout_width="400dp"
-        android:layout_height="435dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +43,7 @@
         android:id="@+id/profile_btnSignout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:text="signout"
         android:background="@drawable/btn_bg"
         app:layout_constraintEnd_toEndOf="parent"

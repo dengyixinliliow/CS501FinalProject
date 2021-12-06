@@ -20,6 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.algolia.search.saas.AbstractQuery;
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,12 +36,14 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ManageProductsActivity extends AppCompatActivity {
-
+    private static final String TAG = "EmailPassword";
     //variables for getting currentUser
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
@@ -46,12 +53,20 @@ public class ManageProductsActivity extends AppCompatActivity {
     private String user_id;
     private ListView product_list_view;
     private Button manage_product_add_btn;
+    private ImageView return_icon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_products);
-
+        return_icon=(ImageView)findViewById(R.id.manage_product_return);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getBaseContext(),ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         product_list_view = (ListView) findViewById(R.id.manage_products_list_view);
         manage_product_add_btn = (Button) findViewById(R.id.manage_products_add_btn);
         product_list_view.setDivider(null);
@@ -107,9 +122,16 @@ public class ManageProductsActivity extends AppCompatActivity {
 }
 
 class ManageProductListViewAdapter extends ArrayAdapter<Product> {
+    private static final String TAG = "EmailPassword";
 
     private Context cont;
     private String product_id;
+
+    // Firebase data
+    private FirebaseAuth mAuth;
+    private FirebaseUser auth_user;
+    private String user_id;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public ManageProductListViewAdapter(@NonNull Context context, List<Product> productsArrayList) {
         super(context, 0, productsArrayList);
@@ -123,6 +145,11 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_manage_productrow, parent, false);
         }
+
+        // Get the User ID
+        mAuth = FirebaseAuth.getInstance();
+        auth_user = mAuth.getCurrentUser();
+        user_id = auth_user.getUid();
 
         ImageView mproduct_img = (ImageView) listItemView.findViewById(R.id.managep_img);
         TextView mproduct_name = (TextView) listItemView.findViewById(R.id.managep_pname);
@@ -159,6 +186,52 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
             }
         });
 
+        mproduct_btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteFromAlgolia(product.getProductId());
+
+                deleteFromFirestore(product.getProductId());
+            }
+
+            private void deleteFromAlgolia(String product_id) {
+                Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
+                Index index = client.initIndex("products");
+
+                CompletionHandler completeHandler = new CompletionHandler() {
+                    @Override
+                    public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
+                        Log.e("test", "deleted successfully");
+                    }
+                };
+
+//                com.algolia.search.saas.Query query = new com.algolia.search.saas.Query().setFilters("product_id:4bfcb520-206e-4351-b7d9-8f2d845e7e8e")
+//                        .setAroundLatLng(new AbstractQuery.LatLng(40.71, -74.01));
+                index.deleteObjectAsync(product_id, completeHandler);
+            }
+        });
+
         return listItemView;
+    }
+
+    public void deleteFromFirestore(String product_id) {
+        // [START get_multiple]
+        db.collection("products")
+                .whereEqualTo("product_id", product_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // delete the current product
+                                document.getReference().delete();
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        // [END get_multiple]
     }
 }

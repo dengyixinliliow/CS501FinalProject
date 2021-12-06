@@ -2,12 +2,15 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,9 +38,8 @@ public class AddProductDetailActivity extends AppCompatActivity {
     private String user_id;
 
     // views
-    private Button addProduct_btnSelect;
-    private Button addProduct_btnUpload;
     private Button getAddProduct_btnSubmit;
+    private ImageView return_icon;
     private EditText addProduct_edtPName;
     private Spinner addProduct_edtPType;
     private EditText addProduct_edtPColor;
@@ -67,6 +69,13 @@ public class AddProductDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_detail);
+        return_icon=(ImageView) findViewById(R.id.addProductDetailReturn);
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         img_url = intent.getStringExtra("product_img");
@@ -100,11 +109,22 @@ public class AddProductDetailActivity extends AppCompatActivity {
         getAddProduct_btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData();
-                addProduct(db);
-                addToAlgolia();
-                Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
-                startActivity(to_all);
+                if((TextUtils.isEmpty(addProduct_edtPName.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPColor.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPSize.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPCondition.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtPPrice.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtAddress.getText().toString()))
+                ||(TextUtils.isEmpty(addProduct_edtDescription.getText().toString()))) {
+                    Toast.makeText(AddProductDetailActivity.this, "All fields are required!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    getData();
+                    addProduct(db);
+                    addToAlgolia();
+                    Intent to_all=new Intent(getBaseContext(),ManageProductsActivity.class);
+                    startActivity(to_all);
+                }
             }
         });
     }
@@ -172,7 +192,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
         Index index = client.initIndex("products");
         try {
             index.addObjectAsync(new JSONObject()
-                    .put("product_id", random_product_id)
+                    .put("objectID", random_product_id)
                     .put("product_img_url", img_url)
                     .put("product_name", product_name)
                     .put("product_type", product_type)
@@ -180,7 +200,9 @@ public class AddProductDetailActivity extends AppCompatActivity {
                     .put("product_category", product_category)
                     .put("product_size", product_size)
                     .put("product_description", product_description)
-                    .put("product_price", product_price), null);
+                    .put("product_seller", user_id)
+                    .put("product_availability", true)
+                                                                                                                                       .put("product_price", product_price), null);
         } catch (JSONException e) {
             e.printStackTrace();
         }
