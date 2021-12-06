@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
     private Button search_btn_jeans_pants;
     private Button search_btn_shoes;
     private Button search_btn_bags;
-    private Button search_btnCart;
+    private Button search_btn_accessories;
     private Button search_btnMap;
 
     private EditText search_search_box;
@@ -82,6 +82,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         search_btn_jeans_pants = (Button) findViewById(R.id.search_btn_jeans_pants);
         search_btn_shoes = (Button) findViewById(R.id.search_btn_shoes);
         search_btn_bags = (Button) findViewById(R.id.search_btn_bags);
+        search_btn_accessories = (Button) findViewById(R.id.search_btn_accessories);
 
         search_btnMap = (Button) findViewById(R.id.search_btnMap);
 
@@ -194,6 +195,16 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
                 Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
                 intent.putExtra("category", category_to_filter);
                 intent.putExtra("type", "bags");
+                startActivity(intent);
+            }
+        });
+
+        search_btn_accessories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchActivity.this, DisplayFilterResultsActivity.class);
+                intent.putExtra("category", category_to_filter);
+                intent.putExtra("type", "accessories");
                 startActivity(intent);
             }
         });

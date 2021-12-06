@@ -23,13 +23,30 @@
         android:text="@string/payment_title"
         app:layout_constraintTop_toBottomOf="@id/payment_return"
         app:layout_constraintBottom_toTopOf="@id/payment_amount"
+        android:textSize="25sp"
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_brown"
         />
 
     <TextView
         android:id="@+id/payment_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/payment_title"/>
+        app:layout_constraintTop_toBottomOf="@id/payment_title"
+        android:textSize="25sp"
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_brown"/>
+
+    <TextView
+        android:id="@+id/payment_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please enter your card information:"
+        app:layout_constraintTop_toBottomOf="@id/payment_amount"
+        app:layout_constraintBottom_toTopOf="@id/payment_cardInputWidget"
+        android:layout_margin="20dp"/>
 
 
     <com.stripe.android.view.CardInputWidget
@@ -37,15 +54,19 @@
         android:id="@+id/payment_cardInputWidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/payment_amount"/>
+        android:background="@color/bg_editText"
+        app:layout_constraintTop_toBottomOf="@id/payment_tv"
+        android:layout_margin="20dp"/>
 
     <Button
         android:id="@+id/payment_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/payment_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/payment_cardInputWidget"/>
+        app:layout_constraintTop_toBottomOf="@id/payment_cardInputWidget"
+        android:background="@drawable/btn_bg"
+        android:layout_marginTop="100dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

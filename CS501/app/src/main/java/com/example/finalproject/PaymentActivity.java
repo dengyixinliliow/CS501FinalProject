@@ -91,7 +91,7 @@ public class PaymentActivity extends AppCompatActivity {
         payment_cardInputWidget = (CardInputWidget) findViewById(R.id.payment_cardInputWidget);
         payment_btn = (Button) findViewById(R.id.payment_btn);
 
-        payment_amount.setText(Double.toString(amount));
+        payment_amount.setText("Here is your total amount: " + Double.toString(amount));
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Transaction in progress");
