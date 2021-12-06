@@ -65,10 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int mWidth;
     private int mHeight;
 
-
     // for multiple locations
     private MarkerOptions options = new MarkerOptions();
     private ArrayList<LatLng> latlngs = new ArrayList<>();
+    private ArrayList<Marker> markerList = new ArrayList<>();
     List<Address> addressList;
 
     LocationManager locationManager;
@@ -173,12 +173,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Map.Entry<LatLng, String[]> entry: nameAndAddress.entrySet()) {
             LatLng address = entry.getKey();
             String[] info = entry.getValue(); // Product Name, Product Price, Product ID
+            Log.d("TAG", "after getting key" + info[0]);
+            String productName = info[0];
+            String productPrice = info[1];
 
-            mMap.addMarker(new MarkerOptions()
+            mMarker = mMap.addMarker(new MarkerOptions()
                     .position(address)
-                    //.title(productName)
-                    //.snippet("Test snippet")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+
+            );
+            mMarker.setTag(info);
 
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
@@ -189,8 +193,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     TextView map_productName = (TextView) viewContainer.findViewById(R.id.map_productName);
                     TextView map_productPrice = (TextView) viewContainer.findViewById(R.id.map_productPrice);
                     Button map_detailBtn = (Button) viewContainer.findViewById(R.id.map_detailBtn);
-                    map_productName.setText(info[0]);
-                    map_productPrice.setText(info[1]);
+                    //Log.d("TAG", "setting on click" + name);
+                    String[] productInfo = (String[]) marker.getTag();
+                    map_productName.setText(productInfo[0]);
+                    map_productPrice.setText(productInfo[1]);
+                    // Log.d("TAG", map_productName.getText().toString());
 
                     markerInfoContainer.addView(viewContainer);
 
@@ -201,7 +208,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getBaseContext(), ProductActivity.class);
-                            intent.putExtra("product_id", info[2]);
+                            intent.putExtra("product_id", productInfo[2]);
                             intent.putExtra("action_taker", "owner");
                             startActivity(intent);
                         }
@@ -222,5 +229,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
+
 
 }
