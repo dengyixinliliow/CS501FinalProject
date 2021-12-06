@@ -40,6 +40,7 @@ public class ProductStatusActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
 
+    private TextView pstatus_txtRenter;
     private TextView pstatus_txtRenterName;
     private TextView pstatus_status;
     private TextView pstatus_pname;
@@ -87,13 +88,13 @@ public class ProductStatusActivity extends AppCompatActivity {
         pid = intent.getStringExtra("product_id");
         pname = intent.getStringExtra("product_name");
 
+        pstatus_txtRenter = (TextView) findViewById(R.id.pstatus_txtRenter);
         pstatus_txtRenterName = (TextView) findViewById(R.id.pstatus_txtRenterName);
         pstatus_status = (TextView) findViewById(R.id.pstatus_pstatus);
         pstatus_pname = (TextView) findViewById(R.id.pstatus_pname);
         pstatus_contact = (Button) findViewById(R.id.pstatus_contact);
         pstatus_receive = (Button) findViewById(R.id.pstatus_receive);
 
-        setRenterName(pid);
 
         getProductById(pid);
 
@@ -187,8 +188,14 @@ public class ProductStatusActivity extends AppCompatActivity {
 
                                     pstatus_contact.setVisibility(View.GONE);
                                     pstatus_receive.setVisibility(View.GONE);
+
+                                    pstatus_txtRenter.setVisibility(View.GONE);
+                                    pstatus_txtRenterName.setVisibility(View.GONE);
                                 } else {
+                                    pstatus_txtRenter.setVisibility(View.VISIBLE);
+                                    pstatus_txtRenterName.setVisibility(View.VISIBLE);
                                     pstatus_status.setText("Unavailable");
+                                    setRenterName(pid);
                                 }
 
                             }
