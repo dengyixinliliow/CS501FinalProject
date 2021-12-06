@@ -49,6 +49,10 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
     private Button search_btn_accessories;
     private Button search_btnMap;
 
+    private boolean women;
+    private boolean men;
+    private boolean kids;
+
     private EditText search_search_box;
     private ImageButton search_search_btn;
 
@@ -89,33 +93,93 @@ public class SearchActivity extends AppCompatActivity implements NavigationFragm
         search_search_box = (EditText) findViewById(R.id.search_search_box);
         search_search_btn = (ImageButton) findViewById(R.id.search_search_btn);
 
+        women = false;
+        men = false;
+        kids = false;
+
         search_btnMen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search_btnMen.setImageResource(R.drawable.men_selected);
-                search_btnWomen.setImageResource(R.drawable.women_icon);
-                search_btnKids.setImageResource(R.drawable.baby_icon);
-                category_to_filter = "men";
+                if (men == true) {
+                    men = false;
+                    women = false;
+                    kids = false;
+                } else {
+                    men = true;
+                    women = false;
+                    kids = false;
+                }
+
+                if (men == true && women == false && kids == false) {
+                    search_btnMen.setImageResource(R.drawable.men_selected);
+                    search_btnWomen.setImageResource(R.drawable.women_icon);
+                    search_btnKids.setImageResource(R.drawable.baby_icon);
+                    category_to_filter = "men";
+                } else {
+                    search_btnMen.setImageResource(R.drawable.men_icon);
+                    search_btnWomen.setImageResource(R.drawable.women_icon);
+                    search_btnKids.setImageResource(R.drawable.baby_icon);
+                    category_to_filter = "none";
+                }
+
             }
         });
 
         search_btnWomen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search_btnWomen.setImageResource(R.drawable.women_selected);
-                search_btnMen.setImageResource(R.drawable.men_icon);
-                search_btnKids.setImageResource(R.drawable.baby_icon);
-                category_to_filter = "women";
+
+                if (women == true) {
+                    women = false;
+                    men = false;
+                    kids = false;
+                } else {
+                    women = true;
+                    men = false;
+                    kids = false;
+                }
+
+                if (women == true && !men && !kids) {
+                    search_btnWomen.setImageResource(R.drawable.women_selected);
+                    search_btnMen.setImageResource(R.drawable.men_icon);
+                    search_btnKids.setImageResource(R.drawable.baby_icon);
+                    category_to_filter = "women";
+                } else {
+                    search_btnWomen.setImageResource(R.drawable.women_icon);
+                    search_btnMen.setImageResource(R.drawable.men_icon);
+                    search_btnKids.setImageResource(R.drawable.baby_icon);
+                    category_to_filter = "none";
+                }
+
+
             }
         });
 
         search_btnKids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search_btnKids.setImageResource(R.drawable.baby_selected);
-                search_btnWomen.setImageResource(R.drawable.women_icon);
-                search_btnMen.setImageResource(R.drawable.men_icon);
-                category_to_filter = "kids";
+
+                if (kids == true) {
+                    kids = false;
+                    women = false;
+                    men = false;
+                } else {
+                    kids = true;
+                    women = false;
+                    men = false;
+                }
+
+                if (kids == true) {
+                    search_btnKids.setImageResource(R.drawable.baby_selected);
+                    search_btnWomen.setImageResource(R.drawable.women_icon);
+                    search_btnMen.setImageResource(R.drawable.men_icon);
+                    category_to_filter = "kids";
+                } else {
+                    search_btnKids.setImageResource(R.drawable.baby_icon);
+                    search_btnWomen.setImageResource(R.drawable.women_icon);
+                    search_btnMen.setImageResource(R.drawable.men_icon);
+                    category_to_filter = "none";
+                }
             }
         });
 
