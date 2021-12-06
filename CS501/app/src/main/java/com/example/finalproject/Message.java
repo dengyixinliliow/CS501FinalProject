@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Message {
-    private String seller_id;
-    private String renter_id;
-    private String product_id;
-    private String type;
+    private String seller_id = "null";
+    private String renter_id = "null";
+    private String product_id = "null";
+    private String type = "null";
 
     public Message() { }
 

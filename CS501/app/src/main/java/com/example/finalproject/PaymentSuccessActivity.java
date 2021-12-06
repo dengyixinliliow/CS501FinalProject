@@ -85,6 +85,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
+        payment_success_owner_id = user_id;
 
         // connect to database
         Log.i("test",String.valueOf(getPayment_success_seller_id.size()));

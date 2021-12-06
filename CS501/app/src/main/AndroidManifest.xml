@@ -78,7 +78,7 @@
             android:name=".DisplaySearchResultsActivity"
             android:exported="true" />
         <activity
-            android:name=".InboxActivity"
+            android:name=".MessageActivity"
             android:exported="true" />
         <activity
             android:name=".PersonalInfoActivity"
