@@ -125,7 +125,7 @@ class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Viewholder> {
         Review r = reviews.get(position);
         holder.reviewtitle.setText(r.get_title());
         holder.reviewbody.setText(r.get_body());
-        holder.reviewusername.setText(r.get_username());
+        holder.reviewusername.setText("By: "+r.get_username());
     }
 
     @Override

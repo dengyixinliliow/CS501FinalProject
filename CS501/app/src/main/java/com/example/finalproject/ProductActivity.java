@@ -43,6 +43,7 @@ public class ProductActivity extends AppCompatActivity {
     private TextView product_txtCondition;
     private TextView product_txtDescription;
     private TextView product_txtSellerUsername;
+    private TextView product_tvReviewCount;
 
     private Button product_btnAddToBag;
     private Button product_btnReviews;
@@ -107,6 +108,7 @@ public class ProductActivity extends AppCompatActivity {
         product_txtCondition = (TextView) findViewById(R.id.product_txtCondition);
         product_txtDescription = (TextView) findViewById(R.id.product_txtDescription);
         product_txtSellerUsername = (TextView) findViewById(R.id.product_txtSellerUsername);
+        product_tvReviewCount=(TextView)findViewById(R.id.product_tvReviewCount);
 
         product_btnAddToBag = (Button) findViewById(R.id.product_btnAddToBag);
         product_btnReviews = (Button) findViewById(R.id.product_btnReviews);
@@ -197,6 +199,23 @@ public class ProductActivity extends AppCompatActivity {
                     }
                 });
         // [END get_multiple]
+        db.collection("reviews")
+                .whereEqualTo(PRODUCT_ID,product_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int tasklength=task.getResult().size();
+                            if(tasklength<=1){
+                                product_tvReviewCount.setText(String.valueOf(tasklength)+" review");
+                            }
+                            else{
+                                product_tvReviewCount.setText(String.valueOf(tasklength)+" reviews");
+                            }
+                        }
+                    }
+                });
     }
 
     public void checkProductExist() {
