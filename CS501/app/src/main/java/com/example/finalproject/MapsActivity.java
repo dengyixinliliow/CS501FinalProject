@@ -185,7 +185,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         .position(latLng)
                                         .title("CURRENT LOCATION")
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
                             }
                         });
                     } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -207,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         .position(latLng)
                                         .title("CURRENT LOCATION")
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
 
                             }
                         });
