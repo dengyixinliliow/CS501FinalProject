@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -134,6 +135,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         String productName = String.valueOf(dataMap.get("product_name"));
                         String productPrice = String.valueOf(dataMap.get("product_price"));
                         String productID = String.valueOf(dataMap.get("product_id"));
+                        String productImg = String.valueOf(dataMap.get("product_img_url"));
                         // Log.d("TAG", String.valueOf(dataMap.get("product_address")));
                         // Log.d("TAG", addressList.toString());
                         if (addressPt != null) {
@@ -142,7 +144,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Log.d("TAG", String.valueOf(latlngs.get(0).longitude));
                             // Log.d("TAG", String.valueOf(addressPt.latitude));
                             // Log.d("TAG", String.valueOf(addressPt.longitude));
-                            String[] productInfo = {productName, productPrice, productID};
+                            String[] productInfo = {productName, productPrice, productID, productImg};
                             nameAndAddress.put(addressPt, productInfo);
                         }
                         // Log.d("TAG", latlngs.toString());
@@ -173,9 +175,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Map.Entry<LatLng, String[]> entry: nameAndAddress.entrySet()) {
             LatLng address = entry.getKey();
             String[] info = entry.getValue(); // Product Name, Product Price, Product ID
-            Log.d("TAG", "after getting key" + info[0]);
-            String productName = info[0];
-            String productPrice = info[1];
 
             mMarker = mMap.addMarker(new MarkerOptions()
                     .position(address)
@@ -193,10 +192,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     TextView map_productName = (TextView) viewContainer.findViewById(R.id.map_productName);
                     TextView map_productPrice = (TextView) viewContainer.findViewById(R.id.map_productPrice);
                     Button map_detailBtn = (Button) viewContainer.findViewById(R.id.map_detailBtn);
+                    ImageView map_productImage = (ImageView) viewContainer.findViewById(R.id.map_productImage);
                     //Log.d("TAG", "setting on click" + name);
                     String[] productInfo = (String[]) marker.getTag();
                     map_productName.setText(productInfo[0]);
                     map_productPrice.setText("$" + productInfo[1]);
+                    Glide.with(getBaseContext()).load(productInfo[3]).into(map_productImage);
                     // Log.d("TAG", map_productName.getText().toString());
 
                     markerInfoContainer.addView(viewContainer);
