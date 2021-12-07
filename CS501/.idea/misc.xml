@@ -32,6 +32,8 @@
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_manage_productrow.xml" value="0.36614583333333334" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_manage_products.xml" value="0.2046875" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_maps.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_message.xml" value="0.2046875" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_message_row.xml" value="0.2046875" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_orders.xml" value="0.2046875" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_personal_info.xml" value="0.33" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_product.xml" value="0.33" />
@@ -43,7 +45,7 @@
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/activity_view_review.xml" value="0.36614583333333334" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/card_view_products.xml" value="0.24791666666666667" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/content_scrolling.xml" value="0.24791666666666667" />
-        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/fragment_navigation.xml" value="0.18" />
+        <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/fragment_navigation.xml" value="0.25" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/list_view_products.xml" value="0.24791666666666667" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/layout/marker_popup_window.xml" value="0.2760416666666667" />
         <entry key="..\:/githubtest/CS501FinalProject/CS501/app/src/main/res/menu/menu_manage_product.xml" value="0.2046875" />

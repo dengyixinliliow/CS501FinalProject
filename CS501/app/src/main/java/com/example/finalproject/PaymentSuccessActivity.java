@@ -117,9 +117,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             }
         }
 
-
         addOrder(map);
-        addMessage(map);
 
          //clear user's shopping bag after checkout
         clearCart(user_id);
@@ -213,34 +211,6 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             }
         });
     }
-
-    private void addMessage (Map map) {
-        Iterator<Map.Entry<String, String>> itr = map.entrySet().iterator();
-
-        while (itr.hasNext()) {
-            Map.Entry<String, String> entry = itr.next();
-            Map<String, Object> message = new HashMap<>();
-            message.put("seller_id", entry.getValue());
-            message.put("product_id", entry.getKey());
-            message.put("renter_id", payment_success_owner_id);
-            message.put("type", "order placed");
-
-            db.collection("messages").add(message)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("test", "Error adding document", e);
-                    }
-            });
-
-        }
-    }
-
 
     @Override
     public void SwitchActivity(String page_name) {

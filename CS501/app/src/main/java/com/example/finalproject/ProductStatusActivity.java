@@ -146,7 +146,6 @@ public class ProductStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateProductStatus(pid);
-                addMessage(pid);
                 try {
                     updateProductStatusAlgolia(pid);
                 } catch (JSONException e) {
@@ -285,58 +284,5 @@ public class ProductStatusActivity extends AppCompatActivity {
                 product_id,
                 completeHandler
         );
-    }
-
-
-
-    private void addMessage (String product_id) {
-        // get renter_id
-        // [START get_multiple]
-        db.collection("products")
-                .whereEqualTo("product_id", product_id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map<String, Object> cur_product = document.getData();
-
-                                // set renter_id
-                                Object product_obj = cur_product.get("renter_id");
-                                String cur_product_renter_id;
-                                if(product_obj == null) {
-                                    cur_product_renter_id = "null";
-                                } else {
-                                    cur_product_renter_id = product_obj.toString();
-                                }
-
-                                Map<String, Object> message = new HashMap<String, Object>();
-
-                                message.put("seller_id", user_id);
-                                message.put("product_id", pid);
-                                message.put("renter_id", cur_product_renter_id);
-                                message.put("type", "product returned");
-
-                                db.collection("messages").add(message)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("test", "Error adding document", e);
-                                    }
-                                });
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
-
     }
 }
