@@ -72,6 +72,7 @@
         <entry key="app/src/main/res/layout/activity_manage_products.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/activity_message_row.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_order_detail.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_payment.xml" value="0.20244565217391305" />
