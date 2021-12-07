@@ -53,6 +53,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
     private ArrayList<String> pids;
     private ArrayList<Integer> itemImages;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         FirebaseUser auth_user = mAuth.getCurrentUser();
         user_id=auth_user.getUid();
         Log.i(myflag,user_id);
+
 
 
         //get every item in cart names, prices, renters for later use
@@ -151,6 +153,10 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
 
     }
 
+    public void updateData(Double data){
+        sum=data;
+    }
+
     @Override
     public void SwitchActivity(String page_name) {
         NavigationFragment navigationFragment = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_nagivation);
@@ -222,8 +228,7 @@ class CartListAdapter extends BaseAdapter{
         TextView tvprice = (TextView) row.findViewById(R.id.cart_tvPrice);
 
         tvname.setText(names.get(i));
-        String origin_tvprice = tvprice.getText().toString();
-        tvprice.setText(origin_tvprice + prices.get(i));
+        tvprice.setText("Price: $" + prices.get(i));
         Glide.with(context).load(urls.get(i)).into(img);
 //        imgEpisode.setImageResource(episodeImages.get(position).intValue());
 
@@ -252,8 +257,9 @@ class CartListAdapter extends BaseAdapter{
                                 for(String s:prices){
                                     sum+=Double.valueOf(s);
                                 }
-                                tvsum.setText("Total: "+String.valueOf(sum));
+                                tvsum.setText("Total: $"+String.valueOf(sum));
                                 notifyDataSetChanged();
+                                ((CartActivity)context).updateData(sum);
                             }
                         }
                         else{
