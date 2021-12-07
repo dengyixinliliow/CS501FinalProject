@@ -150,7 +150,83 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // Log.d("TAG", latlngs.toString());
                     }
                     onMapReady(mMap);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.0902, -95.7129)));
+
+                    //INSTANTIATE LOCATION MANAGER TO ENABLE TRACKING OF USER'S CURRENT LOCATION
+                    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                    if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+
+                    // check if network provider is enabled
+                    if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                        // write new onLocationlistener on request location updates method
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+                            @Override
+                            public void onLocationChanged(@NonNull Location location) {
+                                // get latitude
+                                double latitude = location.getLatitude();
+
+                                // get longitude
+                                double longitude = location.getLongitude();
+
+                                // instantiate class, LatLng
+                                LatLng latLng = new LatLng(latitude, longitude);
+
+                                // instantiate the class, Geocoder --> to get a meaningful address
+                                Geocoder geocoder = new Geocoder(getApplicationContext());
+                                try {
+                                    List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                                    String str = addressList.get(0).getLocality();
+                                    str += addressList.get(0).getCountryName();
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "No location found.", Toast.LENGTH_SHORT);
+                                }
+                                Log.d("TAG", "test tracking");
+                            }
+                        });
+                    } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+                            @Override
+                            public void onLocationChanged(@NonNull Location location) {
+                                // get latitude
+                                double latitude = location.getLatitude();
+
+                                // get longitude
+                                double longitude = location.getLongitude();
+
+                                // instantiate class, LatLng
+                                LatLng latLng = new LatLng(latitude, longitude);
+
+                                // instantiate the class, Geocoder --> to get a meaningful address
+                                Geocoder geocoder = new Geocoder(getApplicationContext());
+                                try {
+                                    List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                                    String str = addressList.get(0).getLocality();
+                                    str += addressList.get(0).getCountryName();
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "No location found.", Toast.LENGTH_SHORT);
+                                }
+                                Log.d("TAG", "test tracking");
+                            }
+                        });
+                    } else {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.0902, -95.7129)));
+                    }
                 }
             }
 
