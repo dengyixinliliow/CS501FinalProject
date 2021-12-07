@@ -181,18 +181,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 // instantiate the class, Geocoder --> to get a meaningful address
                                 Geocoder geocoder = new Geocoder(getApplicationContext());
-                                try {
-                                    List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                                    String str = addressList.get(0).getLocality();
-                                    str += addressList.get(0).getCountryName();
-                                    mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-
-                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "No location found.", Toast.LENGTH_SHORT);
-                                }
-                                Log.d("TAG", "test tracking");
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(latLng)
+                                        .title("CURRENT LOCATION")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
                             }
                         });
                     } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -210,18 +203,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 // instantiate the class, Geocoder --> to get a meaningful address
                                 Geocoder geocoder = new Geocoder(getApplicationContext());
-                                try {
-                                    List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                                    String str = addressList.get(0).getLocality();
-                                    str += addressList.get(0).getCountryName();
-                                    mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(latLng)
+                                        .title("CURRENT LOCATION")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
 
-                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "No location found.", Toast.LENGTH_SHORT);
-                                }
-                                Log.d("TAG", "test tracking");
                             }
                         });
                     } else {
