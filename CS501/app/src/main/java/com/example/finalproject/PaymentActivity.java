@@ -56,7 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
     // 192.168.1.6 If you are testing in real device with usb connected to same network then use your IP address
 //    private static final String BACKEND_URL = "http://10.0.2.2:4242/"; //4242 is port mentioned in server i.e index.js
 //    private static final String BACKEND_URL = "http://155.41.45.161:4242/";
-    private static final String BACKEND_URL = "http://10.0.0.168:4242/";
+    private static final String BACKEND_URL = "http://168.122.11.208:4242/";
 
     private final int CENT_TO_DOLLAR = 100;
     private double amount;
