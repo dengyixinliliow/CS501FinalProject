@@ -129,7 +129,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             public void onClick(View view) {
                 Intent to_od=new Intent(getBaseContext(),OrderDetailActivity.class);
                 to_od.putExtra("order_number",payment_success_order_id);
-                to_od.putExtra("order_total",payment_success_order_total);
+                to_od.putExtra("order_total",payment_success_order_total.toString());
                 to_od.putExtra("product_ids",payment_success_items_list);
                 to_od.putExtra("seller_ids",getPayment_success_seller_id);
                 startActivity(to_od);

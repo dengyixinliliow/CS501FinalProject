@@ -61,7 +61,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         return_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent=new Intent(getBaseContext(),OrdersActivity.class);
+                startActivity(intent);
             }
         });
 
