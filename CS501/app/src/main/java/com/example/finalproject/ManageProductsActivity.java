@@ -192,6 +192,8 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
                 deleteFromAlgolia(product.getProductId());
 
                 deleteFromFirestore(product.getProductId());
+
+
             }
 
             private void deleteFromAlgolia(String product_id) {
@@ -226,6 +228,10 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // delete the current product
                                 document.getReference().delete();
+
+                                // Move to Profile page
+                                Intent intent = new Intent(cont, ProfileActivity.class);
+                                cont.startActivity(intent);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
