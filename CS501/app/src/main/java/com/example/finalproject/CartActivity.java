@@ -153,8 +153,10 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
 
     }
 
-    public void updateData(Double data){
-        sum=data;
+    public void updateData(Double price,ArrayList<String> p_list, ArrayList<String> s_list){
+        sum=price;
+        pids=p_list;
+        sellerids=s_list;
     }
 
     @Override
@@ -253,13 +255,14 @@ class CartListAdapter extends BaseAdapter{
                                 prices.remove(i);
                                 pids.remove(i);
                                 urls.remove(i);
+                                ArrayList<String> sel=itemlist.get_sellers();
                                 sum=0.0;
                                 for(String s:prices){
                                     sum+=Double.valueOf(s);
                                 }
                                 tvsum.setText("Total: $"+String.valueOf(sum));
                                 notifyDataSetChanged();
-                                ((CartActivity)context).updateData(sum);
+                                ((CartActivity)context).updateData(sum,pids,sel);
                             }
                         }
                         else{
