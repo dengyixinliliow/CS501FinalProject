@@ -52,22 +52,9 @@ public class ProductStatusActivity extends AppCompatActivity {
     private String pname;
     private Boolean cur_user_status;
 
-    public static final String USER_ID = "user_id";
     public static final String PRODUCT_ID = "product_id";
-    public static final String PRODUCT_NAME = "product_name";
-    public static final String PRODUCT_TYPE = "product_type";
-    public static final String PRODUCT_SIZE = "product_size";
-    public static final String PRODUCT_PRICE = "product_price";
-    public static final String PRODUCT_COLOR = "product_color";
-    public static final String PRODUCT_CATEGORY = "product_category";
-    public static final String PRODUCT_CONDITION = "product_condition";
-    public static final String PRODUCT_DESCRIPTION = "product_description";
-    public static final String PRODUCT_IMG_URL = "product_img_url";
-    public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
     public static final String SELLER_ID = "seller_id";
-    public static final String SELLER_USERNAME = "seller_username";
     public static final String USERNAME = "username";
-    public static final String FIRST_MESSAGE = "Hello!";
     public static final String IS_AVAILABLE = "is_available";
     private ImageView return_icon;
 

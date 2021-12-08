@@ -69,7 +69,7 @@
         <entry key="app/src/main/res/layout/activity_contact_row.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_dislay.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/activity_dislay_filter_results.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_display_search_results.xml" value="0.18135764944275581" />
+        <entry key="app/src/main/res/layout/activity_display_search_results.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_inbox.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_landing.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.125" />
@@ -80,14 +80,17 @@
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_message_row.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/activity_order_detail.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/activity_order_detail_card.xml" value="0.20208333333333334" />
+        <entry key="app/src/main/res/layout/activity_order_row.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.20244565217391305" />
+        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_payment_success.xml" value="0.18034447821681865" />
         <entry key="app/src/main/res/layout/activity_personal_info.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_product_status.xml" value="0.2976695843131258" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.15622836803929474" />
         <entry key="app/src/main/res/layout/activity_review.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/activity_reviews_card.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_view_review.xml" value="0.29989980265045746" />

@@ -152,6 +152,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                     }
                 });
     }
+    //update product status
 
     private void updateProduct(String product_id) {
         db.collection("products")
@@ -172,6 +173,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                 });
     }
 
+    //update status in algolia database
     private void updateAlgoliaProduct(String product_id) throws JSONException {
         Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
         Index index = client.initIndex("products");
@@ -190,6 +192,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         );
     }
 
+    //add order to order database
     private void addOrder (Map map) {
         Map<String, Object> order = new HashMap<>();
         order.put("order_id", payment_success_order_id);
