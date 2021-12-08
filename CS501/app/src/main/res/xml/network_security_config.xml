@@ -4,10 +4,6 @@
     <domain-config cleartextTrafficPermitted="true" >
 <!--        <domain includeSubdomains="true">10.0.2.2</domain> &lt;!&ndash;For emulator&ndash;&gt;-->
 <!--        <domain includeSubdomains="true">155.41.45.161</domain>&lt;!&ndash;For real device, get your ip from pc&ndash;&gt;-->
-<<<<<<< HEAD
             <domain includeSubdomains="true">10.0.2.2</domain>
-=======
-            <domain includeSubdomains="true">168.122.11.208</domain>
->>>>>>> f79f2276df139dc73605c0be71c6fd0b29afb5c6
     </domain-config>
 </network-security-config>

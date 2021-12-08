@@ -79,7 +79,7 @@
         <entry key="app/src/main/res/layout/activity_order_detail_card.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/activity_order_row.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/activity_orders.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.20244565217391305" />
+        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_payment_success.xml" value="0.18034447821681865" />
         <entry key="app/src/main/res/layout/activity_personal_info.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.371875" />
