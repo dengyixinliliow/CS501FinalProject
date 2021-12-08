@@ -38,14 +38,14 @@
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="180dp"
-                android:text="Your order is successfully placed! Click the order detail button to review your order and contact the seller to discuss about pick up time and return time. Enjoy!"/>
+                android:text="@string/payment_success"/>
 
             <Button
                 android:id="@+id/payment_success_btn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_bg"
-                android:text="Order Detail"/>
+                android:text="@string/detail"/>
 
         </LinearLayout>
 

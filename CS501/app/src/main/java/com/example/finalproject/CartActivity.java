@@ -166,6 +166,7 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
 
     public void updateData(Double price,ArrayList<String> p_list, ArrayList<String> s_list){
         //receive data changes
+
         sum=price;
         pids=p_list;
         sellerids=s_list;

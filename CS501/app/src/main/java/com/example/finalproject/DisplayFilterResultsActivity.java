@@ -84,6 +84,7 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
 
     }
 
+    // fetch results from database with the category and type
     private void fetchFilterResult(String category, String type) {
         CollectionReference productsRef = db.collection("products");
         Query query;
@@ -116,6 +117,7 @@ public class DisplayFilterResultsActivity extends AppCompatActivity {
                         }
                     }
 
+                    //bound the data to adapter
                     ProductsLVAdapter productsLVAdapter = new ProductsLVAdapter(DisplayFilterResultsActivity.this, productList);
                     filter_result_lv.setAdapter(productsLVAdapter);
 

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCEAED"
+    android:background="@color/bg_pink"
     tools:context=".ProductActivity">
 
     <ScrollView
         android:layout_width="371dp"
         android:layout_height="609dp"
         android:layout_marginTop="48dp"
-        android:background="#FEF9F7"
+        android:background="@color/bg_pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -17,10 +17,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/return_icon" />
 
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/search_result_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/text_brown"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/search_result_return"/>
+
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/search_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_brown"
+        android:text="@string/searchr_intro"
+        app:layout_constraintTop_toBottomOf="@id/search_result_title"/>
+
+
     <ListView
         android:id="@+id/search_result_listView"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/search_result_return"
-        android:layout_height="700dp"/>
+        app:layout_constraintTop_toBottomOf="@id/search_introduction"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

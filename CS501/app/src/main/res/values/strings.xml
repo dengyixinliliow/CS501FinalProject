@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Reco</string>
     <string name="title_activity_buyer_management">BuyerManagementActivity</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -14,37 +13,22 @@
     <string name="setting3">Manage Rentals</string>
     <string name="setting4">Manage Orders</string>
     <string name="setting5">Manage Messages</string>
-
-    <!-- Strings used for fragments for buttom 4 navigation buttons -->
     <string name="SEARCH_PAGE">search_page</string>
     <string name="MESSAGE_PAGE">message_page</string>
     <string name="CART_PAGE">cart_page</string>
     <string name="PROFILE_PAGE">profile_page</string>
-
-    <!-- Strings used for spinner in add product activity -->
-    <string-array name="category">
-        <item>Men</item>
-        <item>Women</item>
-        <item>Kids</item>
-    </string-array>
-
-    <string-array name="type">
-        <item>jackets &amp; coats</item>
-        <item>one pieces &amp; dresses</item>
-        <item>shirts</item>
-        <item>tops &amp; t-shirts</item>
-        <item>hoodies &amp; sweatshirts</item>
-        <item>jeans &amp; pants</item>
-        <item>shoes</item>
-        <item>bags</item>
-        <item>accessories</item>
-    </string-array>
-
-    <!--String for payment page-->
+    <string name="addp_intro">Please add details about your product:</string>
+    <string name="addp_name">Product Name</string>
+    <string name="addp_category">Product Category</string>
+    <string name="addp_type">Product Type</string>
+    <string name="addp_color">Product Color</string>
+    <string name="addp_size">Product Size</string>
+    <string name="addp_condition">Product Condition</string>
+    <string name="addp_price">Product Price</string>
+    <string name="addp_address">Pickup Address</string>
+    <string name="addp_description">Description</string>
     <string name="payment_button">Place Order</string>
     <string name="payment_title">Place your Order</string>
-
-    <!-- Strings the card view to display the product in search result and filter result page -->
     <string name="card_img_content">Product Image</string>
     <string name="card_button">Detail</string>
     <string name="send_verification_email">send verification email</string>
@@ -67,5 +51,48 @@
     <string name="total">Total: $</string>
     <string name="call">call</string>
     <string name="message">message</string>
+    <string name="searchr_intro">The search is displayed in order of relevance</string>
+    <string name="filterr_intre">Filter Result</string>
+    <string name="detail">Detail</string>
+    <string name="status">Status</string>
+    <string name="delete">Delete</string>
+    <string name="add">Add Product</string>
+    <string name="payment_intro">Please enter your card information:</string>
+    <string name="payment_success">Your order is successfully placed! Click the order detail button to review your order and contact the seller to discuss about pick up time and return time. Enjoy!</string>
+    <string name="renter">Renter Name: </string>
+    <string name="current_status">Current Status: </string>
+    <string name="contact">Contact</string>
+    <string name="receive">Received the item</string>
+    <string name="signout">Sign out</string>
+    <string name="search_hint">Search Products from Market!</string>
+    <string name="search_map">See Nearby Products on Map</string>
+    <string name="category">CATEGORIES:</string>
+    <string name="type">CLOTHES TYPE:</string>
+    <string name="jacketCoat">Jackets&amp;Coats</string>
+    <string name="dress">One Pieces&amp;Dress</string>
+    <string name="shirt">Shirts</string>
+    <string name="t_shirt">Tops&amp;T-Shirts</string>
+    <string name="hoodies">Hoodies&amp;Sweatshirts</string>
+    <string name="shoes">Shoes</string>
+    <string name="pants">Jeans&amp;Pants</string>
+    <string name="bags">Bags</string>
+    <string name="keyword">Here is your search keyword: </string>
+    <string name="wrong_search">Sorry, there is no product match your search</string>
+    <string-array name="category">
+        <item>Men</item>
+        <item>Women</item>
+        <item>Kids</item>
+    </string-array>
+    <string-array name="type">
+        <item>jackets &amp; coats</item>
+        <item>one pieces &amp; dresses</item>
+        <item>shirts</item>
+        <item>tops &amp; t-shirts</item>
+        <item>hoodies &amp; sweatshirts</item>
+        <item>jeans &amp; pants</item>
+        <item>shoes</item>
+        <item>bags</item>
+        <item>accessories</item>
+    </string-array>
 
 </resources>

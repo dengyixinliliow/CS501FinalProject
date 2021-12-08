@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:textColor="@color/black"
-            android:text="Detail" />
+            android:text="@string/detail" />
 
     </LinearLayout>
 
