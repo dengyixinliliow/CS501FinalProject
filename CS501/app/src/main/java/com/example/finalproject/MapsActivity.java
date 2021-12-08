@@ -59,12 +59,11 @@ import java.util.Map;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final String TAG = "GoogleMaps";
 
+    // Map Attributes
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private Marker mMarker;
     private PopupWindow mPopupWindow;
-    private int mWidth;
-    private int mHeight;
 
     // for multiple locations
     private MarkerOptions options = new MarkerOptions();
@@ -84,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // Source stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address
+    // Gets coordinates (latitude, longitutde) from a String address
     public LatLng getLocationFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -119,6 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Fetch documents from the collection "products" from Firebase
         CollectionReference productsRef = db.collection("products");
         productsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -131,19 +132,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                          addressList.add((Address) dataMap.get("product_address"));
                          }
                          */
+
+                        // Get all the necessary information regarding a product (to be rendered in the popup window)
                         LatLng addressPt = getLocationFromAddress(getBaseContext(), String.valueOf(dataMap.get("product_address")));
                         String productName = String.valueOf(dataMap.get("product_name"));
                         String productPrice = String.valueOf(dataMap.get("product_price"));
                         String productID = String.valueOf(dataMap.get("product_id"));
                         String productImg = String.valueOf(dataMap.get("product_img_url"));
-                        // Log.d("TAG", String.valueOf(dataMap.get("product_address")));
-                        // Log.d("TAG", addressList.toString());
+
                         if (addressPt != null) {
                             latlngs.add(new LatLng(addressPt.latitude, addressPt.longitude));
-                            //Log.d("TAG", String.valueOf(latlngs.get(0).latitude));
-                            //Log.d("TAG", String.valueOf(latlngs.get(0).longitude));
-                            // Log.d("TAG", String.valueOf(addressPt.latitude));
-                            // Log.d("TAG", String.valueOf(addressPt.longitude));
                             String[] productInfo = {productName, productPrice, productID, productImg};
                             nameAndAddress.put(addressPt, productInfo);
                         }
@@ -237,18 +235,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // mMap.addMarker(new MarkerOptions().position(test));
         for (Map.Entry<LatLng, String[]> entry: nameAndAddress.entrySet()) {
             LatLng address = entry.getKey();
-            String[] info = entry.getValue(); // Product Name, Product Price, Product ID
+            String[] info = entry.getValue(); // Product Name, Product Price, Product ID, Product Image URL
 
+            // Add marker to map
             mMarker = mMap.addMarker(new MarkerOptions()
                     .position(address)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-
             );
+
+            // Add all the necessary product info and attach as a tag for each marker
             mMarker.setTag(info);
 
+            // Add an onClickListener for each marker (will be done after all markers have been added)
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(@NonNull Marker marker) {
+                    // Create View Layout for Popup window for each marker + instantiate all the views
                     View mainView = getLayoutInflater().inflate(R.layout.marker_info_window, null);
                     ViewFlipper markerInfoContainer = (ViewFlipper) mainView.findViewById(R.id.markerInfoContainer);
                     View viewContainer = getLayoutInflater().inflate(R.layout.marker_info_layout, null);
@@ -256,18 +258,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     TextView map_productPrice = (TextView) viewContainer.findViewById(R.id.map_productPrice);
                     Button map_detailBtn = (Button) viewContainer.findViewById(R.id.map_detailBtn);
                     ImageView map_productImage = (ImageView) viewContainer.findViewById(R.id.map_productImage);
-                    //Log.d("TAG", "setting on click" + name);
+
                     String[] productInfo = (String[]) marker.getTag();
                     map_productName.setText(productInfo[0]);
                     map_productPrice.setText("$" + productInfo[1]);
-                    Glide.with(getBaseContext()).load(productInfo[3]).into(map_productImage);
-                    // Log.d("TAG", map_productName.getText().toString());
+                    Glide.with(getBaseContext()).load(productInfo[3]).into(map_productImage);  // get Image
 
                     markerInfoContainer.addView(viewContainer);
 
                     PopupWindow popupWindow = new PopupWindow(mainView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     popupWindow.showAtLocation(findViewById(R.id.map), Gravity.CENTER_HORIZONTAL, 0, 0);
 
+                    // Direct to specific product detail pages whenever a detail button within a marker is clicked
                     map_detailBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -278,6 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     });
 
+                    // Close popupwindow when container is clicked
                     mainView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
