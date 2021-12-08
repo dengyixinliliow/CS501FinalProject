@@ -50,16 +50,23 @@ public class OrdersActivity extends AppCompatActivity implements NavigationFragm
     private Map<String,Map<String,Object>> datamaplist=new HashMap<>();
     private ImageView return_icon;
 
+    private static final String ORDERS="orders";
+    private static final String ORDER_OWNER="order_owner";
+    private static final String ORDER_ID="order_id";
+    private static final String ORDER_TIME="order_time";
+    private static final String ORDER_TOTAL="order_total";
+    private static final String ORDER_ITEMS="order_items";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
         lvOrders=(ListView)findViewById(R.id.ordersListView);
-
+        //get current user id
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
-
+        //setup return icon
         return_icon=(ImageView)findViewById(R.id.order_return);
         return_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,38 +74,39 @@ public class OrdersActivity extends AppCompatActivity implements NavigationFragm
                 finish();
             }
         });
-
+        //connect to database and filter order database by user id to get the order histories
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference orderdb=db.collection("orders");
-        Query query = orderdb.whereEqualTo("order_owner",user_id);
+        CollectionReference orderdb=db.collection(ORDERS);
+        Query query = orderdb.whereEqualTo(ORDER_OWNER,user_id);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> dataMap = document.getData();
-                        datamaplist.put(String.valueOf(dataMap.get("order_time")),dataMap);
+                        datamaplist.put(String.valueOf(dataMap.get(ORDER_TIME)),dataMap);
                     }
                     Log.i(myflag,String.valueOf(datamaplist.size()));
-                    //sort by time
+                    //sort all orders by time
                     //reference: https://howtodoinjava.com/java/sort/java-sort-map-by-values/
                     Map<String, Map<String,Object>> reverseSortedMap = new TreeMap<String, Map<String,Object>>(Collections.reverseOrder());
                     reverseSortedMap.putAll(datamaplist);
                     Log.i(myflag,reverseSortedMap.toString());
                     ArrayList<Map<String,Object>> maps=new ArrayList<>(reverseSortedMap.values());
                     for (Map<String,Object> dmap:maps){
-                        String order_id=String.valueOf(dmap.get("order_id"));
+                        //get information for each order
+                        String order_id=String.valueOf(dmap.get(ORDER_ID));
                         Log.i(myflag,order_id);
-                        String order_total=String.valueOf(dmap.get("order_total"));
-                        String order_time=String.valueOf(dmap.get("order_time"));
+                        String order_total=String.valueOf(dmap.get(ORDER_TOTAL));
+                        String order_time=String.valueOf(dmap.get(ORDER_TIME));
                         Log.i(myflag,"items:"+order_time);
-                        //millitimes to readable time:
+                        //millitimes to readable time
                         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
                         Date date = new Date(Long.valueOf(order_time));
                         String orderTime = formatter.format(date);
                         Log.i(myflag,"time: "+orderTime);
-                        String order_owner=String.valueOf(dmap.get("order_owner"));
-                        Map<String, String> items = new ObjectMapper().convertValue(dmap.get("order_items"),Map.class);
+                        String order_owner=String.valueOf(dmap.get(ORDER_OWNER));
+                        Map<String, String> items = new ObjectMapper().convertValue(dmap.get(ORDER_ITEMS),Map.class);
                         Log.i(myflag,"items:"+items.toString());
                         ArrayList<String> products=new ArrayList<>(items.keySet());
                         ArrayList<String> sellers=new ArrayList<>(items.values());
@@ -107,6 +115,7 @@ public class OrdersActivity extends AppCompatActivity implements NavigationFragm
                         Orders o=new Orders(order_id,order_owner,orderTime,order_total,products,sellers);
                         orders.add(o);
                     }
+                    //init adapter and render order history
                     lvAdapter=new OrderAdapter(OrdersActivity.this,orders);
                     lvOrders.setAdapter(lvAdapter);
                 }
@@ -128,6 +137,11 @@ class OrderAdapter extends BaseAdapter {
     private Context context;
     private String myflag="OrdersAdapter";
     ArrayList<Orders> order;
+
+    private static final String SELLER_IDS = "seller_ids";
+    private static final String PRODUCT_IDS = "product_ids";
+    private static final String ORDER_NUMBER="order_number";
+    private static final String ORDER_TOTAL="order_total";
 
 
 
@@ -169,10 +183,10 @@ class OrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context,OrderDetailActivity.class);
-                intent.putExtra("product_ids",o.get_products());
-                intent.putExtra("seller_ids",o.get_sellers());
-                intent.putExtra("order_number",o.get_oid());
-                intent.putExtra("order_total",o.get_total());
+                intent.putExtra(PRODUCT_IDS,o.get_products());
+                intent.putExtra(SELLER_IDS,o.get_sellers());
+                intent.putExtra(ORDER_NUMBER,o.get_oid());
+                intent.putExtra(ORDER_TOTAL,o.get_total());
                 context.startActivity(intent);
             }
         });

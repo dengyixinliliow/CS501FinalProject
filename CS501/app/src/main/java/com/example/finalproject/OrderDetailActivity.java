@@ -40,6 +40,22 @@ public class OrderDetailActivity extends AppCompatActivity {
     private ListAdapter lvAdapter;
     private ImageView return_icon;
 
+
+    private static final String ORDER_TOTAL="order_total";
+    private static final String ORDER_NUMBER="order_number";
+    private static final String PRODUCT_IDS= "product_ids";
+    private static final String SELLER_IDS = "seller_ids";
+    private static final String PRODUCTS="products";
+    private static final String PRODUCT_ID= "product_id";
+    private static final String USERS="users";
+    private static final String USERNAME="username";
+    private static final String USER_ID = "user_id";
+    private static final String PRODUCT_NAME = "product_name";
+    private static final String PRODUCT_PRICE = "product_price";
+    private static final String PRODUCT_IMG_URL = "product_img_url";
+    private static final String PRODUCT_SIZE = "product_size";
+    private static final String SELLER_ID = "seller_id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +63,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         //get all extras passed by previous activity
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
-        o_number=extras.getString("order_number");
-        o_price=extras.getString("order_total");
-        product_ids=extras.getStringArrayList("product_ids");
-        seller_ids=extras.getStringArrayList("seller_ids");
+        o_number=extras.getString(ORDER_NUMBER);
+        o_price=extras.getString(ORDER_TOTAL);
+        product_ids=extras.getStringArrayList(PRODUCT_IDS);
+        seller_ids=extras.getStringArrayList(SELLER_IDS);
         //connect textview and list view and set text
         order_number=(TextView) findViewById(R.id.orderDetailNumber);
         order_price=(TextView) findViewById(R.id.orderDetailTotal);
@@ -69,30 +85,33 @@ public class OrderDetailActivity extends AppCompatActivity {
         lvOrderDetail=(ListView)findViewById(R.id.orderDetailLV);
         //connect database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference productdb=db.collection("products");
-        CollectionReference userdb=db.collection("users");
+        CollectionReference productdb=db.collection(PRODUCTS);
+        CollectionReference userdb=db.collection(USERS);
         for(String pid:product_ids){
-            Query query=productdb.whereEqualTo("product_id",pid);
+            //filter products database by each product's id
+            Query query=productdb.whereEqualTo(PRODUCT_ID,pid);
             query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            //get each product's information
                             Map<String, Object> dataMap = document.getData();
-                            String p_name=String.valueOf(dataMap.get("product_name"));
-                            String p_price=String.valueOf(dataMap.get("product_price"));
-                            String p_size=String.valueOf(dataMap.get("product_size"));
-                            String url= String.valueOf(dataMap.get("product_img_url"));
-                            String seller_id=String.valueOf(dataMap.get("seller_id"));
+                            String p_name=String.valueOf(dataMap.get(PRODUCT_NAME));
+                            String p_price=String.valueOf(dataMap.get(PRODUCT_PRICE));
+                            String p_size=String.valueOf(dataMap.get(PRODUCT_SIZE));
+                            String url= String.valueOf(dataMap.get(PRODUCT_IMG_URL));
+                            String seller_id=String.valueOf(dataMap.get(SELLER_ID));
                             Log.i(myflag,p_name);
-                            Query uquery=userdb.whereEqualTo("user_id",seller_id);
+                            //get the username
+                            Query uquery=userdb.whereEqualTo(USER_ID,seller_id);
                             uquery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if(task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             Map<String, Object> udataMap = document.getData();
-                                            String user_name=String.valueOf(udataMap.get("username"));
+                                            String user_name=String.valueOf(udataMap.get(USERNAME));
                                             OrderDetail_item odItem=new OrderDetail_item(p_name,p_price,pid,url,seller_id,user_name,p_size);
                                             odItemlist.add(odItem);
                                         }
@@ -112,6 +131,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 }
 
 class OrderDetail_item{
+    //store information for order detail
     private String name;
     private String pid;
     private String price;
@@ -119,6 +139,7 @@ class OrderDetail_item{
     private String seller_id;
     private String seller_name;
     private String size;
+
     public OrderDetail_item(String name,String price,String productid,String url, String seller_id,String seller_name,String size){
         this.name=name;
         this.price=price;
@@ -142,6 +163,8 @@ class OrderDetailAdapter extends BaseAdapter {
     private String myflag="OrderDetailAdapter";
     private Context context;
     private ArrayList<OrderDetail_item> odItemlist=new ArrayList<>();
+    private static final String SELLER_ID = "seller_id";
+    private static final String PRODUCT_ID= "product_id";
 
     public OrderDetailAdapter(Context acontext, ArrayList<OrderDetail_item> list){
         this.context=acontext;
@@ -170,6 +193,7 @@ class OrderDetailAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  //Inflater's are awesome, they convert xml to Java Objects!
             row = inflater.inflate(R.layout.activity_order_detail_card, viewGroup, false);
         }
+        //render information for each product
         OrderDetail_item od=odItemlist.get(i);
         TextView odtvname=row.findViewById(R.id.orderDetailRowName);
         odtvname.setText(od.get_name());
@@ -188,8 +212,9 @@ class OrderDetailAdapter extends BaseAdapter {
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //when click contact button, send seller id in intent to ContactActivity
                 Intent intent=new Intent(context,ContactActivity.class);
-                intent.putExtra("seller_id",od.get_seller_id());
+                intent.putExtra(SELLER_ID,od.get_seller_id());
                 context.startActivity(intent);
             }
         });
@@ -197,8 +222,9 @@ class OrderDetailAdapter extends BaseAdapter {
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //write a review when click review button
                 Intent intent=new Intent(context,ReviewActivity.class);
-                intent.putExtra("product_id",od.get_productid());
+                intent.putExtra(PRODUCT_ID,od.get_productid());
                 context.startActivity(intent);
             }
         });
