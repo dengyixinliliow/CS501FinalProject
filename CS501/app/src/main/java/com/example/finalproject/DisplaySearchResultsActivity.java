@@ -67,7 +67,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
 
         search_result_listView = (ListView) findViewById(R.id.search_result_listView);
         search_result_title = (TextView) findViewById(R.id.search_result_title);
-        search_result_title.setText(R.string.keyword + search_result_keyword);
+        search_result_title.setText(getResources().getString(R.string.keyword) + search_result_keyword);
         search_result_intro = (TextView) findViewById(R.id.search_introduction);
 
         mAuth = FirebaseAuth.getInstance();
@@ -113,7 +113,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                     }
 
                     if (productList.size() == 0) {
-                        search_result_intro.setText(R.string.wrong_search);
+                        search_result_intro.setText(getResources().getString(R.string.wrong_search));
                     }
 
                     ProductsLVAdapter productsLVAdapter = new ProductsLVAdapter(DisplaySearchResultsActivity.this, productList);

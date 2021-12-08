@@ -204,11 +204,20 @@ public class PaymentActivity extends AppCompatActivity {
                 Objects.requireNonNull(response.body()).string(),
                 type
         );
+
+        Log.e("test", "11");
         paymentIntentClientSecret = responseMap.get("clientSecret");
 
         //once you get the payment client secret start transaction
         //get card detail
         PaymentMethodCreateParams params = payment_cardInputWidget.getPaymentMethodCreateParams();
+
+        if (params == null) {
+
+            Log.e("error", "error");
+            progressDialog.dismiss();
+        }
+
         if (params != null) {
             //now use paymentIntentClientSecret to start transaction
             ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams

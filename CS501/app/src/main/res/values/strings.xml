@@ -76,7 +76,7 @@
     <string name="shoes">Shoes</string>
     <string name="pants">Jeans&amp;Pants</string>
     <string name="bags">Bags</string>
-    <string name="keyword">Here is your search keyword</string>
+    <string name="keyword">Here is your search keyword: </string>
     <string name="wrong_search">Sorry, there is no product match your search</string>
     <string-array name="category">
         <item>Men</item>
