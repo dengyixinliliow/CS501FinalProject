@@ -32,10 +32,8 @@ import java.util.Map;
 
 public class PersonalInfoActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "PERSONALINFO";
 
-    private String edt_firstName;
-    private String edt_lastName;
     private String edt_email;
     private String edt_username;
     private String edt_password;
@@ -54,15 +52,17 @@ public class PersonalInfoActivity extends AppCompatActivity implements Navigatio
     private Map<String, Object> current_user;
     private String user_id;
 
-    public static final String EMAIL = "email";
-    public static final String USERID = "user_id";
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String PHONE = "phone";
-    public static final String ADDRESS = "address";
+    private static final String EMAIL = "email";
+    private static final String USERID = "user_id";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String PHONE = "phone";
+    private static final String ADDRESS = "address";
+    private static final String PROFILE_UPDATED = "Profile Updated!";
+
 
     private FirebaseAuth mAuth;
-    FirebaseUser auth_user;
+    private FirebaseUser auth_user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -80,7 +80,6 @@ public class PersonalInfoActivity extends AppCompatActivity implements Navigatio
         personalInfo_edtPassword = (EditText) findViewById(R.id.personalInfo_edtPassword);
         personalInfo_edtPhone = (EditText) findViewById(R.id.personalInfo_edtPhone);
         personalInfo_edtAddress = (EditText) findViewById(R.id.personalInfo_edtAddress);
-
         personalInfo_btnBack = (Button) findViewById(R.id.personalInfo_btnBack);
         personalInfo_btnUpdate = (Button) findViewById(R.id.personalInfo_btnUpdate);
 
@@ -91,18 +90,20 @@ public class PersonalInfoActivity extends AppCompatActivity implements Navigatio
             }
         });
 
+        // Get and set the user's information
         getUserById(user_id);
 
         personalInfo_btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // get the newest user's information
                 edt_email = personalInfo_edtEmail.getText().toString();
                 edt_username = personalInfo_edtUsername.getText().toString();
                 edt_password = personalInfo_edtPassword.getText().toString();
                 edt_phone = personalInfo_edtPhone.getText().toString();
                 edt_address = personalInfo_edtAddress.getText().toString();
 
-                updateDatabase(edt_firstName, edt_lastName, edt_email, edt_username, edt_password, edt_phone, edt_address);
+                updateDatabase(edt_email, edt_username, edt_password, edt_phone, edt_address);
             }
         });
     }
@@ -140,7 +141,10 @@ public class PersonalInfoActivity extends AppCompatActivity implements Navigatio
         // [END get_multiple]
     }
 
-    public void updateDatabase(String firstName, String lastName, String username, String email, String password, String phone, String address) {
+    /*
+        Update the user's information in users database
+     */
+    public void updateDatabase(String username, String email, String password, String phone, String address) {
         DocumentReference documentReference = db.collection("users").document(user_id);
         Map<String, Object> updates = new HashMap<>();
         updates.put(EMAIL, edt_email);
@@ -153,7 +157,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements Navigatio
         documentReference.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(getBaseContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), PROFILE_UPDATED, Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onSuccess: user profile is created for " + user_id);
             }
         }).addOnFailureListener(new OnFailureListener() {

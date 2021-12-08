@@ -24,30 +24,29 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "LoginActivity";
 
+    // Firebase variables
     private FirebaseAuth mAuth;
-    FirebaseUser auth_user;
 
     private Button btn_login;
-    private Button btn_signup;
     private EditText edt_email;
     private EditText edt_password;
     private ImageView return_icon;
+    private TextView txt_errorMsg;
 
     private String email;
     private String password;
 
-    private TextView txt_errorMsg;
+    private String SUCCESS = "Sign in success!";
+    private String FIELDS_REQUIRED = "All fields are required!";
     private String error_message = "Email or Password is not correct! Please try again!";
+    private String ERROR_VARIFIED = "signInWithEmail:failure, email not verified!";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-//        setSupportActionBar(myToolbar);
 
         return_icon=(ImageView)findViewById(R.id.login_return);
         return_icon.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +57,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         mAuth = FirebaseAuth.getInstance();
 
         btn_login = (Button) findViewById(R.id.login_btnLogin);
-
         edt_email = (EditText) findViewById(R.id.login_edtEmail);
         edt_password = (EditText) findViewById(R.id.login_edtPassword);
-
         txt_errorMsg = (TextView) findViewById(R.id.login_txtErrorMsg);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                 password = edt_password.getText().toString();
 
                 if(email.isEmpty() || password.isEmpty()) {
-                    txt_errorMsg.setText("All fields are required!");
+                    txt_errorMsg.setText(FIELDS_REQUIRED);
                     return;
                 }
-
                 signIn(email, password);
             }
         });
@@ -94,10 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, check if the email is verified.
                             checkIfEmailVerified();
-
                         } else {
                             // If sign in fails, display a message to the user.
-                            txt_errorMsg.setText(task.getException().getMessage().toString() + "login");
+                            String signin_fail = task.getException().getMessage() + "login";
+                            txt_errorMsg.setText(signin_fail);
                         }
                     }
                 });
@@ -109,25 +104,17 @@ public class LoginActivity extends AppCompatActivity {
 
         if (user.isEmailVerified())
         {
-            // user is verified
-//            finish();
-            Log.d(TAG, "signInWithEmail:success");
-            txt_errorMsg.setText("success");
+            txt_errorMsg.setText(SUCCESS);
             // Move to personalInfo page
             Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
             startActivity(intent);
         }
         else
         {
-            // email is not verified, so just prompt the message to the user and restart this activity.
-            // NOTE: don't forget to log out the user.
+            // email is not verified
             FirebaseAuth.getInstance().signOut();
-            Log.d(TAG, "signInWithEmail:failure, email not verified!");
-            txt_errorMsg.setText("signInWithEmail:failure, email not verified!");
-
-//            //restart this activity
-//            restartActivity(LoginActivity.this);
-
+            Log.d(TAG, ERROR_VARIFIED);
+            txt_errorMsg.setText(ERROR_VARIFIED);
         }
     }
     public static void restartActivity(Activity activity){

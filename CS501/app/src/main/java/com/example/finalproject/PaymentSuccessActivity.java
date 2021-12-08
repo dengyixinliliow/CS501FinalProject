@@ -35,13 +35,13 @@ import java.util.Map;
 
 public class PaymentSuccessActivity extends AppCompatActivity implements NavigationFragment.NavigationFragmentListener {
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "PAYMENT_SUCCESS";
 
     private final Double ZERO = 0.00;
     private final long ZERO1 = 0;
 
     private FirebaseAuth mAuth;
-    FirebaseUser auth_user;
+    private FirebaseUser auth_user;
     private String user_id;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -53,25 +53,19 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
     private ArrayList<String> payment_success_items_list;
     private Map map=new HashMap();
 
-
     private Button to_orderdetail;
-    public static final String USER_ID = "user_id";
-    public static final String PRODUCT_ID = "product_id";
-    public static final String PRODUCT_NAME = "product_name";
-    public static final String PRODUCT_TYPE = "product_type";
-    public static final String PRODUCT_SIZE = "product_size";
-    public static final String PRODUCT_PRICE = "product_price";
-    public static final String PRODUCT_COLOR = "product_color";
-    public static final String PRODUCT_CATEGORY = "product_category";
-    public static final String PRODUCT_CONDITION = "product_condition";
-    public static final String PRODUCT_DESCRIPTION = "product_description";
-    public static final String PRODUCT_IMG_URL = "product_img_url";
-    public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
-    public static final String SELLER_ID = "seller_id";
-    public static final String SELLER_USERNAME = "seller_username";
-    public static final String USERNAME = "username";
-    public static final String FIRST_MESSAGE = "Hello!";
-    public static final String IS_AVAILABLE = "is_available";
+
+    private static final String IS_AVAILABLE = "is_available";
+    private static final String ORDER_NUMBER = "order_number";
+    private static final String ORDER_TOTAL = "order_total";
+    private static final String PRODUCT_IDS = "product_ids";
+    private static final String SELLER_IDS = "seller_ids";
+
+    private static final String CARTS = "carts";
+    private static final String USER_ID = "user_id";
+    private static final String PRODUCTS = "products";
+    private static final String PRODUCT_ID = "product_id";
+    private static final String RENTER_ID = "renter_id";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,10 +89,6 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         to_orderdetail = (Button) findViewById(R.id.payment_success_btn);
 
         // connect to database
-        Log.i("test",String.valueOf(getPayment_success_seller_id.size()));
-        Log.i("test",String.valueOf(getPayment_success_seller_id.toString()));
-        Log.i("test",String.valueOf(payment_success_items_list.size()));
-        Log.i("test",String.valueOf(payment_success_items_list.toString()));
         if (getPayment_success_seller_id.size() == payment_success_items_list.size()) {
             for (int i = 0; i < payment_success_items_list.size(); i++) {
                 String cur_product_id = payment_success_items_list.get(i);
@@ -117,27 +107,32 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             }
         }
 
+        // add order to order database
         addOrder(map);
 
-         //clear user's shopping bag after checkout
+        // clear user's shopping bag after checkout
         clearCart(user_id);
 
+        // Move to order detail page
         to_orderdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent to_od=new Intent(getBaseContext(),OrderDetailActivity.class);
-                to_od.putExtra("order_number",payment_success_order_id);
-                to_od.putExtra("order_total",payment_success_order_total.toString());
-                to_od.putExtra("product_ids",payment_success_items_list);
-                to_od.putExtra("seller_ids",getPayment_success_seller_id);
+                to_od.putExtra(ORDER_NUMBER, payment_success_order_id);
+                to_od.putExtra(ORDER_TOTAL, payment_success_order_total.toString());
+                to_od.putExtra(PRODUCT_IDS, payment_success_items_list);
+                to_od.putExtra(SELLER_IDS, getPayment_success_seller_id);
                 startActivity(to_od);
             }
         });
     }
 
+    /*
+        Clear cart that with the same user id
+     */
     private void clearCart(String user_id) {
-        db.collection("carts")
-                .whereEqualTo("user_id", user_id)
+        db.collection(CARTS)
+                .whereEqualTo(USER_ID, user_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -152,11 +147,13 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                     }
                 });
     }
-    //update product status
 
+    /*
+        Update product status
+     */
     private void updateProduct(String product_id) {
-        db.collection("products")
-                .whereEqualTo("product_id", product_id)
+        db.collection(PRODUCTS)
+                .whereEqualTo(PRODUCT_ID, product_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -164,7 +161,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 document.getReference().update(IS_AVAILABLE, false);
-                                document.getReference().update("renter_id", user_id);
+                                document.getReference().update(RENTER_ID, user_id);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -173,7 +170,9 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
                 });
     }
 
-    //update status in algolia database
+    /*
+        Update status in algolia database
+     */
     private void updateAlgoliaProduct(String product_id) throws JSONException {
         Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
         Index index = client.initIndex("products");
@@ -181,7 +180,7 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
         CompletionHandler completeHandler = new CompletionHandler() {
             @Override
             public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
-                Log.e("test", "test");
+                Log.e(TAG, "test");
             }
         };
 
@@ -205,12 +204,12 @@ public class PaymentSuccessActivity extends AppCompatActivity implements Navigat
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
-                    Log.d("test", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.w("test", "Error adding document", e);
+                    Log.w(TAG, "Error adding document", e);
             }
         });
     }

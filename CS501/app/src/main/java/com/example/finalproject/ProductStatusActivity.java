@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class ProductStatusActivity extends AppCompatActivity {
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "PRODUCT_STATUS_PAGE";
 
     private TextView pstatus_txtRenter;
     private TextView pstatus_txtRenterName;
@@ -48,18 +48,26 @@ public class ProductStatusActivity extends AppCompatActivity {
     private Button pstatus_contact;
     private Button pstatus_receive;
 
+    private ImageView return_icon;
+
     private String pid;
     private String pname;
     private Boolean cur_user_status;
 
-    public static final String PRODUCT_ID = "product_id";
-    public static final String SELLER_ID = "seller_id";
-    public static final String USERNAME = "username";
-    public static final String IS_AVAILABLE = "is_available";
-    private ImageView return_icon;
+    private static final String USERS = "users";
+    private static final String USER_ID = "user_id";
+    private static final String PRODUCT_ID = "product_id";
+    private static final String PRODUCT_NAME = "product_name";
+    private static final String SELLER_ID = "seller_id";
+    private static final String RENTER_ID = "renter_id";
+    private static final String USERNAME = "username";
+    private static final String IS_AVAILABLE = "is_available";
+    private static final String PRODUCTS = "products";
+    private static final String AVAILABLE = "Available";
 
+    // firebase variables
     private FirebaseAuth mAuth;
-    FirebaseUser auth_user;
+    private FirebaseUser auth_user;
     private String user_id;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -82,8 +90,8 @@ public class ProductStatusActivity extends AppCompatActivity {
         user_id = auth_user.getUid();
 
         Intent intent = getIntent();
-        pid = intent.getStringExtra("product_id");
-        pname = intent.getStringExtra("product_name");
+        pid = intent.getStringExtra(PRODUCT_ID);
+        pname = intent.getStringExtra(PRODUCT_NAME);
 
         pstatus_txtRenter = (TextView) findViewById(R.id.pstatus_txtRenter);
         pstatus_txtRenterName = (TextView) findViewById(R.id.pstatus_txtRenterName);
@@ -92,7 +100,7 @@ public class ProductStatusActivity extends AppCompatActivity {
         pstatus_contact = (Button) findViewById(R.id.pstatus_contact);
         pstatus_receive = (Button) findViewById(R.id.pstatus_receive);
 
-
+        // Get the renter username by the product id
         getProductById(pid);
 
         pstatus_pname.setText(pname);
@@ -101,30 +109,29 @@ public class ProductStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // [START get_multiple]
-                db.collection("products")
-                        .whereEqualTo("product_id", pid)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        // store info of the current user
-                                        Map<String, Object> cur_product = document.getData();
+                db.collection(PRODUCTS)
+                    .whereEqualTo(PRODUCT_ID, pid)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // store info of the current user
+                                    Map<String, Object> cur_product = document.getData();
 
-                                        String cur_renter_id = cur_product.get("renter_id").toString();
+                                    String cur_renter_id = cur_product.get(RENTER_ID).toString();
 
-                                        // Move to Contact page
-                                        Intent intent = new Intent(getBaseContext(), ContactActivity.class);
-                                        intent.putExtra(SELLER_ID, cur_renter_id);
-                                        startActivity(intent);
-
-                                    }
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                    // Move to Contact page
+                                    Intent intent = new Intent(getBaseContext(), ContactActivity.class);
+                                    intent.putExtra(SELLER_ID, cur_renter_id);
+                                    startActivity(intent);
                                 }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
                             }
-                        });
+                        }
+                    });
                 // [END get_multiple]
             }
         });
@@ -140,12 +147,11 @@ public class ProductStatusActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void setRenterName(String product_id) {
         // [START get_multiple]
-        db.collection("products")
+        db.collection(PRODUCTS)
                 .whereEqualTo(PRODUCT_ID, product_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -155,13 +161,10 @@ public class ProductStatusActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // store info of the current user
                                 Map<String, Object> product = document.getData();
-
-                                String renter_id = product.get("renter_id").toString();
+                                String renter_id = product.get(RENTER_ID).toString();
 
                                 // get and set the renter's username based on the renter_id
                                 getUserById(renter_id);
-
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -173,8 +176,8 @@ public class ProductStatusActivity extends AppCompatActivity {
 
     public void getUserById(String user_id) {
         // [START get_multiple]
-        db.collection("users")
-                .whereEqualTo("user_id", user_id)
+        db.collection(USERS)
+                .whereEqualTo(USER_ID, user_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -184,9 +187,6 @@ public class ProductStatusActivity extends AppCompatActivity {
                                 // store info of the current user
                                 Map<String, Object> current_user = document.getData();
                                 pstatus_txtRenterName.setText(current_user.get(USERNAME).toString());
-                                // Set User Info in EditText
-//                                personalInfo_edtUsername.setText(current_user.get(USERNAME).toString());
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -198,8 +198,8 @@ public class ProductStatusActivity extends AppCompatActivity {
 
     public void getProductById(String product_id) {
         // [START get_multiple]
-        db.collection("products")
-                .whereEqualTo("product_id", product_id)
+        db.collection(PRODUCTS)
+                .whereEqualTo(PRODUCT_ID, product_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -212,7 +212,7 @@ public class ProductStatusActivity extends AppCompatActivity {
                                 cur_user_status = (Boolean) cur_user.get(IS_AVAILABLE);
 
                                 if (cur_user_status) {
-                                    pstatus_status.setText("Available");
+                                    pstatus_status.setText(AVAILABLE);
 
                                     pstatus_contact.setVisibility(View.GONE);
                                     pstatus_receive.setVisibility(View.GONE);
@@ -237,8 +237,8 @@ public class ProductStatusActivity extends AppCompatActivity {
 
     public void updateProductStatus(String product_id) {
         // [START get_multiple]
-        db.collection("products")
-            .whereEqualTo("product_id", product_id)
+        db.collection(PRODUCTS)
+            .whereEqualTo(PRODUCT_ID, product_id)
             .get()
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
@@ -262,7 +262,7 @@ public class ProductStatusActivity extends AppCompatActivity {
         CompletionHandler completeHandler = new CompletionHandler() {
             @Override
             public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
-                Log.e("test", "test");
+                Log.e(TAG, "test");
             }
         };
 

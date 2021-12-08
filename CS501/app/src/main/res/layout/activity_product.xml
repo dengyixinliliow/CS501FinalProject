@@ -33,9 +33,9 @@
                     android:layout_width="38dp"
                     android:layout_height="34dp"
                     android:background="@drawable/btn_bg"
-                    android:text="x"
+                    android:text="@string/x"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <ImageView
@@ -53,9 +53,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="product name"
+                android:hint="@string/product_name"
                 android:textAlignment="center"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,16 +67,16 @@
                     android:id="@+id/product_txtSellerUsernameTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seller Name: "
-                    android:textSize="22dp"
+                    android:text="@string/seller_name"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/product_txtSellerUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="seller"
-                    android:textSize="20dp" />
+                    android:hint="@string/seller"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/product_btnContactSeller"
@@ -84,7 +84,7 @@
                     android:layout_height="37dp"
                     android:layout_marginStart="50dp"
                     android:background="@drawable/btn_bg"
-                    android:text="contact"
+                    android:text="@string/product_contact"
                     android:textColor="@color/black" />
             </LinearLayout>
 
@@ -97,8 +97,8 @@
                     android:id="@+id/product_txtPriceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price: "
-                    android:textSize="22dp"
+                    android:text="@string/product_price"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -107,9 +107,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="price"
+                    android:hint="@string/price_hint"
                     android:inputType="number"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -123,7 +123,7 @@
                     android:id="@+id/product_txtTypeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Type: "
+                    android:text="@string/type_hint"
                     android:textSize="22dp"
                     android:textStyle="bold" />
 
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="type"
+                    android:hint="@string/product_type_hint"
                     android:textSize="20dp" />
             </LinearLayout>
 
@@ -146,8 +146,8 @@
                     android:id="@+id/product_txtCategoryTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category: "
-                    android:textSize="22dp"
+                    android:text="@string/category_hint"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -155,9 +155,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="category"
+                    android:hint="@string/p_category_hint"
                     android:inputType="date"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -170,8 +170,8 @@
                     android:id="@+id/product_txtConditionTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Condition: "
-                    android:textSize="22dp"
+                    android:text="@string/condition"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -179,9 +179,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="condition"
+                    android:hint="@string/condition_hint"
                     android:inputType="date"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -194,8 +194,8 @@
                     android:id="@+id/product_txtSizeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Size: "
-                    android:textSize="22dp"
+                    android:text="@string/size"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -203,8 +203,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="size"
-                    android:textSize="20dp" />
+                    android:hint="@string/size_hint"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <TextView
@@ -212,8 +212,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Description"
-                android:textSize="22dp"
+                android:text="@string/description"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -221,8 +221,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:hint="product description"
-                android:textSize="20dp" />
+                android:hint="@string/product_description"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -237,7 +237,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/btn_bg"
-                    android:text="see reviews"
+                    android:text="@string/see_reviews"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -246,7 +246,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_marginBottom="20dp"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -260,7 +260,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/btn_bg"
-        android:text="add to bag"
+        android:text="@string/add_to_bag"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

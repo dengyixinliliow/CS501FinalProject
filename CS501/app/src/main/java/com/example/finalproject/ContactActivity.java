@@ -27,12 +27,7 @@ import java.util.Map;
 
 public class ContactActivity extends AppCompatActivity {
 
-    private static final String TAG = "EmailPassword";
-
-    private Button inbox_btnSearch;
-    private Button inbox_btnInbox;
-    private Button inbox_btnOrders;
-    private Button inbox_btnProfile;
+    private static final String TAG = "MYTAG";
 
     private TextView contact_txtContactIntro;
     private Button contact_btnMessage;
@@ -40,41 +35,26 @@ public class ContactActivity extends AppCompatActivity {
     private Button contact_btnEmail;
     private ImageView return_icon;
 
-    public static final String USER_ID = "user_id";
-    public static final String PRODUCT_ID = "product_id";
-    public static final String PRODUCT_NAME = "product_name";
-    public static final String PRODUCT_TYPE = "product_type";
-    public static final String PRODUCT_SIZE = "product_size";
-    public static final String PRODUCT_PRICE = "product_price";
-    public static final String PRODUCT_COLOR = "product_color";
-    public static final String PRODUCT_CATEGORY = "product_category";
-    public static final String PRODUCT_CONDITION = "product_condition";
-    public static final String PRODUCT_IMG_URL = "product_img_url";
-    public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
-    public static final String SELLER_ID = "seller_id";
-    public static final String USERNAME = "username";
-    public static final String EMAIL = "email";
-    public static final String PHONE = "phone";
+    private static final String SELLER_ID = "seller_id";
+    private static final String USERNAME = "username";
+    private static final String EMAIL = "email";
+    private static final String PHONE = "phone";
 
     private String seller_id;
-
     private String contactintro_message = "Get in touch with ";
-
     private String contact_option;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     private FirebaseAuth mAuth;
     private FirebaseUser auth_user;
     private String user_id;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
+        // get current user id
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
         user_id = auth_user.getUid();
@@ -85,11 +65,14 @@ public class ContactActivity extends AppCompatActivity {
         contact_btnEmail = (Button) findViewById(R.id.contact_btnEmail);
         return_icon=(ImageView)findViewById(R.id.ContactReturn);
 
+        // Get the ID of the contact
         Intent intent = getIntent();
         seller_id = intent.getStringExtra(SELLER_ID);
 
+        // set the contact info on screen
         getUsernameById(seller_id);
 
+        // set button click listener
         contact_btnMessage.setOnClickListener(new ContactsButton());
         contact_btnCall.setOnClickListener(new ContactsButton());
         contact_btnEmail.setOnClickListener(new ContactsButton());
@@ -120,8 +103,9 @@ public class ContactActivity extends AppCompatActivity {
         }
     }
 
-
-
+    /*
+        Get user information by ID
+     */
     public void getUsernameById(String user_id) {
         // [START get_multiple]
         db.collection("users")
@@ -134,8 +118,6 @@ public class ContactActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // store info of the current user
                                 Map<String, Object> cur_user = document.getData();
-
-                                String cur_user_email = cur_user.get("email").toString();
 
                                 String cur_username = cur_user.get(USERNAME).toString();
                                 contactintro_message = contactintro_message + cur_username;
@@ -150,6 +132,9 @@ public class ContactActivity extends AppCompatActivity {
         // [END get_multiple]
     }
 
+    /*
+        Get user information by ID
+     */
     public void getUserById(String user_id) {
         // [START get_multiple]
         db.collection("users")
@@ -166,37 +151,45 @@ public class ContactActivity extends AppCompatActivity {
                                 String cur_user_email = cur_user.get(EMAIL).toString();
                                 String cur_user_phone = cur_user.get(PHONE).toString();
 
+                                // send message
                                 if(contact_option.equals("message")) {
                                     try {
-
-//                                        String message = "";
-                                        Log.d(TAG, "phone: " + cur_user_phone);
                                         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                                         sendIntent.putExtra("address", cur_user_phone);
-//                                        sendIntent.putExtra("sms_body", message);
                                         sendIntent.setType("vnd.android-dir/mms-sms");
                                         startActivity(sendIntent);
-
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(),
                                                 "SMS faild, please try again later!",
                                                 Toast.LENGTH_LONG).show();
                                         e.printStackTrace();
                                     }
+                                // make a phone call
                                 } else if(contact_option.equals("call")) {
-                                    Intent phoneCallMom = new Intent(Intent.ACTION_DIAL);  //or with two lines.
-                                    phoneCallMom.setData(Uri.parse("tel:"+cur_user_phone));   //REALLY SHOULD NOT HARD CODE PHONE #
-                                    startActivity(phoneCallMom);
+                                    try {
+                                        Intent phoneCall = new Intent(Intent.ACTION_DIAL);
+                                        phoneCall.setData(Uri.parse("tel:"+cur_user_phone));
+                                        startActivity(phoneCall);
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "CALL faild, please try again later!",
+                                                Toast.LENGTH_LONG).show();
+                                        e.printStackTrace();
+                                    }
+                                // send email
                                 } else {
-                                    Uri uri = Uri.parse("mailto:" + cur_user_email);
-                                    String[] email = {cur_user_email};
-                                    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-                                    //intent.putExtra(Intent.EXTRA_CC, email); // cc
-//                                    intent.putExtra(Intent.EXTRA_SUBJECT, "temple topic"); // topic
-//                                    intent.putExtra(Intent.EXTRA_TEXT, "hello email"); // content
-                                    startActivity(Intent.createChooser(intent, "choose email app"));
+                                    try {
+                                        Uri uri = Uri.parse("mailto:" + cur_user_email);
+                                        String[] email = {cur_user_email};
+                                        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                                        startActivity(Intent.createChooser(intent, "choose email app"));
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "EMAIL faild, please try again later!",
+                                                Toast.LENGTH_LONG).show();
+                                        e.printStackTrace();
+                                    }
                                 }
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

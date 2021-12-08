@@ -25,6 +25,9 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
 
     private Context cont;
     private String product_id;
+    private static final String PRODUCT_ID = "product_id";
+    private static final String ACTION_TAKER = "action_taker";
+
 
     public ProductsLVAdapter(@NonNull Context context, List<Product> productsArrayList) {
         super(context, 0, productsArrayList);
@@ -57,8 +60,8 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
             public void onClick(View view) {
                 product_id = product.getProductId();
                 Intent intent = new Intent(cont, ProductActivity.class);
-                intent.putExtra("product_id", product_id);
-                intent.putExtra("action_taker", "non-owner");
+                intent.putExtra(PRODUCT_ID, product_id);
+                intent.putExtra(ACTION_TAKER, "non-owner");
                 cont.startActivity(intent);
                 //pass id as the intent
             }

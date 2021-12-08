@@ -78,6 +78,31 @@
     <string name="bags">Bags</string>
     <string name="keyword">Here is your search keyword: </string>
     <string name="wrong_search">Sorry, there is no product match your search</string>
+    <string name="send_email">Send email:</string>
+    <string name="send_message">Send message:</string>
+    <string name="make_a_phone_call">Make a phone call:</string>
+    <string name="login">login</string>
+    <string name="login_email">Email:</string>
+    <string name="login_password">Password:</string>
+    <string name="x">x</string>
+    <string name="product_name">product name</string>
+    <string name="seller_name">Seller Name:</string>
+    <string name="seller">seller</string>
+    <string name="product_contact">contact</string>
+    <string name="product_price">Price:</string>
+    <string name="price_hint">price</string>
+    <string name="type_hint">Type:</string>
+    <string name="product_type_hint">type</string>
+    <string name="category_hint">Category:</string>
+    <string name="p_category_hint">category</string>
+    <string name="condition">Condition:</string>
+    <string name="condition_hint">condition</string>
+    <string name="size">Size:</string>
+    <string name="size_hint">size</string>
+    <string name="description">Description</string>
+    <string name="product_description">product description</string>
+    <string name="see_reviews">see reviews</string>
+    <string name="add_to_bag">add to bag</string>
     <string-array name="category">
         <item>Men</item>
         <item>Women</item>

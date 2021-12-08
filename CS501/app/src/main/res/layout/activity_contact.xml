@@ -1,70 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_pink"
+    android:orientation="vertical"
     tools:context=".ContactActivity">
-
-    <TextView
-        android:id="@+id/contact_txtContactIntro"
-        android:layout_width="317dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="60dp"
-        android:text=""
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/contact_btnEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:background="@drawable/btn_bg"
-        android:textColor="@color/black"
-        android:text="@string/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_btnCall" />
-
-    <Button
-        android:id="@+id/contact_btnMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/btn_bg"
-        android:textColor="@color/black"
-        android:text="@string/message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_txtContactIntro" />
-
-    <Button
-        android:id="@+id/contact_btnCall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="106dp"
-        android:background="@drawable/btn_bg"
-        android:textColor="@color/black"
-        android:text="@string/call"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_btnMessage" />
 
     <ImageView
         android:id="@+id/ContactReturn"
         android:layout_width="@dimen/return_icon"
         android:layout_height="@dimen/return_icon"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/contact_txtContactIntro"
-        app:layout_constraintEnd_toStartOf="@+id/contact_txtContactIntro"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/margin_10"
-        app:srcCompat="@drawable/return_icon" />
+        android:clickable="true"
+        app:srcCompat="@drawable/return_icon"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/contact_txtContactIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/contact_txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:textSize="25sp"
+        android:text="@string/send_email" />
+
+    <Button
+        android:id="@+id/contact_btnEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:layout_marginStart="30dp"
+        android:text="@string/email"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/contact_txtMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:textSize="25sp"
+        android:text="@string/send_message" />
+
+    <Button
+        android:id="@+id/contact_btnMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:layout_marginStart="30dp"
+        android:text="@string/message"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/contact_txtCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:textSize="25sp"
+        android:text="@string/make_a_phone_call" />
+
+    <Button
+        android:id="@+id/contact_btnCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:layout_marginStart="30dp"
+        android:text="@string/call"
+        android:textColor="@color/black" />
+
+</LinearLayout>

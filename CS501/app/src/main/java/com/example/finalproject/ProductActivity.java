@@ -31,10 +31,9 @@ import java.util.UUID;
 
 public class ProductActivity extends AppCompatActivity {
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "PRODUCT_ACTIVITY";
 
     private ImageView product_ivProduct;
-
     private TextView product_txtName;
     private TextView product_txtType;
     private TextView product_txtSize;
@@ -44,38 +43,27 @@ public class ProductActivity extends AppCompatActivity {
     private TextView product_txtDescription;
     private TextView product_txtSellerUsername;
     private TextView product_tvReviewCount;
-
     private Button product_btnAddToBag;
     private Button product_btnReviews;
     private Button product_btnContactSeller;
     private Button product_btnBack;
 
-    public static final String USER_ID = "user_id";
-    public static final String PRODUCT_ID = "product_id";
-    public static final String PRODUCT_NAME = "product_name";
-    public static final String PRODUCT_TYPE = "product_type";
-    public static final String PRODUCT_SIZE = "product_size";
-    public static final String PRODUCT_PRICE = "product_price";
-    public static final String PRODUCT_COLOR = "product_color";
-    public static final String PRODUCT_CATEGORY = "product_category";
-    public static final String PRODUCT_CONDITION = "product_condition";
-    public static final String PRODUCT_DESCRIPTION = "product_description";
-    public static final String PRODUCT_IMG_URL = "product_img_url";
-    public static final String PRODUCT_IS_AVAILABLE = "product_is_available";
-    public static final String SELLER_ID = "seller_id";
-    public static final String SELLER_USERNAME = "seller_username";
-    public static final String USERNAME = "username";
-    public static final String FIRST_MESSAGE = "Hello!";
-
-//    public static final String MESSAGES_DOCUMENT_NAME = "";
+    private static final String USER_ID = "user_id";
+    private static final String PRODUCT_ID = "product_id";
+    private static final String PRODUCT_NAME = "product_name";
+    private static final String PRODUCT_TYPE = "product_type";
+    private static final String PRODUCT_SIZE = "product_size";
+    private static final String PRODUCT_PRICE = "product_price";
+    private static final String PRODUCT_CATEGORY = "product_category";
+    private static final String PRODUCT_CONDITION = "product_condition";
+    private static final String PRODUCT_DESCRIPTION = "product_description";
+    private static final String PRODUCT_IMG_URL = "product_img_url";
+    private static final String SELLER_ID = "seller_id";
+    private static final String USERNAME = "username";
 
     private Map<String, Object> product;
     private String product_id;
-    private String seller_username;
     private String seller_id;
-    private Map<String, Object> message;
-    private String random_message_id;
-    private String clicker;
     private Boolean product_exist_in_cart = false;
 
     // Firebase data
@@ -121,14 +109,14 @@ public class ProductActivity extends AppCompatActivity {
             product_btnAddToBag.setVisibility(View.GONE);
         };
 
+        getProductById(product_id);
+
         product_btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-        getProductById(product_id);
 
         product_btnAddToBag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,15 +128,6 @@ public class ProductActivity extends AppCompatActivity {
         product_btnContactSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Log.d(TAG, "user id: " + user_id);
-                Log.d(TAG, "seller id: " + seller_id);
-
-
-
-                // Add chat messages to chat database.
-                //addMessagesToDatabase();
-
                 // Move to Contact page
                 Intent intent = new Intent(getBaseContext(), ContactActivity.class);
                 intent.putExtra(SELLER_ID, seller_id);
@@ -218,8 +197,10 @@ public class ProductActivity extends AppCompatActivity {
                 });
     }
 
+    /*
+        Check whether the product exist in carts database
+     */
     public void checkProductExist() {
-
         product = new HashMap<String, Object>();
         product.put(USER_ID, user_id);
         product.put(PRODUCT_ID, product_id);
@@ -257,20 +238,19 @@ public class ProductActivity extends AppCompatActivity {
         // [END get_multiple]
     }
 
+    /*
+        Add product in carts database
+     */
     public void addProductToCart() {
-
-        // add product in carts database
         product = new HashMap<String, Object>();
         product.put(USER_ID, user_id);
         product.put(PRODUCT_ID, product_id);
-
 
         db.collection("carts")
                 .add(product)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-
                         CharSequence text = "Product added to cart!";
                         Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                         toast.show();
@@ -310,31 +290,4 @@ public class ProductActivity extends AppCompatActivity {
                 });
         // [END get_multiple]
     }
-
-//    public void addMessagesToDatabase() {
-//
-//        Map<String, String> message = new HashMap<String, String>();
-//        message.put(user_id, "hello");
-//
-//        Map<String, Object> chat = new HashMap<String, Object>();
-//        chat.put("renter_id", user_id);
-//        chat.put("seller_id", seller_id);
-//        chat.put("messages", message);
-//
-//        db.collection("chats")
-//                .add(chat)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.e(TAG, "onSuccess: message added ");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.e(TAG, "onFailure: message not added, " + e.getMessage());
-//                    }
-//                });
-//
-//    }
 }
