@@ -53,7 +53,6 @@ public class AddProductDetailActivity extends AppCompatActivity {
     //Variable
     private String
             img_url,
-            img_id,
             random_product_id,
             product_name,
             product_type,
@@ -79,7 +78,6 @@ public class AddProductDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         img_url = intent.getStringExtra("product_img");
-        Log.e("test", img_url);
 
         //generate random id for each product
         random_product_id = UUID.randomUUID().toString();
@@ -129,6 +127,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
         });
     }
 
+    //spinner for category and type
     private void populateSpinnerCategory() {
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.category));
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -141,6 +140,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
         addProduct_edtPType.setAdapter(typeAdapter);
     }
 
+    //get data from filed
     private void getData() {
         product_name = addProduct_edtPName.getText().toString();
         product_type = addProduct_edtPType.getSelectedItem().toString();
@@ -153,6 +153,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
         product_address = addProduct_edtAddress.getText().toString();
     }
 
+    //add data to firestore database
     private void addProduct (FirebaseFirestore db) {
         Map<String, Object> product = new HashMap<>();
 
@@ -186,6 +187,7 @@ public class AddProductDetailActivity extends AppCompatActivity {
                 });
     }
 
+    //store in algolia database
     private void addToAlgolia() {
         Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
 

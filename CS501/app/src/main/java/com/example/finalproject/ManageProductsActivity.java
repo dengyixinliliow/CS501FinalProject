@@ -60,13 +60,6 @@ public class ManageProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_products);
         return_icon=(ImageView)findViewById(R.id.manage_product_return);
-        return_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getBaseContext(),ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
         product_list_view = (ListView) findViewById(R.id.manage_products_list_view);
         manage_product_add_btn = (Button) findViewById(R.id.manage_products_add_btn);
         product_list_view.setDivider(null);
@@ -79,6 +72,14 @@ public class ManageProductsActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         fetchSellerProducts();
 
+        return_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getBaseContext(),ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         manage_product_add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +89,7 @@ public class ManageProductsActivity extends AppCompatActivity {
         });
     }
 
+    //get all products listed by the seller
     private void fetchSellerProducts() {
         CollectionReference productsRef = db.collection("products");
         Query query = productsRef.whereEqualTo("seller_id", user_id);
@@ -121,6 +123,7 @@ public class ManageProductsActivity extends AppCompatActivity {
 
 }
 
+//list view adapter
 class ManageProductListViewAdapter extends ArrayAdapter<Product> {
     private static final String TAG = "EmailPassword";
 
@@ -196,6 +199,7 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
 
             }
 
+            //delete the data from search api
             private void deleteFromAlgolia(String product_id) {
                 Client client = new Client("OPKL0UNSXG", "f525aa0f60394c3013ef966117e91313");
                 Index index = client.initIndex("products");
@@ -216,6 +220,7 @@ class ManageProductListViewAdapter extends ArrayAdapter<Product> {
         return listItemView;
     }
 
+    //delete from firestore database
     public void deleteFromFirestore(String product_id) {
         // [START get_multiple]
         db.collection("products")

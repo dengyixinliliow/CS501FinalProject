@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/addProduct_card_layout"
         app:layout_constraintVertical_weight="1.5"
-        android:text="Please add details about your product:"
+        android:text="@string/addp_intro"
         android:gravity="bottom"
         android:layout_marginStart="20dp"/>
 
@@ -43,7 +43,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.2"
-                        android:text="Product Name"
+                        android:text="@string/addp_name"
                         android:gravity="center"
                         android:layout_marginRight="10dp"/>
                     <EditText
@@ -67,7 +67,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Product Category"
+                    android:text="@string/addp_category"
                     android:gravity="center"
                     android:layout_marginRight="10dp"
                     />
@@ -95,7 +95,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Product Type"
+                    android:text="@string/addp_type"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
 
@@ -122,7 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Product Color"
+                    android:text="@string/addp_color"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
                 <EditText
@@ -146,7 +146,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Product Size"
+                    android:text="@string/addp_size"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
                 <EditText
@@ -170,7 +170,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Product Condition"
+                    android:text="@string/addp_condition"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
                 <EditText
@@ -194,7 +194,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Product Price"
+                    android:text="@string/addp_price"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
                 <EditText
@@ -219,7 +219,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Pickup Address"
+                    android:text="@string/addp_address"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
                 <EditText
@@ -243,7 +243,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:text="Description"
+                    android:text="@string/addp_description"
                     android:gravity="center"
                     android:layout_marginRight="10dp"/>
                 <EditText
@@ -270,7 +270,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_weight="1"
-        android:text="Submit"
+        android:text="@string/submit"
         android:background="@drawable/btn_bg"/>
 
     <View

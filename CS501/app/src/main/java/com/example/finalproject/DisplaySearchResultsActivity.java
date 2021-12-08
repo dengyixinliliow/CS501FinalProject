@@ -53,6 +53,8 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private ListView search_result_listView;
     private boolean search_result_availability;
     private ImageView return_icon;
+    private TextView search_result_title;
+    private TextView search_result_intro;
 
 
     @Override
@@ -64,6 +66,9 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         search_result_keyword = intent.getStringExtra("search_keyword");
 
         search_result_listView = (ListView) findViewById(R.id.search_result_listView);
+        search_result_title = (TextView) findViewById(R.id.search_result_title);
+        search_result_title.setText(R.string.keyword + search_result_keyword);
+        search_result_intro = (TextView) findViewById(R.id.search_introduction);
 
         mAuth = FirebaseAuth.getInstance();
         auth_user = mAuth.getCurrentUser();
@@ -77,6 +82,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             }
         });
 
+        //process the results from the search api
         CompletionHandler completionHandler = new CompletionHandler() {
             @Override
             public void requestCompleted(JSONObject content, AlgoliaException error) {
@@ -106,11 +112,9 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                         }
                     }
 
-//                    ProductRVAdapter productRVAdapter = new ProductRVAdapter(DisplaySearchResultsActivity.this, productList);
-//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DisplaySearchResultsActivity.this, LinearLayoutManager.VERTICAL, false);
-//
-//                    search_result_recycler_view.setLayoutManager(linearLayoutManager);
-//                    search_result_recycler_view.setAdapter(productRVAdapter);
+                    if (productList.size() == 0) {
+                        search_result_intro.setText(R.string.wrong_search);
+                    }
 
                     ProductsLVAdapter productsLVAdapter = new ProductsLVAdapter(DisplaySearchResultsActivity.this, productList);
                     search_result_listView.setAdapter(productsLVAdapter);
@@ -127,73 +131,4 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
 
     }
 }
-
-//interface RecyclerViewClickListener {
-//
-//    void onClick(View view, int position);
-//}
-
-//class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.Viewholder> {
-//
-//    private Context context;
-//    private ArrayList<Product> productArrayList;
-//    private RecyclerViewClickListener listener;
-//
-//    // Constructor
-//    public ProductRVAdapter(Context context, ArrayList<Product> productArrayList) {
-//        this.listener = listener;
-//        this.context = context;
-//        this.productArrayList = productArrayList;
-//    }
-//
-//    @NonNull
-//    @Override
-//    public ProductRVAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        // to inflate the layout for each item of recycler view.
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_products, parent, false);
-//        return new Viewholder(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ProductRVAdapter.Viewholder holder, int position) {
-//        // to set data to textview and imageview of each card layout
-//        Product model = productArrayList.get(position);
-//        holder.productName.setText(model.getProductName());
-//        holder.productSize.setText("" + model.getProductSize());
-//        Glide.with(context).load(model.getProductImgURL()).into(holder.productImg);
-////        holder.productDetailBtn.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                Intent intent = new Intent(context, ProductActivity.class);
-////                intent.putExtra("product_id", model.getProductId());
-////                context.startActivity(intent);
-////            }
-////        });
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        // this method is used for showing number
-//        // of card items in recycler view.
-//        return productArrayList.size();
-//    }
-//
-//    // View holder class for initializing of
-//    // your views such as TextView and Imageview.
-//    public class Viewholder extends RecyclerView.ViewHolder {
-//        private ImageView productImg;
-//        private TextView productName, productSize;
-//        private Button productDetailBtn;
-//
-//        public Viewholder(@NonNull View itemView) {
-//            super(itemView);
-//            productImg = itemView.findViewById(R.id.img);
-//            productName = itemView.findViewById(R.id.txt1);
-//            productSize = itemView.findViewById(R.id.txt2);
-//            productDetailBtn = itemView.findViewById(R.id.product_btnDetail);
-//        }
-//
-//
-//    }
-//}
 

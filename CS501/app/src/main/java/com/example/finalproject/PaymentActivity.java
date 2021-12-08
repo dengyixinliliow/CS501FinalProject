@@ -52,13 +52,17 @@ import okhttp3.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    //Reference:
+    //Code adapted from : https://codingwithtashi.medium.com/stripe-payment-integration-with-android-4c588e78f3ea
+
     // 10.0.2.2 is the Android emulator's alias to localhost
     // 192.168.1.6 If you are testing in real device with usb connected to same network then use your IP address
 //    private static final String BACKEND_URL = "http://10.0.2.2:4242/"; //4242 is port mentioned in server i.e index.js
 //    private static final String BACKEND_URL = "http://155.41.45.161:4242/";
-    private static final String BACKEND_URL = "http://10.0.0.168:4242/";
+    private static final String BACKEND_URL = "http://10.0.2.2:4242/";
 
     private final int CENT_TO_DOLLAR = 100;
+    private final String CURRENCY = "USD";
     private double amount;
     private String orderTime;
     private String orderId;
@@ -137,8 +141,8 @@ public class PaymentActivity extends AppCompatActivity {
             Map<String, Object> payMap = new HashMap<>();
             Map<String, Object> itemMap = new HashMap<>();
             List<Map<String, Object>> itemList = new ArrayList<>();
-            payMap.put("currency", "USD");
-            itemMap.put("id", "photo_subscription");
+            payMap.put("currency", CURRENCY);
+            itemMap.put("id", "clothes rental");
             itemMap.put("amount", amount * CENT_TO_DOLLAR);
             itemList.add(itemMap);
             payMap.put("items", itemList);

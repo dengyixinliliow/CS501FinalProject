@@ -50,7 +50,6 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
         product_name.setText(product.getProductName());
         product_size.setText(product.getProductSize());
         product_price.setText(product.getProductPrice());
-//        product_img.setImageResource(R.drawable.red_jacket);
         Glide.with(cont).load(product.getProductImgURL()).into(product_img);
 
         product_btnDetail.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +61,6 @@ public class ProductsLVAdapter extends ArrayAdapter<Product> {
                 intent.putExtra("action_taker", "non-owner");
                 cont.startActivity(intent);
                 //pass id as the intent
-                Log.e("test", "clicked");
             }
         });
 

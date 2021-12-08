@@ -57,16 +57,6 @@ public class AddProductActivity extends AppCompatActivity {
     // views
     private Button addProduct_btnSelect;
     private Button addProduct_btnUpload;
-    private Button getAddProduct_btnSubmit;
-    private EditText addProduct_edtPName;
-    private Spinner addProduct_edtPType;
-    private EditText addProduct_edtPColor;
-    private Spinner addProduct_edtPCategory;
-    private EditText addProduct_edtPSize;
-    private EditText addProduct_edtPCondition;
-    private EditText addProduct_edtPPrice;
-    private EditText addProduct_edtDescription;
-    private EditText addProduct_edtAddress;
     private ImageView addProduct_imageView;
     private ImageView return_icon;
 
@@ -74,16 +64,7 @@ public class AddProductActivity extends AppCompatActivity {
     private String
             img_id,
             random_product_id,
-            product_img_url,
-            product_name,
-            product_type,
-            product_color,
-            product_category,
-            product_size,
-            product_condition,
-            product_address,
-            product_price,
-            product_description;
+            product_img_url;
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;

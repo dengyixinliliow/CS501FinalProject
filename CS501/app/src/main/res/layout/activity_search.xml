@@ -19,7 +19,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="200dp"
                 android:src="@drawable/market_bgimg"/>
 
             <LinearLayout
@@ -37,7 +37,7 @@
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_bg"
                     android:layout_marginRight="5dp"
-                    android:hint="Search Products from Market!"
+                    android:hint="@string/search_hint"
                     android:paddingLeft="15dp"/>
 
                 <ImageButton
@@ -61,7 +61,7 @@
                     android:id="@+id/search_btnMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Nearby Products on Map"
+                    android:text="@string/search_map"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"
                     />
@@ -104,14 +104,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/baby_icon"
-                    android:text="Kids" />
+                    android:src="@drawable/baby_icon" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CLOTHES TYPE:"
+                android:text="@string/type"
                 android:textColor="@color/text_brown"
                 android:textStyle="bold"
                 android:layout_margin="20dp"/>
@@ -127,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Jackets&amp;Coats"
+                    android:text="@string/jacketCoat"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -136,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="One Pieces&amp;Dress"
+                    android:text="@string/dress"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -145,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Shirts"
+                    android:text="@string/shirt"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -154,7 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Tops&amp;T-Shirts"
+                    android:text="@string/t_shirt"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -163,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Hoodies&amp;Sweatshirts"
+                    android:text="@string/hoodies"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -172,7 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Jeans&amp;Pants"
+                    android:text="@string/pants"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -181,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Shoes"
+                    android:text="@string/shoes"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -190,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Bags"
+                    android:text="@string/bags"
                     android:textColor="@color/text_brown"
                     android:background="?android:attr/selectableItemBackground"/>
 
@@ -208,7 +207,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:background="#F4B6B0"/>
+                android:background="@color/btn_pink"/>
 
         </LinearLayout>
 
