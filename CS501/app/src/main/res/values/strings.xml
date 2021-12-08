@@ -51,6 +51,17 @@
     <string name="total">Total: $</string>
     <string name="call">call</string>
     <string name="message">message</string>
+    <string name="remove">Remove</string>
+    <string name="name">Name</string>
+    <string name="checkout">Checkout</string>
+    <string name="contact">Contact</string>
+    <string name="review">Review</string>
+    <string name="order_number">Order Number:</string>
+    <string name="your_items">Your Items:</string>
+    <string name="total_price">Total Price:</string>
+    <string name="detail">Detail</string>
+    <string name="review_title_here">Review title here......</string>
+    <string name="review_content_here">Review content here......</string>
     <string name="searchr_intro">The search is displayed in order of relevance</string>
     <string name="filterr_intre">Filter Result</string>
     <string name="detail">Detail</string>

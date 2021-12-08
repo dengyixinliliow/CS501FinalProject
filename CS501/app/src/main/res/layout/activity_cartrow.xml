@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Name"
+            android:text="@string/name"
             android:id="@+id/cart_tvName"
             android:layout_gravity="center_horizontal" />
 
@@ -41,6 +41,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:textColor="@color/black"
-            android:text="Remove" />
+            android:text="@string/remove" />
     </LinearLayout>
 </LinearLayout>
