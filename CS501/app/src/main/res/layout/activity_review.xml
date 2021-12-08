@@ -62,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
                 android:minLines="2"
-                android:hint="Review title here......"
+                android:hint="@string/review_title_here"
                 android:background="@drawable/textview_bg" />
 
             <TextView
@@ -84,7 +84,7 @@
                 android:gravity="top"
                 android:textSize="18dp"
                 android:minLines="6"
-                android:hint="Review content here......"
+                android:hint="@string/review_content_here"
                 android:background="@drawable/textview_bg" />
 
             <Button

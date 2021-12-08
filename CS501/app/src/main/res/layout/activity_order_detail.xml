@@ -37,7 +37,7 @@
             android:id="@+id/orderDetailfix3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order Number: "
+            android:text="@string/order_number"
             android:textSize="@dimen/subtitle_font"
             android:textColor="@color/text_brown"
             android:textStyle="bold"/>
@@ -53,7 +53,7 @@
             android:id="@+id/orderDetailfix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Items: "
+            android:text="@string/your_items"
             android:textSize="@dimen/subtitle_font"
             android:textColor="@color/text_brown"
             android:textStyle="bold"/>
@@ -71,7 +71,7 @@
             android:id="@+id/orderDetailfix2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total Price: "
+            android:text="@string/total_price"
             android:textSize="@dimen/subtitle_font"
             android:textColor="@color/text_brown"
             android:textStyle="bold"/>

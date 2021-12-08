@@ -68,11 +68,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/orderRowTotal"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_10"
             android:layout_toEndOf="@id/orderRowImage"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
             android:background="@drawable/btn_bg"
-            android:text="Detail"
-            android:layout_margin="@dimen/margin_10"/>
+            android:text="@string/detail" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
