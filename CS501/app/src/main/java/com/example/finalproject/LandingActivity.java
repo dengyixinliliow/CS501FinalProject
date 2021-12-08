@@ -12,7 +12,6 @@ public class LandingActivity extends AppCompatActivity {
 
     private Button landing_btnLogin;
     private Button landing_btnSignup;
-
     private ConstraintLayout CL;
 
     @Override
@@ -24,7 +23,6 @@ public class LandingActivity extends AppCompatActivity {
         landing_btnSignup = (Button) findViewById(R.id.landing_btnSignup);
 
         CL = (ConstraintLayout) findViewById(R.id.landing_layoutBg);
-        CL.setAlpha(100);
 
         landing_btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

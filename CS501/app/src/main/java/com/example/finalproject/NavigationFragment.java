@@ -58,7 +58,7 @@ public class NavigationFragment extends Fragment {
         return view;
     }
     class BtnOnClickListener implements View.OnClickListener {
-        @SuppressLint("ResourceType")
+        @SuppressLint({"ResourceType", "NonConstantResourceId"})
         @Override
         public void onClick(View view) {
             switch (view.getId()) {

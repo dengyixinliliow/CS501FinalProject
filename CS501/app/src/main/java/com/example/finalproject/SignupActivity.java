@@ -49,7 +49,6 @@ public class SignupActivity extends AppCompatActivity {
 
     private Boolean btnVerify_clicked = false;
     private TextView signup_txtErrorMsg;
-    private final String error_message = "Email or Password is not correct! Please try again!";
 
     private Map<String, Object> user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -57,15 +56,18 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseUser auth_user;
     private String user_id;
 
-    public static final String EMAIL = "email";
-    public static final String USERID = "user_id";
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String PHONE = "phone";
-    public static final String ADDRESS = "address";
-    public static final String VERIFICATION_EMAIL_SENT = "Verification Email Has Been Sent!";
-    public static final String EMAIL_NOT_VERIFIED = "Please verify your email first!";
-    public static final String EMAIL_VERIFIED = "Email verified!";
+    private static final String USERS = "users";
+    private static final String EMAIL = "email";
+    private static final String USERID = "user_id";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String PHONE = "phone";
+    private static final String ADDRESS = "address";
+    private static final String VERIFICATION_EMAIL_SENT = "Verification Email Has Been Sent!";
+    private static final String EMAIL_NOT_VERIFIED = "Please verify your email first!";
+    private static final String EMAIL_VERIFIED = "Email verified!";
+    private static final String FIELDS_REQUIRED = "All fields are required!";
+    private static final String PASSWORDS_NOT_MATCH = "Passwords are not match!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,12 +108,12 @@ public class SignupActivity extends AppCompatActivity {
 
                 if(edt_email.isEmpty() || edt_password.isEmpty() || edt_username.isEmpty() || edt_address.isEmpty()) {
                     signup_txtErrorMsg.setVisibility(View.VISIBLE);
-                    signup_txtErrorMsg.setText("All fields are required!");
+                    signup_txtErrorMsg.setText(FIELDS_REQUIRED);
                     return;
                 }
                 if(!edt_password.equals(edt_rePassword)) {
                     signup_txtErrorMsg.setVisibility(View.VISIBLE);
-                    signup_txtErrorMsg.setText("Passwords are not match!");
+                    signup_txtErrorMsg.setText(PASSWORDS_NOT_MATCH);
                     return;
                 }
 
@@ -130,7 +132,7 @@ public class SignupActivity extends AppCompatActivity {
                     signup_txtErrorMsg.setText(EMAIL_NOT_VERIFIED);
                     return;
                 }
-                Log.e(TAG, auth_user.getUid());
+                // get the current user
                 auth_user = mAuth.getCurrentUser();
 
                 signIn(edt_email, edt_password);
@@ -177,7 +179,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void addUserToDatabase() {
 
-        DocumentReference documentReference = db.collection("users").document(user_id);
+        DocumentReference documentReference = db.collection(USERS).document(user_id);
         // add user in firebase firestore
         user = new HashMap<String, Object>();
         user.put(EMAIL, edt_email);
@@ -212,7 +214,8 @@ public class SignupActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             signup_txtErrorMsg.setVisibility(View.VISIBLE);
-                            signup_txtErrorMsg.setText(task.getException().getMessage().toString() + "login");
+                            String signin_fail = task.getException().getMessage().toString() + "login";
+                            signup_txtErrorMsg.setText(signin_fail);
                         }
                     }
                 });
@@ -222,8 +225,6 @@ public class SignupActivity extends AppCompatActivity {
     private void checkIfEmailVerified() {
 
         if (auth_user.isEmailVerified()) {
-            // user is verified
-//            finish();
             signup_txtErrorMsg.setVisibility(View.VISIBLE);
             signup_txtErrorMsg.setText(EMAIL_VERIFIED);
 
