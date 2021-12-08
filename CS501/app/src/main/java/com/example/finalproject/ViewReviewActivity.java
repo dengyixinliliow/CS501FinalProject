@@ -33,6 +33,15 @@ public class ViewReviewActivity extends AppCompatActivity {
     private ArrayList<String> bodylist=new ArrayList<>();
     private ArrayList<String> userlist=new ArrayList<>();
     private String product_id;
+
+    private static final String PRODUCT_ID = "product_id";
+    private static final String USER_ID = "user_id";
+    private static final String REVIEWS="reviews";
+    private static final String REVIEW_TITLE="review_title";
+    private static final String REVIEW_BODY="review_body";
+    private static final String USERS="users";
+    private static final String USERNAME="username";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,29 +51,31 @@ public class ViewReviewActivity extends AppCompatActivity {
         //get product id
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
-        product_id=extras.getString("product_id");
+        product_id=extras.getString(PRODUCT_ID);
         Log.i(myflag,product_id);
 
-        //filter product in review database
+        //filter review database by product id
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference reviewdb=db.collection("reviews");
-        CollectionReference usersdb=db.collection("users");
-        Query query=reviewdb.whereEqualTo("product_id", product_id);
+        CollectionReference reviewdb=db.collection(REVIEWS);
+        CollectionReference usersdb=db.collection(USERS);
+        Query query=reviewdb.whereEqualTo(PRODUCT_ID, product_id);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> dataMap = document.getData();
+                        //get the information for product reviews
 //                        Log.i(myflag,String.valueOf(dataMap.get("review_title")));
-                        titlelist.add(String.valueOf(dataMap.get("review_title")));
-                        bodylist.add(String.valueOf(dataMap.get("review_body")));
-                        userlist.add(String.valueOf(dataMap.get("user_id")));
+                        titlelist.add(String.valueOf(dataMap.get(REVIEW_TITLE)));
+                        bodylist.add(String.valueOf(dataMap.get(REVIEW_BODY)));
+                        userlist.add(String.valueOf(dataMap.get(USER_ID)));
 //                        Log.i(myflag,titlelist.toString());
                     }
                     Log.i(myflag,String.valueOf(titlelist.size()));
                     for(int i=0;i<titlelist.size();i++) {
-                        Query userq = usersdb.whereEqualTo("user_id", userlist.get(i));
+                        //if there exists reviews, get the username for each review
+                        Query userq = usersdb.whereEqualTo(USER_ID, userlist.get(i));
                         String t = titlelist.get(i);
                         String b = bodylist.get(i);
                         Log.i(myflag,"in loop: "+t);
@@ -74,13 +85,15 @@ public class ViewReviewActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Map<String, Object> udataMap = document.getData();
-                                        String u_name = String.valueOf(udataMap.get("username"));
+                                        String u_name = String.valueOf(udataMap.get(USERNAME));
                                         Log.i(myflag, t);
                                         Log.i(myflag, b);
                                         Log.i(myflag, u_name);
                                         Review r = new Review(t, b, u_name);
+                                        //add full review information to list for later rendering
                                         reviewlist.add(r);
                                     }
+                                    //set adapter and render reviews
                                     ReviewsAdapter reviewsAdapter = new ReviewsAdapter(getBaseContext(), reviewlist);
                                     // below line is for setting a layout manager for our recycler view.
                                     // here we are creating vertical list so we will provide orientation as vertical
@@ -121,7 +134,7 @@ class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Viewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsAdapter.Viewholder holder, int position) {
-        // to set data to textview and imageview of each card layout
+        // to set data to textview of each card layout
         Review r = reviews.get(position);
         holder.reviewtitle.setText(r.get_title());
         holder.reviewbody.setText(r.get_body());
@@ -143,6 +156,7 @@ class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Viewholder> {
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
+            //assign views
             reviewtitle = itemView.findViewById(R.id.reviewCardTitle);
             reviewbody = itemView.findViewById(R.id.reviewCardBody);
             reviewusername = itemView.findViewById(R.id.reviewCardUsername);
@@ -150,6 +164,7 @@ class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Viewholder> {
     }
 }
 class Review{
+    //store information for each review
     private String review_title;
     private String review_body;
     private String review_username;

@@ -51,7 +51,21 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
     private ArrayList<String> prices;
     private ArrayList<String> sellerids=new ArrayList<>();
     private ArrayList<String> pids;
-    private ArrayList<Integer> itemImages;
+    //field names
+    private static final String USER_ID = "user_id";
+    private static final String PRODUCT_ID = "product_id";
+    private static final String PRODUCT_NAME = "product_name";
+    private static final String PRODUCT_PRICE = "product_price";
+    private static final String PRODUCT_IMG_URL = "product_img_url";
+    private static final String SELLER_ID = "seller_id";
+    private static final String CARTS="carts";
+    private static final String PRODUCTS="products";
+    private static final String IS_AVAILABLE="is_available";
+
+    //for intent
+    private static final String PRODUCT_LIST="products_list";
+    private static final String TOTAL_AMOUNT="total_amount";
+    private static final String PRODUCTS_SELLER_LIST="products_seller_list";
 
 
     @Override
@@ -69,24 +83,27 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
 
 
 
-        //get every item in cart names, prices, renters for later use
+        //connect to database and collections: carts, products
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference cart = db.collection("carts");
-        CollectionReference product = db.collection("products");
-        Query query=cart.whereEqualTo("user_id", user_id);
+        CollectionReference cart = db.collection(CARTS);
+        CollectionReference product = db.collection(PRODUCTS);
+        //filter documents in carts collection by user id
+        Query query=cart.whereEqualTo(USER_ID, user_id);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> dataMap = document.getData();
-                        String productid=String.valueOf(dataMap.get("product_id"));
+                        //get the products id in certain user's cart
+                        String productid=String.valueOf(dataMap.get(PRODUCT_ID));
                         productids.add(productid);
                         Log.i(myflag, productid);
                     }
                     Log.i(myflag,String.valueOf(productids.size()));
                     for(String productid:productids){
-                        Query product_q=product.whereEqualTo("product_id", productid);
+                        //for each product in user's cart, go to products database and filter the database by product id
+                        Query product_q=product.whereEqualTo(PRODUCT_ID, productid);
                         product_q.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @SuppressLint("SetTextI18n")
                             @Override
@@ -94,19 +111,18 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                 if(task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Map<String, Object> pdataMap = document.getData();
-                                        String s=String.valueOf(pdataMap.get("seller_id"));
-                                        String pid=String.valueOf(pdataMap.get("product_id"));
-                                        String n = String.valueOf(pdataMap.get("product_name"));
-                                        String p = String.valueOf(pdataMap.get("product_price"));
-                                        String is_avail=String.valueOf(pdataMap.get("is_available"));
-                                        String url= String.valueOf(pdataMap.get("product_img_url"));
+                                        //get the information fo reach product
+                                        String s=String.valueOf(pdataMap.get(SELLER_ID));
+                                        String pid=String.valueOf(pdataMap.get(PRODUCT_ID));
+                                        String n = String.valueOf(pdataMap.get(PRODUCT_NAME));
+                                        String p = String.valueOf(pdataMap.get(PRODUCT_PRICE));
+                                        String is_avail=String.valueOf(pdataMap.get(IS_AVAILABLE));
+                                        String url= String.valueOf(pdataMap.get(PRODUCT_IMG_URL));
                                         Log.i(myflag, n);
                                         if(is_avail=="true" && s!=user_id){
+                                            //if the product is available, add it for later use
                                             Cart_item item = new Cart_item(n, p, pid,url,s);
                                             itemlist.add_item(item);
-                                        }
-                                        else{
-                                            document.getReference().delete();
                                         }
                                     }
                                     Log.i(myflag,String.valueOf(itemlist.get_list().size()));
@@ -115,23 +131,19 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
                                     pids=itemlist.get_pid();
                                     sellerids=itemlist.get_sellers();
                                     sum=0.0;
+                                    //calculate total price
                                     for(String s:prices){
                                         sum+=Double.valueOf(s);
                                     }
                                     //final
                                     tvsum.setText("Total: $" + sum);
+                                    //render products
                                     lvAdapter=new CartListAdapter(CartActivity.this,itemlist,tvsum);
                                     lvItem.setAdapter(lvAdapter);
-                                }
-                                else{
-                                    Log.e(myflag,"not success query");
                                 }
                             }
                         });
                     }
-                }
-                else{
-                    Log.e(myflag,"not success query");
                 }
             }
         });
@@ -139,13 +151,12 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get all cart items
-                // stor
+                // send information for checkout
                 if(sum!=0){
                     Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
-                    intent.putExtra("products_list",pids);
-                    intent.putExtra("total_amount", sum);
-                    intent.putExtra("products_seller_list",sellerids);
+                    intent.putExtra(PRODUCT_LIST,pids);
+                    intent.putExtra(TOTAL_AMOUNT, sum);
+                    intent.putExtra(PRODUCTS_SELLER_LIST,sellerids);
                     startActivity(intent);
                 }
             }
@@ -153,8 +164,11 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
 
     }
 
-    public void updateData(Double data){
-        sum=data;
+    public void updateData(Double price,ArrayList<String> p_list, ArrayList<String> s_list){
+        //receive data changes
+        sum=price;
+        pids=p_list;
+        sellerids=s_list;
     }
 
     @Override
@@ -169,15 +183,18 @@ public class CartActivity extends AppCompatActivity implements NavigationFragmen
 //class for cart listview adapter
 class CartListAdapter extends BaseAdapter{
 
-    private
-    String myflag="CartRowFlag";
-    Cart_item_list itemlist;
-    ArrayList<String> names;
-    ArrayList<String> prices;
-    ArrayList<String> pids;
-    ArrayList<String> urls;
-    Button btnRemove;
-    Context context;
+    private String myflag="CartRowFlag";
+    private Cart_item_list itemlist;
+    private ArrayList<String> names;
+    private ArrayList<String> prices;
+    private ArrayList<String> pids;
+    private ArrayList<String> urls;
+    private Button btnRemove;
+    private Context context;
+
+    private static final String CARTS="carts";
+    private static final String USER_ID = "user_id";
+    private static final String PRODUCT_ID = "product_id";
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser auth_user = mAuth.getCurrentUser();
@@ -229,6 +246,7 @@ class CartListAdapter extends BaseAdapter{
 
         tvname.setText(names.get(i));
         tvprice.setText("Price: $" + prices.get(i));
+        //set image stored online
         Glide.with(context).load(urls.get(i)).into(img);
 //        imgEpisode.setImageResource(episodeImages.get(position).intValue());
 
@@ -237,33 +255,36 @@ class CartListAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference cart = db.collection("carts");
+                CollectionReference cart = db.collection(CARTS);
                 String deletedItem = pids.get(i);
-                Query query=cart.whereEqualTo("user_id",user_id).whereEqualTo("product_id",pids.get(i));
+                Query query=cart.whereEqualTo(USER_ID,user_id).whereEqualTo(PRODUCT_ID,pids.get(i));
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                //delete from cart database
                                 document.getReference().delete();
                                 Toast.makeText(context, "Deleted successfully", Toast.LENGTH_LONG).show();
                                 Log.d(myflag, "deleted!");
+                                //deleter for adapter
                                 itemlist.remove_item(i);
                                 names.remove(i);
                                 prices.remove(i);
                                 pids.remove(i);
                                 urls.remove(i);
+                                ArrayList<String> sel=itemlist.get_sellers();
                                 sum=0.0;
+                                //recalculate the total price
                                 for(String s:prices){
                                     sum+=Double.valueOf(s);
                                 }
                                 tvsum.setText("Total: $"+String.valueOf(sum));
+                                //notify adapter data changes
                                 notifyDataSetChanged();
-                                ((CartActivity)context).updateData(sum);
+                                //notify activity data changes
+                                ((CartActivity)context).updateData(sum,pids,sel);
                             }
-                        }
-                        else{
-                            Log.e(myflag,"not success query");
                         }
                     }
                 });
@@ -274,12 +295,8 @@ class CartListAdapter extends BaseAdapter{
 }
 
 class Cart_item{
-    private
-    String name;
-    String pid;
-    String price;
-    String imgurl;
-    String seller_id;
+    //store one single product in cart
+    private String name,pid,price,imgurl,seller_id;
     public Cart_item(String n,String p,String productid,String url, String seller_id){
         this.name=n;
         this.price=p;
@@ -296,6 +313,7 @@ class Cart_item{
 }
 
 class Cart_item_list{
+    //store a lists of products in cart
     private ArrayList<Cart_item> items;
     public Cart_item_list(){
         items=new ArrayList<Cart_item>();
